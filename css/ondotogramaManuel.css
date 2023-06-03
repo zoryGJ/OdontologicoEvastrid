@@ -1,0 +1,488 @@
+.overlayOdontograma{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0c9c99e;
+    min-height: 150vh;
+    width: 100%;
+    position: fixed;
+    opacity: 0;
+    z-index: 100;
+    visibility: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+.overlayConvencionesGeneral{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0c9c99e;
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 101;
+    transition: all 0.5s ease-in-out;
+}
+
+.overlayConvencionesSeccionDiente{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0c9c99e;
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 101;
+    transition: all 0.5s ease-in-out;
+}
+
+.overlayRecuperarContraseña{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0c9c99e;
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 101;
+}
+
+.overlayActive{
+    opacity: 1;
+    visibility: visible;
+}/*me muestra el modal completo padre*/
+
+.activeModal{
+    top: 35%!important;
+}/*me muestra el adontograma lentamente*/
+
+.bodyHideScroll{
+    overflow: hidden;
+}/*me oculta el scroll o barra lateral*/
+
+
+.odontogramaModal{
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 95%;
+    min-height: 90vh;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease-in-out;
+    /* transform: translateX(-50%, -20%); */
+}
+
+.encabezadoModal{
+    padding: 10px;
+    color: #048EA4;
+    position: relative;
+}
+
+.encabezadoModal h1{
+    margin: 0;
+    font-size: 3rem;
+    font-weight: lighter !important;
+}
+
+.encabezadoModal button{
+    position: absolute;
+    right: 17px;
+    top: -6px;
+    padding: 2px 9px;
+    color: #009BB4;
+    border: 1px solid #009BB4;
+    border-radius: 50%;
+}
+
+.odontogramaM{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.odontogramaM .cuadrante{
+    width: 49%;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.odontogramaM .cuadrante .seccionSuperior{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.odontogramaM .cuadrante .seccionInferior{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.odontogramaM .cuadrante .inv{
+    flex-direction: row-reverse;
+
+}
+
+.odontogramaM .cuadrante:nth-child(1){
+    border-bottom: 1px solid #048EA4;
+    border-right: 1px solid #048EA4;
+}
+
+.odontogramaM .cuadrante:nth-child(4){
+    border-top: 1px solid #048EA4;
+    border-left: 1px solid #048EA4;
+}
+
+.diente{
+    border: 1px solid #048EA4;
+    border-radius: 10px;
+    width: 4.5vw;
+    height: 15vh;
+    margin: 4px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.diente > button {
+    cursor: pointer;
+}
+
+.diente .sectionDiente{
+    position: absolute;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 30%;
+    border: 1px solid #048EA4;
+    border-radius: 50%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.diente .sectionDiente:hover{
+    background-color: #009BB4;
+}
+
+
+.sectionDiente.top{
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.sectionDiente.bot{
+    left: 50%;
+    bottom: 30%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.sectionDiente.center{
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+}
+
+.sectionDiente.left{
+    top: 40%;
+    left: 2%;
+    transform: translateY(-50%);
+    z-index: 25;
+}
+
+.sectionDiente.right{
+    top: 40%;
+    right: 2%;
+    transform: translateY(-50%);
+    z-index: 25;
+}
+
+.sectionDiente.v{
+    justify-content: space-between;
+}
+.sectionDiente.v span{
+    width: 33.3%;
+    height: 100%;
+}
+
+.sectionDiente.h{
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sectionDiente.h span{
+    height: 33.3%;
+    width: 100%;
+}
+
+.sectionDiente span{
+    pointer-events: none;
+    user-select: none;
+}
+
+.sectionDiente span.active:nth-child(1){
+    background-color: red;
+}
+
+.sectionDiente span.active:nth-child(2){
+    background-color: blue;
+}
+
+.sectionDiente span.active:nth-child(3){
+    background-color: green;
+}
+
+.diente .general{
+    background-color: #009BB4;
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: 2.6vh;
+    color: white;
+    font-size: 14px;
+}
+
+.diente .general p{
+    margin-top: 0;
+    margin-bottom: 0px !important;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.diente .general i{
+    margin-top: 3px;   
+}
+
+@media only screen and (min-width:1501px){
+
+    .diente .general{
+        height: 2vh;
+    }
+    
+}
+
+.diente .imgOperacionGeneral{
+    background-color: #EEEEEE;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    z-index: 35;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.diente .imgOperacionGeneral.active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.diente .imgOperacionGeneral img{
+    user-select: none;
+    pointer-events: none;
+}
+
+/* 
+* estilos para convenciones general diente - modal
+*/
+.convencionesGeneralModal{
+    width: 40%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+
+.convenciones.general{
+    overflow: auto;
+    margin: 2rem auto;
+}
+
+.convenciones.general button{
+    display: flex;
+    justify-content: space-between;
+}
+
+.convenciones.general button div{
+    width: 50%;
+}
+
+.convenciones.general button div:nth-last-child(-n+2){
+    width: 10%;
+}
+
+.convenciones.general button .color{
+    height: 3vh !important;
+}
+
+.convenciones.general button .text h3{
+    font-size: 14px;
+}
+
+
+/* ancho de barra */
+.convenciones.general::-webkit-scrollbar{ 
+    width: 10px;
+}
+
+/* indicador de movimiento de la barra */
+.convenciones.general::-webkit-scrollbar-thumb{
+    background-color: #009BB4;
+    border-radius: 8px;
+}
+
+/*
+* estilos para convencione secccion diente - modal
+*/
+
+.convencionesSeccionDiente{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 20px;
+    width: 40%;
+    min-height: 50vh;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.title{
+    text-align: center;
+    color: #009BB4;
+    padding: 10px;
+    position: relative;
+}
+
+.title h2{
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+.title button{
+    position: absolute;
+    right: 17px;
+    top: -6px;
+    padding: 2px 9px;
+    color: #009BB4;
+    border: 1px solid #009BB4;
+    border-radius: 50%;
+}
+
+.convenciones{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.convenciones button{
+    margin: 10px auto;
+    padding: 10px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #048EA4;
+    border-radius: 4px;
+}
+
+.convenciones.general button{
+    background-color: #EEEEEE;
+}
+
+.convenciones button .text{
+    user-select: none;
+    pointer-events: none;
+    margin-left: 20px;
+}
+
+.convenciones button .image{
+    user-select: none;
+    pointer-events: none;
+    margin-right: 20px;
+}
+
+.convenciones.general button img{
+    width: 1.5vw;
+}
+
+.convenciones.general button .color p{
+    font-size: 14px;
+    color: #009BB4;
+    user-select: none;
+    pointer-events: none;
+}
+
+.convenciones button .text h3{
+    font-size: 18px;
+    color: #009BB4;
+    user-select: none;
+    pointer-events: none;
+}
+
+.convenciones.seccion button:nth-child(1) i{
+    color: red;
+}
+
+.convenciones.seccion button:nth-child(2) i{
+    color: blue;
+}
+
+.convenciones.seccion button:nth-child(3) i{
+    color: green;
+}
+
+/*Estilos Login-recuperar contraseña*/
+
+/*Estilos Formulario actualizar contraseña*/
+
+.ModalRecuperarContraseña{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38% !important;
+    min-height: 56vh !important;
+    position: relative;
+}
+
+.ModalRecuperarContraseña form .closeModalRecuperarContraseña{
+    right: 9px !important;
+    bottom: 20px !important; 
+}
+
+.ModalRecuperarContraseña label{
+    font-size: 18px !important;
+}

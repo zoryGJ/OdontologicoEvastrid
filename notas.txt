@@ -1,0 +1,40 @@
+const antecedentesOdontologicos = $('#antecedentesOdontologicos')
+antecedentesOdontologicos: antecedentesOdontologicos.val()
+                        
+
+estilos para verificar tamaño en pantallas:
+
+.nombre-ips.checkbox{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.nombre-ips.checkbox .checkboxOrganizado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 10px;
+    box-shadow: 0 14px 70px rgb(0 0 0 / 15%), 0 9px 109px rgb(0 0 0 / 9%), 0 5px 11px rgb(0 0 0 / 13%);
+}
+
+.nombre-ips.checkbox .checkboxOrganizado input{
+    height: 3vh;
+    width: 3vh;
+    margin-right: 10px;
+}
+
+.nombre-ips.checkbox .checkboxOrganizado label{
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 13px;
+}
+
+
+//*otro
+.cuadro-texto.cuadroTextoTamaño{
+    margin-top: 15px;
+}

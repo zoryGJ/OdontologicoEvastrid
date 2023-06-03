@@ -1,0 +1,2348 @@
+*{
+    margin: 0 ;
+    padding: 0 ;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    position: relative;
+}
+
+.bodyHideScroll{
+    overflow: hidden;
+}
+
+/*Clase del padre principal del lado del LOGIN*/
+
+.contPal{
+    min-height: 100vh;
+    background-image: url('../Img/Img-5.jpg');
+    background-size: cover;
+    background-blend-mode: overlay;
+    background-color: #5555554a;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+/*clases de div padre del login*/
+.justify{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/*clases del div del login caja fondo gris*/
+.bg-login{
+    background-color: #dfdfdfdb;
+    background-blend-mode: overlay;
+}
+
+.login-1{
+    display: flex;
+}
+
+
+.login-1 h1{
+    color: #048EA4;
+    font-size: 50px;
+    font-family: 'Manjari', sans-serif;
+}
+
+/*clase del div con ususario y contraseña*/
+
+
+.usu-cont{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    min-height: 25vh;
+}
+
+.input-usu{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.usu-cont label{ 
+    color: #048EA4;
+    font-family: 'Manjari', sans-serif;
+}
+
+.usu-cont input{
+    border: none;
+    border-bottom: 1px solid #048EA4;
+    outline: none; /* para que los input no se pongan feos */
+}
+
+/*clases del boton iniciar sesión*/
+
+.lg-boton button{
+    width: 35%;
+    padding: 8px 15px;
+    border-radius: 10px;
+    background-color: #048EA4;
+    color:#ffffff;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    font-size: 18px;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.lg-boton button:hover{
+    background-color: #017789;
+}
+
+.lg-boton a{
+    color: #048EA4;
+    font-family: 'Manjari', sans-serif;
+}
+
+/*clases del ultimo div con titulos de consultorio*/
+
+.rowc-o{
+    display: flex;
+    flex-direction: row;
+}
+
+.consultorio{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.consultorio h1{
+    font-family: 'Delius', cursive;
+    color: #dbdbdb;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.odontologia{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.odontologia h4{
+    font-family: 'Manjari', sans-serif;
+    color: #dbdbdb;
+    font-size: 30px !important;
+}
+
+.firma{
+    position: absolute;
+    top: 96%;
+    left: 95%;
+}
+
+.firma h5{
+    font-size: 13px;
+    color: #c3c3c3;
+    font-family: 'Manjari', sans-serif;
+}
+
+/*estilos para tablet*/
+
+@media only screen and (min-width: 501px) and (max-width: 1300px){
+    .justify{
+        justify-content: end;
+        margin-right: 70px;
+    }  
+    .justify > div{
+        margin: 0 !important;
+    }
+    .bg-login{
+        width: 60%;
+    }
+    
+    .firma{
+        top: 88%; 
+    }
+    .firma h5{
+        font-size: 10px;
+    }
+
+}
+
+/*Estilos para celulares*/
+
+@media only screen and (max-width: 500px){
+
+    .contPal{
+        height: 100vh !important;
+    }
+
+    .justify{
+        width: 105%;
+        padding: 0 25px;
+        position: absolute;
+        top: 65px;
+        left: 15px;
+    }
+
+    .login-1 img{
+        width: 50%;
+        height: 15vh;
+        padding-right: 5px !important;
+    }
+
+    .login-1 h1{
+        font-size: 30px; 
+        padding-top: 20px !important;
+        width: 50%;
+    }
+
+    .rowc-o{
+        position: absolute;
+        bottom: 151px;
+        left: -2px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .consultorio h1{
+        margin: 10px;
+        padding: 10px;
+        font-size: 5.5vw;
+        text-align: left;
+    }
+
+    .odontologia h4{
+        font-size: 4vw;
+        padding-left: 15px;
+        text-align: justify;
+    }
+    
+    .firma{
+        top: 86%;
+        left: 13px;
+        width: 25%; 
+    }
+
+    .firma h5{
+        font-size: 10px;
+    }
+}
+
+/*Clases del INICIO*/
+
+.papa_consulta{
+    display: flex;
+}
+
+.inicio{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 55%;
+    height: 100vh;
+    background-image:url("../Img/Img-2.jpg");
+    background-size:cover;
+    background-blend-mode: overlay;
+    background-color: #72727221;
+    background-position-y: -65px;
+}
+
+.cerrar{
+    position: absolute;
+    top: 1px;
+    right: 8px;
+}
+
+button{
+    position: relative;
+    border: none;
+    background-color: transparent;
+    margin-top: 15px;   
+}
+
+.cerrar button h3{
+    display: none;
+    background-color: #03899e;
+    color: #EEEEEE;
+    font-size: 12px;
+    min-height: 6vh;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.cerrar button .show{
+    display: block;
+}
+
+.cerrar button .show i{
+    position: absolute;
+    font-size: 15px;
+    bottom: 12px;
+    right: 37px;
+}
+
+.cerrar button > i{
+    color: #03899e;
+    font-size: 20px;
+    position: absolute;
+    top: 8px;
+    right: 28px;
+}
+
+.barra-inicio{
+    background-color: #c3c3c3cc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width:45%;
+}
+
+
+.icono-barra{
+    background-image: url("../Img/Logo.jpeg");
+    background-size:cover;
+    background-blend-mode: overlay;
+    background-color: #6464646e;
+    min-height: 18vh;
+    width:26%;
+    margin-top:45px;
+    border-radius: 44px;
+}
+
+.enlaces-barra{
+    width: 47%;
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 35vh;
+    width: 100%;
+    padding: 0px;
+}
+
+.li_div{
+    position: relative;
+    text-align: center;
+    padding-bottom: 15px;
+    width: 100%;
+    border-bottom:1px solid #048ea491;
+}
+
+.li_div a{
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #03899e;
+}
+
+.li_div i{
+    position: absolute;
+    right: 6px;
+    bottom: 15px;
+    font-size: 25px;
+    color: #048EA4;
+}
+
+.consultorio-barra{
+    min-height: 10vh;
+    width: 60%;
+    margin-bottom:10px;
+}
+
+.consultorio-barra h1{
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Delius', cursive;
+    color: #03899e;
+}
+
+/*Estilos para formulario Registro de Pacientes*/
+
+.cont-pacientes{
+    background-image: url('../Img/Img-3-1.jpeg');
+    background-attachment: fixed;
+    min-height: 100vh;
+    background-size:cover;
+    background-blend-mode: overlay;
+    background-color: #6464646e;
+    display: flex;
+    justify-content: center;
+}
+
+.pacientes{
+    width: 60%;
+    min-height: 100vh;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 28px;
+    background-color: #EEEEEE;
+    background-attachment: fixed;
+    position: relative;
+    box-shadow: 4px 5px 3px #303030;
+}
+
+.titulo-historia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+
+.titulo-historia h1{
+    font-family: 'Roboto', sans-serif;
+    color: #03899e;
+    font-weight: bold;
+    font-size: 2rem;
+    padding-bottom:18px;
+}
+
+.titulo-historia h3{
+    width: 72%;
+    text-align:center;
+    font-family: 'Roboto', sans-serif;
+    color: #03899e;
+    font-weight: 200;
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #048fa465;
+}
+
+
+.salida,
+.salida.admin{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 9%;
+    padding: 1px;
+    right: 2%;
+    top:2%;
+    height: 6vh;
+    border-bottom: 1px solid #048fa465 !important;
+}
+
+.salida.ad{
+    width: 5%;
+    height: 6vh;
+    right: 1%;
+}
+
+.salida a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.salida a p{
+    margin-bottom: 0;
+    color:#048EA4;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+
+.salida a i{
+    color:#048EA4;
+}
+
+.salida > a:hover,
+.salida.inicio1 > button:hover{
+    box-shadow: inset 0 1px 2px #03899e;
+}
+
+form{
+    padding: 5px;
+}
+
+form > h1,
+.tiene > h1, 
+.tablas > h3,
+.H-CI > h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #03899e;
+    padding-top: 40px;
+    padding-left: 25px;
+}
+
+form > h1.h1centrar{
+    text-align: center;
+    padding-left: 0px;
+}
+
+/*para acomodar todos los que tengan varios hijos div*/
+
+.general-1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 35px;
+    padding: 5px;
+}
+
+.datos-ips :is(.nombre-ips, .sucursal-ips){
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px;
+}
+
+.datos-ips{
+    padding: 16px;
+}
+
+
+/*general-2 para todos los label e input estilos*/
+.general-2 :is(select, input){
+    background-color: transparent;
+    border: none;
+    outline: none;
+    height: 5vh;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 100%;
+    line-height: 12px;
+    border-bottom: 1.5px solid #048EA4;
+}
+
+.general-2 input:focus{
+    background-color: #dededed4;
+    border-radius: 4px;
+    border: 1px solid #048EA4;
+    text-align: left;
+}
+
+.general-2 :is(label){
+    font-family: 'Roboto', sans-serif;
+    color:#03899ed2;
+    font-size: 100%;
+    padding-top: 15px;
+}
+
+/*estilos para datos del paciente*/
+.datos-paciente{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.d-personales :is(.nombre-p, .apellido-1, .apellido-2){
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 10px;
+}
+
+.fechas-paciente :is(.fecha-n, .fecha-inicio){
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px;
+}
+
+.documento :is(.tipo-dcto, .nro-dcto, .sexo){
+    display: flex;
+    flex-direction: column;
+    width: 26%;
+    margin: 10px;
+}
+
+.edad{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 35px;
+    padding: 5px;
+}
+
+.edad :is(.años, .t-usuario){
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 10px;
+}
+
+.edad .años{
+    width: 20%;
+    margin-right: 12%;
+}
+
+
+.dptos-tel :is(.dpto-1, .Mcpio, .telefono){
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 10px;
+}
+
+.residencia .dir-r{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 15px;
+}
+
+/*Estilos para checbox*/
+
+.nombre-ips.checkbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.nombre-ips.checkbox .checkboxOrganizado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 10px;
+    box-shadow: 0 14px 70px rgba(119, 119, 119, 0.15), 0 9px 109px rgb(119, 119, 119, 0.15), 0 5px 11px rgb(119, 119, 119, 0.15);
+}
+
+.nombre-ips.checkbox .checkboxOrganizado input{
+    height: 3vh;
+    width: 3vh;
+    margin-right: 10px;
+}
+
+.nombre-ips.checkbox .checkboxOrganizado label{
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 13px;
+}
+
+.tiene{
+    display: flex;
+}
+
+.tiene > h1{
+    margin: -14px 0px;
+}
+
+.tiene-si{
+    display: flex;
+    justify-content: center;
+    margin: 25px 25px;
+}
+
+.tiene-si > label{
+    margin-left: 6px;
+    color: #03899e;
+}
+
+.p-resp :is(.nombre-r, .apellido-r,.telefono, .parentezco){
+    display: flex;
+    flex-direction: column;
+    width: 36%;
+    margin: 15px;
+}
+
+.p-resp input[disabled]{
+    background-color: #e1e1e1;
+    cursor: not-allowed;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px 10px 10px 10px;
+}
+
+.boton > button{
+    display: flex;
+    justify-content: center;
+    position: relative !important;
+    background-color: #009BB4;
+    color: #ffffff;
+    border: none;
+    border-radius: 40px;
+    align-items: center;
+    font-weight: lighter;
+    font-size: 15px;
+    overflow: hidden;
+    letter-spacing:1px;
+    max-height: 20vh;
+    width: 22vh;
+    transition: all 0.3s ease-in-out;
+}
+
+.boton > button > p{
+    padding: 0%;
+    margin-top: 7%;
+}
+
+.boton > button > i{
+    position: absolute;
+    top: 65%;
+    left: 45%;
+}
+
+.boton > button > span{
+    position: absolute;
+    background-color: #EEEEEE;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animate 1s linear infinite;
+}
+
+@keyframes animate{
+    0%
+    {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100%
+    {
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+}
+
+
+/*Estilos Formulario de Consultas*/
+
+.consulta, .tablas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cuadro-texto{
+    width: 95%;
+    min-height: 10vh;
+}
+
+.cuadro-texto > textarea{
+    width: 100%;
+    height: 15vh;
+    background-color: #EEEEEE;
+    border: 1px solid #009BB4;
+    outline: none;
+}
+
+.cuadro-texto > textarea:focus{
+    background-color: #dfdfdfec;
+    box-shadow: inset 0 1px 2px #cbcbcb;
+}
+
+.cuadro-texto.cuadroTextoTamaño{
+    margin-top: 15px;
+}
+
+.cuadro-texto.cuadroTextoTamaño textarea{
+    width: 100%;
+    height: 8vh;
+}
+
+.cuadro-texto.cuadroTextoTamaño label{
+    color: #048EA4;
+}
+
+.edad.edad1{
+    padding-bottom: 20px;
+}
+
+/*Formulario consulta fecha*/
+
+.padreFechaHCI{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.H-CI{
+    width: 40%;
+}
+
+.general-2.fecha{
+    width: 25%;
+}
+
+.fechaConsulta{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.general-2.fecha .fechaConsulta label{
+    padding-top: 0px !important;
+}
+
+/*estilo tabla articulacion seccion formulario consultas*/
+.tablas{
+    border: 1px solid #048fa465;
+    width: 60%;
+    margin: 50px auto;
+    padding: 1%;
+    padding-right: 0%;
+    padding-left: 0%;
+    font-family: 'Roboto', sans-serif;
+    color: #03899ed2;
+    font-size: 16px;
+}
+
+/*copago oculto*/
+
+.ocultar{
+    display: none;
+}
+
+.tablas > h3{
+    width: 85%;
+    text-align: center;
+    border-bottom: 1px solid #048fa465;
+    padding-bottom: 2%;
+    padding-top: 0px;
+}
+
+.articulacion{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head_art, .body_art{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #048fa465;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.body_art.bottom_no{
+    border: none !important;
+}
+
+.head_art > h3{
+    font-size: 100%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.head_art h3:last-child{
+    margin-right: 63px;
+}
+
+.body_art .padreArticulaciones div input,
+.body_art .padreArticulaciones div label{
+    cursor: pointer;
+}
+
+
+/*Estilos convenciones*/
+
+.convencion-d > button{
+    cursor: pointer;
+    padding: 1px;
+    border: none;
+}
+
+.convencion-d > button > img{
+    min-height: 6vh;
+    min-width: 4vh;
+    background-image: url(../Img/diente.jpg);
+    background-size: cover;
+    background-blend-mode: overlay;
+    background-color: #5555552b;
+}
+
+.convencion-d ul{
+    border: 1px solid #009BB4;
+    background-color: #EEEEEE;
+}
+
+.convencion-d ul li{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.convencion-d ul li h1{
+    font-size: 17px;
+    font-weight: bold;
+    color: #048EA4;
+}
+
+.convencion-d ul li button{
+    display: flex;
+    justify-content: space-around;
+    background-color: #EEEEEE;
+}
+
+
+.convencion-d ul li button h3{
+    color: #048EA4;
+    font-size: 12px;
+    width: 15%;
+}
+
+.convencion-d ul li button .rojo{
+    margin-left: 85px !important;
+    width: 4%;
+    height: 63%;
+    background-color: red;
+}
+
+.convencion-d ul li button .azul{
+    margin-left: 85px !important;
+    width: 4%;
+    height: 63%;
+    background-color: blue;
+}
+
+.convencion-d ul li button .verde{
+    margin-left: 85px !important;
+    width: 4%;
+    height: 63%;
+    background-color: green;
+}
+
+.convencion-d ul li button .img-convenciones{
+    margin-left: 85px !important;
+    width: 4%;
+    height: 74%;
+    position: relative;
+}
+
+.convencion-d ul li button .img-convenciones img{
+    position: absolute;
+    bottom: 2px;
+    right: 0px;
+}
+
+.convencion-d ul li button .img-convenciones.horizontal{
+    width: 7%;
+    height: 74%;
+}
+
+.dropdown-toggle::after{
+    content: none !important;
+}
+
+ul.dropdown-menu{
+    min-width: 350px !important;
+    max-height: 10vh !important;
+    overflow: auto;
+    position: relative;
+}
+
+ul.dropdown-menu::-webkit-scrollbar{
+    width: 5px;
+    height: 8px;
+    background-color: #e1e1e1;
+}
+
+ul.dropdown-menu::-webkit-scrollbar-thumb{
+    background: #009BB4;
+}
+
+ul.dropdown-menu >li:nth-child(1){
+    position: sticky;
+    top: -8px;
+    background-color: #EEEEEE;
+    z-index: 1000;
+}
+
+ul.dropdown-menu .dropdown-item span{
+    display: none !important;
+    visibility: hidden !important;
+}
+
+ul.dropdown-menu .dropdown-item:active{
+    background-color: #dadee1 !important;
+}
+
+/*Estilos Protesis*/
+
+.t-protesis{
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.protesis{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.protesis .p1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 24%;
+    height: 15vh;
+    margin-left: 40px;
+    box-shadow: 0 24px 38px rgb(0 0 0 / 14%), 0 9px 46px rgb(0 0 0 / 12%), 0 11px 15px rgb(0 0 0 / 20%);
+}
+
+.protesis .p1 p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #03899e;
+    margin: 0;
+    margin-left: 10px !important;
+    padding: 0;
+}
+
+.protesis .p1 div{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin-right: 9px;
+}
+
+.protesis  .p1 div .input-p label{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #03899e;
+}
+
+.protesis div.ok{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 50%;
+}
+
+.protesis div.ok .p2
+{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.protesis div.ok .p2 textarea{
+    height: 10vh;
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    border: 1px solid #009BB4;
+    
+    outline: none;
+}
+
+.protesis div.ok .p2 label{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #03899e;
+    width: 10%;
+    margin-left: 3px;
+}
+
+.protesis div.ok .p2 textarea:focus{
+    background-color: #dededed4;
+    border-radius: 4px;
+    border: 1px solid #048EA4;
+    text-align: left;
+}
+
+
+/*Estilos Higiene*/
+
+.higiene{
+    display: flex;
+    height: 25vh;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.higiene div{ 
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 30%;
+    height: 8vh;
+    margin: 15px;
+    padding: 5px;
+    box-shadow: 0 24px 38px rgb(0 0 0 / 14%), 0 9px 46px rgb(0 0 0 / 12%), 0 11px 15px rgb(0 0 0 / 20%);
+}
+
+.higiene div p{
+    width: 54%;
+    padding: 0px;
+    margin: 14px;
+    font-family: 'Manjari', sans-serif;
+    font-weight: bold;
+    font-size: 1.08rem;
+    color: #048EA4;
+}
+
+.higiene div div{
+    display: flex;
+    width: 20%;
+    box-shadow: none;
+    font-family: 'Manjari', sans-serif;
+    color: #048EA4;
+}
+
+/*Estilos Para tablet y portatiles pequeños de protesis  e higiene, fconsultas2*/
+
+@media only screen and (min-width: 481px) and (max-width: 1500px){
+
+    /*Estilos Login*/
+    .consultorio h1{
+        font-size: 2.2rem !important;
+    }
+
+    .odontologia h4{
+        font-size: 24px !important;
+    }
+
+    
+
+    /*Estilos vistas consultas*/
+    .protesis .p1{
+        width: 33%;
+        height: 16vh;
+    }
+
+    .protesis div.ok .p2 textarea{
+        height: 14vh;
+    }
+
+    .protesis div.ok .p2 label{
+        font-size: 1.08rem;
+    }
+
+    .higiene{
+        height: 57vh;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 35px !important;
+    }
+
+    .higiene div{
+        width: 45%;
+        height: 14vh; 
+    }
+
+    .higiene div p{
+        font-size: 1.03rem;
+    }
+
+
+    .cuadro-texto.consentimiento{
+        height: 26vh !important;
+    }
+
+    .salida,
+    .salida.admin{
+        height: 7vh;
+        width: 9%;
+    }
+
+    .g-evolucion > .nueva.evolucion{
+        right: 121px;
+        top: 609px;
+    }
+
+    .boton > button{
+        height: 11vh;
+        font-size: 16px;
+        width: 26vh;
+    }
+
+    .boton > button > i{
+        top: 69%;
+        font-size: 17px;
+    }
+
+    .pdf{
+        width: 16% !important;
+    }
+
+    /*Estilos consultas articulaciones*/
+
+    .body_art .padreArticulaciones{
+        display: flex;
+        width: 40%;
+        justify-content: space-around;
+    }
+    /*Estilos Odontograma boton de despliegue*/
+
+    .only-odontograma{
+        min-height: 35vh;
+    }
+
+    .only-odontograma h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #03899e;
+        padding-top: 40px;
+        padding-left: 25px;
+    }
+
+    .h1centrar.g-odontograma{
+        text-align: start; 
+        padding-left: 27px;
+    }   
+    
+    .g-evolucion > .nueva.evolucion.g-odontograma{
+        top: 290px !important;
+        right: 280px;
+        height: 15vh;
+        width: 36vh;
+        
+    }
+
+    .nueva.evolucion.g-odontograma h3{
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .nueva.evolucion.g-odontograma i{
+        font-size: 25px;
+    }
+    /*Estilos Odontograma boton de despliegue*/
+    .only-odontograma{
+        min-height: 27vh;
+    }
+
+    .only-odontograma h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #03899e;
+        padding-top: 40px;
+        padding-left: 25px;
+    }
+
+    .h1centrar.g-odontograma{
+        text-align: start; 
+        padding-left: 27px;
+    }   
+     
+
+    .nueva.evolucion.g-odontograma h3,
+    .nueva.evolucion.consultaLlena h3{
+        font-size: 15px;
+        margin-top: 6px;
+    }
+
+    .nueva.evolucion.g-odontograma i,
+    .nueva.evolucion.consultaLlena i{
+        font-size: 28px;
+    }
+
+    .g-evolucion > .nueva.evolucion.g-odontograma{
+        top: 299px !important;
+        right: 346px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out; 
+    }
+
+    .g-evolucion.hiddenEvolucion{
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .g-evolucion.mostrarEvolucion{
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /*Estilos solo cuando este activa consulta llena*/
+
+    .g-evolucion > .nueva.evolucion.g-odontograma.consultaLlena{
+        top: 299px !important;
+        right: 480px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out; 
+    }
+
+    .g-evolucion > .nueva.evolucion.consultaLlena{
+        position: absolute;
+        padding: 4px;
+        right: 203px;
+        top: 299px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    .g-evolucion > .nueva.evolucion:hover,
+    .g-evolucion > .nueva.evolucion.g-odontograma:hover{
+        box-shadow: 0px 2px 2px #03899e40,  2px 0px 2px #03899e40, -1px -2px 2px #03899e40;
+    }
+    
+}
+
+/*Estilos para pantallas grandes*/
+@media only screen and (min-width:1501px){
+
+    /*Login*/
+    .bg-login{
+        width: 30% !important;
+        height: 74vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin-right: 200px !important;
+        margin-top: 50px;
+    }
+
+    .consultorio h1{
+        font-size: 3.2rem;
+    }
+
+    .odontologia h4{
+        font-size: 40px;
+    }
+
+    .login-1{
+        justify-content: space-around;
+    }
+
+    .login-1 h1{
+        font-size: 54px;
+        padding-top: 31px !important;
+    }
+
+    .input-usu{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        height: 9vh;
+    }
+
+    .input-usu input{
+        height: 4vh;
+    }
+
+    .input-usu label{
+        font-size: 1.3rem !important;
+    }
+
+    .lg-boton button{
+        width: 33%;
+        height: 6vh;
+        margin-top: 10px;
+    }
+
+    .lg-boton a{
+        font-size: 20px !important;
+    }
+
+    /*Estilos consultas 1 en articulaciones*/
+
+    .body_art .padreArticulaciones{
+        display: flex;
+        width: 40%;
+        justify-content: space-around;
+    }
+
+    .head_art h3:last-child{
+        margin-right: 63px;
+    }
+
+    /*Evolucion*/
+
+    .pacientes{
+        width: 55%;  
+        margin-top: 20px;      
+    }
+
+    .pacientes .logo-admin.vistaFConsultas{
+        left: 162px !important;
+        top: 89px !important;
+        height: 106px !important;
+        width: 104px !important;
+    }
+
+    .pacientes .logo-admin{
+        left: 151px !important;
+        top: 89px !important;
+        height: 116px !important;
+        width: 116px !important;
+    }
+
+
+    .pacientes .logo-admin.patient{
+        top: 20px !important;
+    }
+    
+    .titulo-historia{
+        margin-top: 20px;
+    }
+
+    .general-2 :is(label){
+        font-size: 18px;
+    }
+
+    .general-2 :is(select, input){
+        height: 4vh;
+    }
+
+    .salida{
+        width: 8%;
+        height: 5vh;
+    }
+
+    /*historial*/
+
+    .historial{
+        flex-direction: column;       
+    }
+
+    .dad-historial{
+        display: flex;
+        margin: 9px !important;
+    }
+
+    .dad-historial .hPaciente1{
+        margin-left: 30px !important;
+    }
+
+    .padreHC{
+        margin-top: 25px;
+    }
+
+    .pacientes .logo-admin.patients{
+        top: 18px 39%;;
+        left: 152px !important;;
+    }
+
+    .titulo-historia.misPacientes h3{
+        width: 39% !important;
+    }
+    
+    /*Estilos Inicio*/
+
+    .enlaces-barra {
+        width: 53% !important;
+    }
+
+    .li_div a{
+        font-size: 22px;
+            margin-right: 15px;
+    }
+
+    .li_div i{
+        font-size: 32px;
+    }
+
+    
+
+    /*Estilos administrador*/
+    .barra-inicio .logo-admin{
+        left: 165px !important;
+        top: 89px !important;
+        height: 106px !important;
+        width: 106px !important;
+    }
+
+    .salida.ad {
+        width: 4%;
+        height: 5vh;
+        right: 1%;
+    }
+
+    .tusAdministradores{
+        min-height: 60vh;
+        margin-bottom: 51px;
+        width: 55%;
+        justify-content: space-evenly !important;
+    }
+
+    .consultorio-barra.admin{
+        width: 35% !important;
+    }
+
+    .new-admin{
+        width: 57%;
+    }
+    
+    .new-admin button i{
+        font-size: 24px; 
+    }
+    
+    .new-admin button h3{
+        font-size: 15px;
+    }
+
+    .datos-editar label{
+        font-size: 17px !important;
+    }
+
+    /*Estilos Odontograma boton de despliegue*/
+    .only-odontograma{
+        min-height: 27vh;
+    }
+
+    .only-odontograma h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #03899e;
+        padding-top: 40px;
+        padding-left: 25px;
+    }
+
+    .h1centrar.g-odontograma{
+        text-align: start; 
+        padding-left: 27px;
+    }   
+     
+
+    .nueva.evolucion.g-odontograma h3,
+    .nueva.evolucion.consultaLlena h3{
+        font-size: 15px;
+        margin-top: 6px;
+    }
+
+    .nueva.evolucion.g-odontograma i,
+    .nueva.evolucion.consultaLlena i{
+        font-size: 28px;
+    }
+
+    .g-evolucion > .nueva.evolucion.g-odontograma{
+        top: 318px !important;
+        right: 399px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out; 
+    }
+
+    .g-evolucion > .nueva.evolucion:hover,
+    .g-evolucion > .nueva.evolucion.g-odontograma:hover{
+        box-shadow: 0px 2px 2px #03899e40,  2px 0px 2px #03899e40, -1px -2px 2px #03899e40;
+    }
+
+    .g-evolucion.hiddenEvolucion{
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .g-evolucion.mostrarEvolucion{
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    /*Estilos cuando clase consultaLlena esta activa*/
+    .g-evolucion > .nueva.evolucion.g-odontograma.consultaLlena{
+        top: 299px !important;
+        right: 514px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out; 
+    }
+
+    .g-evolucion > .nueva.evolucion.consultaLlena{
+        position: absolute;
+        padding: 4px;
+        right: 203px;
+        top: 299px;
+        height: 12vh;
+        width: 25vh; 
+        box-shadow: 2px 3px 2px #03899e40;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    /*Estilos para cuando se active el cuadro de evolucion: con clase consultaLlena*/
+   
+    /*Estilos consultas2*/
+
+    .cuadro-texto.consentimiento{
+        height: 20vh !important;
+    }
+
+    .cuadro-texto > p{
+        height: 12vh !important;
+    }
+
+    .pdf{
+        width: 14% !important;
+    }
+}
+
+
+
+
+/*Estilos Diagnosticos*/
+.tablas.t1{
+    margin-top: 70px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #048EA4;
+}
+
+.tablas.t1 > h3, .tablas.t1 > .articulacion{
+    width: 93%;
+} /*titulos diagnostico y codigo */
+
+.tablas.t1 > h3{
+    border-bottom: 1px solid #048EA4;
+    margin-right: 15px;
+} /*titulos diagnostico y codigo */
+
+.head_art.he_1,
+.body_art.ba_1{
+    width: 100%;
+    border-bottom: 1px solid #048EA4;
+}  /*titulos diagnostico y codigo */
+
+.head_art.he_1 h3{
+    width: 70%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+}  /*titulos diagnostico y codigo */
+
+.head_art.he_1 h3.h-d{
+    width: 30%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+}  /*titulos diagnostico y codigo */
+
+.body_art.ba_1 label{
+    width: 30%;
+    text-align: center;
+    font-size: 15px;
+}
+
+.body_art.ba_1 input{
+    width: 70%;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid transparent;
+    color: #03899ed2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    line-height: 12px;
+}
+
+.body_art.ba_1 input:focus{
+    background-color: #dededed4;
+    border-radius: 4px;
+    border: 1px solid #048EA4;
+    text-align: left;
+}
+
+/*Estilos consentimiento informado*/
+
+.cuadro-texto.consentimiento{
+    border: 1.5px solid #048EA4;
+    border-radius: 18px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 80px 0px;
+    padding: 10px 5px;
+    height: 18vh;
+}
+
+.cuadro-texto > h3{
+    width: 95%;
+    color: #048EA4;
+    font-size: 18px;
+    font-weight: bolder;
+    margin: 10px 0px;
+}
+
+.cuadro-texto > p{
+    width: 95%;
+    height: 20vh;
+    background-color: #EEEEEE;
+    color: #048EA4;
+    text-align: justify;
+}
+
+.cuadro-texto p > span{
+    font-weight: bolder;
+}
+
+/*PDF en formularios*/
+
+.pdf{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 13%;
+    bottom: 39px;
+    right: 27px;
+}
+
+.pdf > i{
+    margin-top: 10px;
+    font-size: 25px;
+    color: #03899E;
+}
+
+.pdf button{
+    display: flex;
+    border: none;
+    border-bottom: 1px solid #048EA4;
+    height: 3vh;
+    cursor: pointer;
+}
+
+.pdf button h5{
+    font-size: 16px;
+    color: #048EA4;
+    font-weight: 'Roboto', sans-serif;
+}
+
+.pdf button i{
+    color: #03899E;
+}
+
+/*Estilos vista pacientes*/
+
+
+table#misPacientes{
+    font-family: 'Manjari', sans-serif;
+    text-align: center;
+    color: #048EA4;
+    border: 1px solid black;
+}
+
+table#misPacientes thead tr th{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #048EA4;
+}
+
+div#misPacientes_wrapper.dataTables_wrapper.no-footer{
+    margin-top: 33px;
+}
+
+table#misPacientes tbody tr:nth-child(2n+1),
+table#misPacientes tbody tr:nth-child(2n+1) button
+{
+    background-color: #009BB4;
+    color: #eceaea;
+}
+
+table#misPacientes tbody tr:nth-child(2n), 
+table#misPacientes tbody tr:nth-child(2n) button{
+    background-color: #fafafa;
+    color: #009BB4;
+}
+
+table#misPacientes tbody tr td.ultimoTD{
+    display: flex;
+    justify-content: space-between;
+}
+
+table#misPacientes tbody tr td.ultimoTD button{
+    margin: 0px 5px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+table#misPacientes tbody tr td a{
+    text-decoration: none;
+}
+.pacientes .dataTables_wrapper.no-footer .dt-buttons .dt-button{
+    border-radius: 4px;
+    background-color: #fafafa;
+    color: #009BB4;
+    border-color: #009BB4;
+}
+
+.pacientes .dataTables_wrapper.no-footer .dataTables_filter{
+    color: #009BB4;
+}
+
+.pacientes .dataTables_wrapper.no-footer .dataTables_filter label input{
+    border-color: #009BB4;
+    border-radius: 18px;
+    padding-left: 8px;
+    padding-right: 8px;
+    outline: none;
+    color: #009BB4;
+}
+
+.pacientes .dataTables_wrapper.no-footer .dataTables_info,
+.pacientes .dataTables_wrapper.no-footer .dataTables_paginate.paging_simple_numbers
+{
+    color: #009BB4;
+}
+
+a#misPacientes_next,
+a#misPacientes_previous
+{
+    color: #009BB4 !important;
+}
+
+a.paginate_button.current{
+    border-color: #009BB4 !important;
+}
+
+/*Vista Historial de Consultas Odontologicas*/
+
+
+.padreHC{
+    display: flex;
+    flex-direction: column;
+}
+
+.historial{
+    display: flex; 
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 90%;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.dad-historial{
+    display: flex;
+    margin: 9px !important;
+}
+
+.historial .hPaciente,
+.historial .hPaciente1
+{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.historial .hPaciente{
+    margin-top: 3px;
+}
+
+.historial .hPaciente1{
+    align-items: center;
+    margin-left: 15px;
+}
+
+.historial .hPaciente h3,
+.historial .hPaciente1 h3{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #048EA4;
+}
+
+.historial .hPaciente1 h2,
+.historial .hPaciente h2
+{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #048EA4;
+}
+
+#historialConsulta_wrapper{
+    margin-top: 12px;
+}
+
+table#historialConsulta{
+    padding-top: 13px !important;
+}
+
+table#historialConsulta thead tr th{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #048EA4;
+}
+
+table.dataTable.no-footer{
+    border: none !important;
+}
+
+tbody, td, tfoot, th, thead, tr{
+    border: none !important;
+}
+
+table#historialConsulta tbody tr td{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #fafafa;
+    padding: 0!important;
+}
+
+table#historialConsulta tbody tr td div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    height: 10vh;
+    background-color: #009bb4a1;
+}
+
+table#historialConsulta tbody tr td:nth-last-child(1) div{
+    border-radius: 0 23px 23px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+table#historialConsulta tbody tr td:nth-child(1) div{
+    border-radius: 23px 0 0 23px;
+}
+
+table#historialConsulta tbody tr td:nth-last-child(1) a button{
+    border: none;
+    background-color: transparent;
+    color: #fafafa;
+    font-size: 18px;
+}
+
+a#historialConsulta_next,
+a#historialConsulta_previous
+{
+    color: #009BB4 !important;
+}
+
+
+/*Estilos de vista Evolución*/
+
+.fechas-paciente.general-1.evolucion{
+    flex-wrap: wrap;
+}
+
+.fecha-n.evolucion{
+    width: 30%;
+}
+
+.años.evolucion,
+.t-usuario.evolucion{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 15px !important;
+}
+
+.años.evolucion{
+    width: 15%;
+}
+
+.articulacion.evolucion{
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #009BB4;
+    border-radius: 8px;
+}
+
+.fechas-paciente.general-1.evolucion.evl{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.años.evolucion.actv{
+    width: 25%;
+}
+
+.años.evolucion.evl{
+    width: 18%;
+}
+
+.fechas-paciente.general-1.evolucion.evl div:nth-last-child(1){
+    margin-left: 9px;
+}
+
+/*esto es un button*/ 
+.nueva.evolucion{
+    position: absolute;
+    right: 84px;
+    top: 11px;
+    border: none;
+}
+
+.nueva.evolucion.guardar{
+    position: absolute;
+    right: 22px;
+    top: 11px;
+    border: none;
+}
+
+.nueva.evolucion h3{
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    font-size: 12px;
+    color: #048EA4;
+}
+
+.nueva.evolucion i{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #048EA4;
+}
+
+.articulacion.evolucion h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #03899e;
+    padding-top: 40px;
+    padding-left: 15px;
+    margin-right: auto;
+    letter-spacing: 1px;
+}
+
+.consulta.evolucion{
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.cuadro-texto.evolucion{
+    width: 95%;
+}
+
+.documento.general-1.evolucion{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nro-dcto.evolucion,
+.sexo.evolucion{
+    width: 43%;
+}
+
+/*Estilos vista administradores*/
+
+.consultorio-barra.admin{
+    display: flex;
+    margin-top: 20px;
+    width: 42%;
+}
+
+.consultorio-barra.admin h1{
+    margin-bottom: 0px !important;
+}
+
+.consultorio-barra.admin i{
+    font-size: 25px;
+    color: #03899e;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.barra-inicio .logo-admin{
+    position: absolute;
+    top: 88px;
+    right: 273px;
+    overflow: hidden;
+    height: 95px;
+    width: 95px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 20px;
+    margin-right: 10px;
+    box-shadow: 0 24px 38px rgb(0 0 0 / 14%), 0 9px 46px rgb(0 0 0 / 12%), 0 11px 15px rgb(0 0 0 / 20%);
+}
+
+.pacientes .logo-admin{
+    position: absolute;
+    top: 79px;
+    left: 126px;
+    overflow: hidden;
+    height: 115px;
+    width: 115px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 42px;
+    margin-right: 10px;
+}
+
+.pacientes .logo-admin.vistaFConsultas{
+    top: 71px;
+    left: 135px;
+    height: 112px;
+    width: 112px;
+}
+
+
+.pacientes .logo-admin.patient{
+    top: 5px;
+    left: 112px;
+}
+
+.pacientes .logo-admin.patients{
+    top: 11px;
+    left: 57px;
+}
+
+.pacientes .logo-admin img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center
+}
+
+.barra-inicio .logo-admin img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.tusAdministradores,
+.ModalRecuperarContraseña > form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64vh;
+    width: 60%;
+    margin-bottom: 10px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    box-shadow: 2px 3px 2px #03899e40;
+}
+
+
+.tusAdministradores .tituloAdmin,
+.ModalRecuperarContraseña form .title-ed{
+    position: relative;
+    text-align: center;
+    width: 100%;
+    padding-top: 18px;
+    border-bottom: 1px solxid #03899e42;
+}
+
+.tusAdministradores .tituloAdmin h2,
+.ModalRecuperarContraseña form .title-ed h1{
+    color: #03899E;
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.ModalRecuperarContraseña form .title-ed button{
+    position: absolute;
+    right: 17px;
+    top: -6px;
+    padding: 2px 9px;
+    color: #009BB4;
+    border: 1px solid #009BB4;
+    border-radius: 50%;
+}
+
+.admin-usuarios.padre{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    min-height: 20vh;
+}
+
+.admin-usuarios{
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.admin-usuarios.hv:hover{
+    border-radius: 4px;
+    color: #ffffff;
+    background-color: #03899E;
+}
+
+.admin-usuarios.hv:hover h3,
+.admin-usuarios.hv:hover i{
+    color: #ffffff;
+}
+
+.admin-usuarios.hv:hover button{
+    background-color: #03899E;
+}
+
+.admin-usuarios h3{
+    padding-top: 2px;
+    padding-left: 5px;
+    color: #03899E;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    font-size: 25px;
+}
+
+.boton-ad{
+    width: 25%;
+    display: flex;
+    align-items: center !important;
+    justify-content: space-around;
+}
+
+.admin-usuarios .boton-ad button{
+    border: none;
+    margin-top: 0;
+}
+
+.admin-usuarios i{
+    padding-right: 7px;
+    color: #03899E;
+    font-size: 16px;
+}
+
+/*Estilos nuevo administrador o editar datos*/
+
+.new-admin{
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+.new-admin button{
+    border: 2px solid transparent;
+}
+
+.new-admin button:hover{
+    border: 2px solid #03899e42;
+    border-radius: 4px;
+}
+
+.new-admin button i{
+    color: #03899E;
+    font-size: 20px;
+}
+
+.new-admin button h3{
+    color: #03899E;
+    font-size: 16px;
+}
+
+.ModalRecuperarContraseña{
+    margin-top: 2px;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    min-height: 85vh;
+    transition: all 0.8s ease-in-out;
+    transform: translate(0, -50px);
+}
+
+.activeModal{
+    transform: translate(0px, 0px);
+}
+
+.ModalRecuperarContraseña::-webkit-scrollbar{
+    width: 5px;
+    height: 8px;
+    background-color: #e1e1e1;
+}
+
+.ModalRecuperarContraseña::-webkit-scrollbar-thumb{
+    background: #009BB4;
+}
+
+.datos-editar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70%;
+}
+
+.datos-editar input{
+    border: none;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #048EA4;
+    outline: none;
+    background-color: transparent;
+    color: #048EA4;
+    font-family: 'Roboto', sans-serif;
+    line-height: 12px;
+}
+
+
+.ModalRecuperarContraseña > form{
+    width: 70%;
+}
+
+.datos-editar label{
+    color: #009BB4;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+.datos-editar label.label{
+    text-align: justify;
+    
+}
+
+.datos-editar.email input{
+    height: 5vh;
+}
+
+.datos-editar.email input:focus{
+    background-color: #dededed4;
+    border-radius: 4px;
+    border: 1px solid #048EA4;
+    text-align: left;
+}
+
+.boton.editar{
+    margin: 7px 0;
+}
+
+.overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0c9c99e;
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-in-out;
+}/*de todos los modales*/
+
+.overlayActive{
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-hijo{
+    margin-top: 45px;
+}
