@@ -11,7 +11,7 @@
     const documentoPacienteTrabajar = $('#pacienteTrabajar') //*no se ve, esta oculto para realizar el guardar y continuar
 
 
-    //*variables tabla articulacion temporo mandibular
+    //*variables tabla articulacion temporo mandibular 
     
     const ruidosSI = $('#ruidosSI')
     const ruidosNO = $('#ruidosNO')

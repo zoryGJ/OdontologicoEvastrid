@@ -309,7 +309,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
             <div class="odontogramaM">
                 <div class="cuadrante">
                     <div class="seccionSuperior inv">
-                        <div class="diente">
+                        <div class="diente" id="diente-11">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -343,7 +343,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-12">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -377,7 +377,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-13">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -411,7 +411,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-14">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -445,7 +445,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-15">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -479,7 +479,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-16">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -513,7 +513,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-17">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -547,7 +547,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-18">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -583,7 +583,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                         </div>
                     </div>
                     <div class="seccionInferior inv">
-                        <div class="diente">
+                        <div class="diente" id="diente-51">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -617,7 +617,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-52">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -651,7 +651,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-53">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -685,7 +685,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-54">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -719,7 +719,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -758,7 +758,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
 
                 <div class="cuadrante">
                     <div class="seccionSuperior">
-                        <div class="diente">
+                        <div class="diente" id="diente-21">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -792,7 +792,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-22">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -826,7 +826,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-23">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -860,7 +860,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-24">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -894,7 +894,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-25">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -928,7 +928,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-26">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -962,7 +962,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-27">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -996,7 +996,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-28">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1032,7 +1032,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                         </div>
                     </div>
                     <div class="seccionInferior">
-                        <div class="diente">
+                        <div class="diente" id="diente-61">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1066,7 +1066,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-62">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1100,7 +1100,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-63">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1134,7 +1134,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-64">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1168,7 +1168,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-65">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1207,7 +1207,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
 
                 <div class="cuadrante">
                     <div class="seccionSuperior inv">
-                        <div class="diente">
+                        <div class="diente" id="diente-81">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1241,7 +1241,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-82">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1275,7 +1275,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-83">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1309,7 +1309,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-84">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1343,7 +1343,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-85">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1379,7 +1379,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                         </div>
                     </div>
                     <div class="seccionInferior inv">
-                        <div class="diente">
+                        <div class="diente" id="diente-41">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1413,7 +1413,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-42">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1447,7 +1447,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-43">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1481,7 +1481,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-44">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1515,7 +1515,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-45">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1549,7 +1549,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-46">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1583,7 +1583,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-47">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1617,7 +1617,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-48">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1656,7 +1656,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
 
                 <div class="cuadrante">
                     <div class="seccionSuperior">
-                        <div class="diente">
+                        <div class="diente" id="diente-71">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1690,7 +1690,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-72">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1724,7 +1724,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-73">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1758,7 +1758,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-74">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1792,7 +1792,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-75">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1828,7 +1828,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                         </div>
                     </div>
                     <div class="seccionInferior">
-                        <div class="diente">
+                        <div class="diente" id="diente-31">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1862,7 +1862,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-32">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1896,7 +1896,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-33">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1930,7 +1930,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-34">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1964,7 +1964,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-35">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -1998,7 +1998,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-36">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -2032,7 +2032,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-37">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -2066,7 +2066,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
                                 <img src="../Img/convenciones/P_m_E.jpg" alt="">
                             </div>
                         </div>
-                        <div class="diente">
+                        <div class="diente" id="diente-38">
                             <button class="sectionDiente top v">
                                 <span></span>
                                 <span></span>
@@ -2110,9 +2110,9 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
 <div class="overlayConvencionesGeneral" id="overlayConvencionGeneral">
     <div class="convencionesGeneralModal" id="modalConvencionGeneral">
         <div class="title">
-            <h2>Convencion general de diente</h2>
+            <h2>Convencion general de diente</h2> 
 
-            <button id="btnCloseModalConvencionGeneral">
+            <button typeConvencion="cerrar" id="btnCloseModalConvencionGeneral">
                 x
             </button>
         </div>
@@ -2120,7 +2120,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
 
             <?php foreach ($convencionesOrdenadas as $numerosLlaves => $posicionesConvencion) { ?>
 
-                <button typeConvencion="proceso" data-name-img='<?php echo $posicionesConvencion['figura']; ?>'>
+                <button typeConvencion="proceso" data-name-img='<?php echo $posicionesConvencion['figura']; ?>' data-name-process="<?php echo $posicionesConvencion['convencion']; ?>">
                     <div class="text">
                         <h3><?php echo $posicionesConvencion['convencion']; ?></h3>
                     </div>
@@ -2135,7 +2135,7 @@ $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQ
             <?php } ?>
 
             <button typeConvencion="limpiar">
-                <div class="text">
+                <div class="text limpiar">
                     <h3>Limpiar</h3>
                 </div>
             </button>

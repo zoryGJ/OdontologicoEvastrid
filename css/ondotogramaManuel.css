@@ -14,7 +14,7 @@
 }
 
 .overlayConvencionesGeneral{
-    display: flex;
+    display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -136,7 +136,6 @@
 
 .odontogramaM .cuadrante .inv{
     flex-direction: row-reverse;
-
 }
 
 .odontogramaM .cuadrante:nth-child(1){
@@ -314,7 +313,7 @@
 */
 .convencionesGeneralModal{
     width: 40%;
-    height: 50vh;
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -349,7 +348,6 @@
     font-size: 14px;
 }
 
-
 /* ancho de barra */
 .convenciones.general::-webkit-scrollbar{ 
     width: 10px;
@@ -360,7 +358,6 @@
     background-color: #009BB4;
     border-radius: 8px;
 }
-
 /*
 * estilos para convencione secccion diente - modal
 */
@@ -401,15 +398,10 @@
 .convenciones{
     width: 100%;
     height: 90%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
 }
 
 .convenciones button{
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 10px;
     width: 70%;
     display: flex;
@@ -427,6 +419,7 @@
     user-select: none;
     pointer-events: none;
     margin-left: 20px;
+    display: flex;
 }
 
 .convenciones button .image{
@@ -444,6 +437,18 @@
     color: #009BB4;
     user-select: none;
     pointer-events: none;
+}
+
+.convenciones.general button .text.limpiar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+}
+
+.convenciones.general button .text.limpiar h3{
+    text-align: center;
+    width: 100%;
 }
 
 .convenciones button .text h3{

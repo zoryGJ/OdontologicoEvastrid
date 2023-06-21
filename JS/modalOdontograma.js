@@ -42,8 +42,6 @@ $(document).ready(() => {
     ModalRecuperarContraseña.toggleClass("activeModal")   
   })
 
-
-
   $("#gestionarOdontograma").click((e) => {
     e.preventDefault()
     ActivarDesactivarModal()
@@ -67,6 +65,28 @@ $(document).ready(() => {
     typeProcess: null,
     diente: null
   }
+
+  // var a = {
+  //   diente_18: {
+  //     tipoOperacion: 'general',
+  //     nombreConvencio: 'endodoncia',
+  //     operacionesseccion: []
+  //   },
+  //   diente_17: {
+  //     tipoOperacion: 'seccion',
+  //     nombreConvencio: '',
+  //     operacionesseccion: [
+  //       {
+  //         nombreSeccion: 'top',
+  //         opciones: ['roja','verde','azul']
+  //       },
+  //       {
+  //         nombreSeccion: 'bot',
+  //         opciones: ['azul']
+  //       }
+  //     ]
+  //   }
+  // }
 
   dientes.each((i, diente) => {
     const nodosDiente = diente.childNodes
@@ -109,6 +129,12 @@ $(document).ready(() => {
       const divImageOperacionDiente = dienteSeleccionado.diente.childNodes[13]
       const imgOperacionDiente = divImageOperacionDiente.childNodes[1]
 
+      
+      if (typeConvencion === 'cerrar') {
+        overlayConvencionGeneral.removeClass("overlayActive")
+        return false
+      }
+
       if (typeConvencion !== 'limpiar') {
         event.preventDefault()
 
@@ -127,7 +153,7 @@ $(document).ready(() => {
     })
   })
 
-  //* eventos botones modal seccion diente
+  //* eventos botones modal seccion diente 
   const botonesModalSeccionDiente = $("#modalConvencionSeccion button")
   botonesModalSeccionDiente.each((i, button) => {
     button.addEventListener("click", (event) => {
