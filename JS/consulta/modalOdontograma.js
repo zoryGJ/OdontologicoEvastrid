@@ -6,12 +6,10 @@ $(document).ready(() => {
 
   //*modales para convenciones (general)
   const overlayConvencionGeneral = $("#overlayConvencionGeneral")
-  const modalConvencionGeneral = $("#modalConvencionGeneral")
   const btnCloseModalConvencionGeneral = $('#btnCloseModalConvencionGeneral')
 
   //*modales para convenciones (seccion)
   const overlayConvencionSeccion = $("#overlayConvencionSeccion")
-  const modalConvencionSeccion = $("#modalConvencionSeccion")
   const btnCloseModalConvencionSeccion = $("#btnCloseModalConvencionSeccion")
 
   //*modal recuperar contraseña
@@ -30,16 +28,16 @@ $(document).ready(() => {
     overlayConvencionSeccion.removeClass("overlayActive")
   })
 
-  btncloseModalRecuperarContraseña.click( (event) => { 
+  btncloseModalRecuperarContraseña.click((event) => {
     event.preventDefault();
     overlayRecuperarContraseña.removeClass("overlayActive")
   })
 
   //*abriendo modal de recuperar contraseña
-  $("#recuperarContraseña").click((e) => { 
+  $("#recuperarContraseña").click((e) => {
     e.preventDefault()
     overlayRecuperarContraseña.toggleClass("overlayActive")
-    ModalRecuperarContraseña.toggleClass("activeModal")   
+    ModalRecuperarContraseña.toggleClass("activeModal")
   })
 
   $("#gestionarOdontograma").click((e) => {
@@ -66,90 +64,49 @@ $(document).ready(() => {
     diente: null
   }
 
-  // var a = {
-  //   diente_18: {
-  //     tipoOperacion: 'general',
-  //     nombreConvencio: 'endodoncia',
-  //     operacionesseccion: []
-  //   },
-  //   diente_17: {
-  //     tipoOperacion: 'seccion',
-  //     nombreConvencio: '',
-  //     operacionesseccion: [
-  //       {
-  //         nombreSeccion: 'top',
-  //         opciones: ['roja','verde','azul']
-  //       },
-  //       {
-  //         nombreSeccion: 'bot',
-  //         opciones: ['azul']
-  //       }
-  //     ]
-  //   }
-  // }
-
-  dientes.each((i, diente) => {
-    const nodosDiente = diente.childNodes
-    const seccionesDiente = {
-      top: nodosDiente[1],
-      left: nodosDiente[3],
-      center: nodosDiente[5],
-      right: nodosDiente[7],
-      botton: nodosDiente[9],
-      general: nodosDiente[11],
-    }
-
-    for (const seccion in seccionesDiente) {
-      const element = seccionesDiente[seccion]
-
-      element.addEventListener("click", (event) => {
-        event.preventDefault()
-
-        dienteSeleccionado.area = element
-        dienteSeleccionado.diente = diente
-
-        if (seccion === "general") {
-          //* procesos convencion general
-          dienteSeleccionado.typeProcess = "general"
-          overlayConvencionGeneral.addClass("overlayActive")
-        } else {
-          //* procesos convencion diente
-          dienteSeleccionado.typeProcess = "seccion"
-          overlayConvencionSeccion.addClass("overlayActive")
-        }
-      })
-    }
-  })
+  //* limpieza del diente seleccionado
+  const limpiarDienteSeleccionado = () => {
+    dienteSeleccionado.area = null
+    dienteSeleccionado.convencion = null
+    dienteSeleccionado.typeProcess = null
+    dienteSeleccionado.diente = null
+  }
 
   //* eventos boton moda general diente
   const botonesModalGeneralDiente = $('#modalConvencionGeneral button')
   botonesModalGeneralDiente.each((index, button) => {
     button.addEventListener('click', (event) => {
+      event.preventDefault()
+
       const typeConvencion = button.getAttribute('typeConvencion')
+      const imagenConvencionGeneral = button.getAttribute('data-name-img')
+      const nombreConvencionGeneral = button.getAttribute('data-name-process')
       const divImageOperacionDiente = dienteSeleccionado.diente.childNodes[13]
       const imgOperacionDiente = divImageOperacionDiente.childNodes[1]
 
-      
       if (typeConvencion === 'cerrar') {
         overlayConvencionGeneral.removeClass("overlayActive")
         return false
       }
 
-      if (typeConvencion !== 'limpiar') {
-        event.preventDefault()
-
-        const imagenConvencionGeneral = button.getAttribute('data-name-img')
-
-        imgOperacionDiente.setAttribute('src', '../Img/convenciones/'+imagenConvencionGeneral)
-        divImageOperacionDiente.classList.add('active')
-        overlayConvencionGeneral.removeClass("overlayActive")
-      }else{
-        
-        imgOperacionDiente.setAttribute('src', '')
+      if (typeConvencion === 'limpiar') {
         divImageOperacionDiente.classList.remove('active')
         overlayConvencionGeneral.removeClass("overlayActive")
+
+        imgOperacionDiente.setAttribute('src', '')
+        dienteSeleccionado.diente.setAttribute('procesoDiente', '')
+        dienteSeleccionado.diente.setAttribute('convencionDiente', '')
+
+        return false
       }
-      
+
+      dienteSeleccionado.diente.setAttribute('procesoDiente', 'general')
+      dienteSeleccionado.diente.setAttribute('convencionDiente', nombreConvencionGeneral)
+
+      imgOperacionDiente.setAttribute('src', '../Img/convenciones/' + imagenConvencionGeneral)
+      divImageOperacionDiente.classList.add('active')
+      overlayConvencionGeneral.removeClass("overlayActive")
+      limpiarDienteSeleccionado()
     })
   })
 
@@ -182,13 +139,45 @@ $(document).ready(() => {
           span1.classList.remove("active")
           span2.classList.remove("active")
           span3.classList.remove("active")
+          dienteSeleccionado.diente.setAttribute('procesoDiente', '')
           break
       }
-      dienteSeleccionado.area = null
-      dienteSeleccionado.convencion = null
-      dienteSeleccionado.typeProcess = null
-      dienteSeleccionado.diente = null
+
+      dienteSeleccionado.diente.setAttribute('procesoDiente', 'seccion')
       overlayConvencionSeccion.removeClass("overlayActive")
+      limpiarDienteSeleccionado()
     })
+  })
+
+  //* eventos para capturar información de un diente seleccionado y mostrar modal segun accion
+  dientes.each((i, diente) => {
+    const nodosDiente = diente.childNodes
+    const seccionesDiente = {
+      top: nodosDiente[1],
+      left: nodosDiente[3],
+      center: nodosDiente[5],
+      right: nodosDiente[7],
+      botton: nodosDiente[9],
+      general: nodosDiente[11],
+    }
+
+    for (const seccion in seccionesDiente) {
+      const seccionSeleccionada = seccionesDiente[seccion]
+
+      seccionSeleccionada.addEventListener("click", (event) => {
+        event.preventDefault()
+
+        dienteSeleccionado.area = seccionSeleccionada
+        dienteSeleccionado.diente = diente
+
+        if (seccion === "general") {
+          dienteSeleccionado.typeProcess = "general"
+          overlayConvencionGeneral.addClass("overlayActive")
+        } else {
+          dienteSeleccionado.typeProcess = "seccion"
+          overlayConvencionSeccion.addClass("overlayActive")
+        }
+      })
+    }
   })
 })

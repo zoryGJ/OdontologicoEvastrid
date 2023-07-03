@@ -28,13 +28,15 @@
     const dolorMuscularSI = $('#dolorMuscularSI')
     const dolorMuscularNO = $('#dolorMuscularNO')
 
-    //*variable boton de guardado y continuar
-
+    //*variable boton de guardado y continuar (Zoraida)
     const btnGuardarContinuarConsulta1 = $('#btnGuardarContinuarConsulta1')
+
+    //* variable formulario de guardado para consulta-1 (face1) (Manuel)
+    const formConsulta1 = $('#formConsulta1')
 
     //*eventos
 
-    btnGuardarContinuarConsulta1.click((event) => { 
+    formConsulta1.submit((event) => { 
         event.preventDefault()
         
         const datos = leerDatosFormularioConsultas1()
@@ -45,12 +47,29 @@
         data.append('tipoPeticion', 'consulta1')
 
         const ajax = new XMLHttpRequest()
-        ajax.open('post', '../Modules/models/pacientes/guardado1.php', true)
+        ajax.open('post', '../Modules/models/consultas/guardado1.php', true)
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
                 let respuesta = JSON.parse(ajax.responseText)
-                console.log(respuesta)
+                console.log(respuesta);
+                if (respuesta.proceso === 'correcto') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Exitoso!',
+                        text: `La primera parte de la consulta ha sido registrada  \n(Preciona enter para continuar)`
+                    }).then(() => {
+                        window.location.href = 'consultas2.php?cedulaPaciente='+documentoPacienteTrabajar.val()
+                    })
+                    
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Opsss',
+                        text: 'Ha ocurrido un error, intenta nuevamente',
+                    })
+                }
+                
             }
         }
     })
@@ -66,7 +85,7 @@
             evolucionEstadoActual: evolucionEstadoActual.val(),
             antecedentesOdontologicos: antecedentesOdontologicos.val(),
             examenEstomatologico: examenEstomatologico.val(),
-            pacienteTrabajar: documentoPacienteTrabajar.attr('valorViene'),
+            pacienteTrabajar: documentoPacienteTrabajar.val(),
 
             articulacionTemporoMandibular: {
                 ruidos: verificarRadioButtonTemporo(ruidosSI,ruidosNO),
