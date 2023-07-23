@@ -19,6 +19,7 @@ $(document).ready(() => {
         const gradoRiesgoSi = $("#gradoRiesgoSi").prop('checked') ? 'si' : 'no'
         const sedaDentalSi = $("#sedaDentalSi").prop('checked') ? 'si' : 'no'
         const pigmentacionSi = $("#pigmentacionSi").prop('checked') ? 'si' : 'no'
+        const idConsulta = $("#idConsulta").val()
 
         //* inputs datalist -
         const articular = capturarDataValue($("#datalistArticular").val(), 'articular')
@@ -29,7 +30,7 @@ $(document).ready(() => {
         const tejidosBlandos = capturarDataValue($("#datalistTejidosBlandos").val(), 'articular')
         const otros = capturarDataValue($("#datalistOtros").val(), 'articular')
 
-        const data = {
+        const informacionConsulta = {
             consultaInfo: {
                 protesisSi,
                 protesisTipo,
@@ -47,10 +48,25 @@ $(document).ready(() => {
                 tejidosBlandos,
                 otros
             },
-            dientesInfo: obtenerDientesInfo()
+            dientesInfo: obtenerDientesInfo(),
+            idConsulta
         }
 
-        console.log(data);
+        const datos = new FormData()
+        datos.append('informacionConsulta', JSON.stringify(informacionConsulta))
+
+        //* proceso de ajax
+        const xhr = new XMLHttpRequest()
+
+        xhr.open('POST', '../Modules/models/consultas/guardado2.php', true)
+        xhr.send(datos)
+
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const response = xhr.responseText
+                console.log(response);
+            }
+        }
     })
 
     //* funciones-

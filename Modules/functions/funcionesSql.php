@@ -1,21 +1,17 @@
 <?php
 
 function crearInsert($tableName, $columsTable, $values){
-
     try {
-
         include '../../functions/bdconection.php';
         
         $parametro = '';
         
         for ($i=0; $i < count($values); $i++) {
-            
             if ($i+1 === count($values)) {
                 $parametro = $parametro.'?';
             } else {
                 $parametro = $parametro.'?,';
             }
-
         }
         
         $parametrosBindParams = str_repeat('s', count($values));
@@ -34,7 +30,6 @@ function crearInsert($tableName, $columsTable, $values){
             $respuesta['Descripcion_error'] = $stmt->error;
         }
 
-        
     } catch (\Throwable $th) {
         $erroDescription = array(
             'texto del error' => $th->getLine(),
@@ -47,7 +42,6 @@ function crearInsert($tableName, $columsTable, $values){
     }
 
     return $respuesta;
-
 }
 
 

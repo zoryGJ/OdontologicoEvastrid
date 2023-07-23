@@ -39,6 +39,9 @@
     $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
+    //* capturando el id de la consulta
+    $idConsulta = $_GET['idConsulta'];
+
     //* dar formato a dientes para odonograma
     $dientesOdontograma = array(
         'cuadrante1' => array(
@@ -297,6 +300,7 @@
             </div>
 
             <div class="botones">
+                <input type="hidden" id="idConsulta" value="<?php echo $idConsulta; ?>">
                 <div class="boton">
                     <button class="fin">
                         <p>Guardar & Finalizar</p>

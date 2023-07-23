@@ -59,7 +59,7 @@
                         title: 'Exitoso!',
                         text: `La primera parte de la consulta ha sido registrada  \n(Preciona enter para continuar)`
                     }).then(() => {
-                        window.location.href = 'consultas2.php?cedulaPaciente='+documentoPacienteTrabajar.val()
+                        window.location.href = 'consultas2.php?cedulaPaciente='+documentoPacienteTrabajar.val()+'&idConsulta='+respuesta.consultaID
                     })
                     
                 }else{
