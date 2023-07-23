@@ -54,4 +54,3 @@ function consultaTablaCondicion($tableName, $condicion){
 
     return $consultaRealizada;
 }
-

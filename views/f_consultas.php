@@ -29,7 +29,7 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
                 <i class="fa-solid fa-person-walking-arrow-right"></i>
             </a>
         </div>
-        <form action="">
+        <form id="formConsulta1">
             <?php //Datos de consulta 
             ?>
 
@@ -40,7 +40,7 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
 
                 <div class="general-2 fecha">
                     <div class="fechaConsulta">
-                        <input type="date" id="fechaConsulta">
+                        <input type="date" id="fechaConsulta" required>
                         <label>Fecha de consulta</label>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
             </div>
             <br>
 
-            <input style="display: none;" type="text" id="pacienteTrabajar" valorViene="<?php echo ($pacienteTrabajar); ?>">
+            <input style="display: none;" type="text" id="pacienteTrabajar" value="<?php echo ($pacienteTrabajar); ?>">
 
             <div class="botones">
 
@@ -216,7 +216,7 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
     </div>
 </div>
 
-<script src="../JS/pacientes/guardadoConsulta1.js"></script>
+<script src="../JS/consulta/guardadoConsulta1.js"></script>
 
 
 

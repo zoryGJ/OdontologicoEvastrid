@@ -2,7 +2,7 @@
   include_once '../Modules/functions/sessions.php';
 
   if (!controllSession()) {
-    header('Location: http://localhost/Evastrid/views/login.php');
+    header('Location: login.php');
   }
 ?>
 <?php include '../Modules/templates/head.php'; ?>

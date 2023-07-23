@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 03, 2023 at 01:22 PM
+-- Host: localhost:3307
+-- Generation Time: Jul 03, 2023 at 04:39 PM
 -- Server version: 5.7.24
--- PHP Version: 7.4.16
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -406,7 +407,8 @@ INSERT INTO `convenciones_oc` (`codigo`, `convencion`, `color`) VALUES
 CREATE TABLE `convencion_seccion` (
   `codigo` int(11) NOT NULL,
   `codigo_convenciones_oc_FK` int(11) NOT NULL,
-  `codigo_seccion_FK` int(11) NOT NULL
+  `codigo_seccion_FK` int(11) NOT NULL,
+  `codigo_OI_FK` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -463,7 +465,7 @@ INSERT INTO `departamentos` (`codigo`, `departamento`) VALUES
 
 --
 -- Table structure for table `diagnosticos`
---
+-- 
 
 CREATE TABLE `diagnosticos` (
   `codigo` int(11) NOT NULL,
@@ -479,8 +481,67 @@ CREATE TABLE `diagnosticos` (
 CREATE TABLE `dientes` (
   `codigo` int(11) NOT NULL,
   `numero_diente` int(11) NOT NULL,
-  `nombre_diente` varchar(30) NOT NULL
+  `cuadrante` int(11) NOT NULL,
+  `cuadrante_fila` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `dientes`
+--
+
+INSERT INTO `dientes` (`codigo`, `numero_diente`, `cuadrante`, `cuadrante_fila`) VALUES
+(1, 11, 1, 1),
+(2, 12, 1, 1),
+(3, 13, 1, 1),
+(4, 14, 1, 1),
+(5, 15, 1, 1),
+(6, 16, 1, 1),
+(7, 17, 1, 1),
+(8, 18, 1, 1),
+(9, 51, 1, 2),
+(10, 52, 1, 2),
+(11, 53, 1, 2),
+(12, 54, 1, 2),
+(13, 55, 1, 2),
+(14, 21, 2, 1),
+(15, 22, 2, 1),
+(16, 23, 2, 1),
+(17, 24, 2, 1),
+(18, 25, 2, 1),
+(19, 26, 2, 1),
+(20, 27, 2, 1),
+(21, 28, 2, 1),
+(22, 61, 2, 2),
+(23, 62, 2, 2),
+(24, 63, 2, 2),
+(25, 64, 2, 2),
+(26, 65, 2, 2),
+(28, 81, 3, 1),
+(29, 82, 3, 1),
+(30, 83, 3, 1),
+(31, 84, 3, 1),
+(32, 85, 3, 1),
+(33, 41, 3, 2),
+(34, 42, 3, 2),
+(35, 43, 3, 2),
+(36, 44, 3, 2),
+(37, 45, 3, 2),
+(38, 46, 3, 2),
+(39, 47, 3, 2),
+(40, 48, 3, 2),
+(41, 71, 4, 1),
+(42, 72, 4, 1),
+(43, 73, 4, 1),
+(44, 74, 4, 1),
+(45, 75, 4, 1),
+(46, 31, 4, 2),
+(47, 32, 4, 2),
+(48, 33, 4, 2),
+(49, 34, 4, 2),
+(50, 35, 4, 2),
+(51, 36, 4, 2),
+(52, 37, 4, 2),
+(53, 38, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -1796,8 +1857,19 @@ CREATE TABLE `responsables` (
 
 CREATE TABLE `seccion` (
   `codigo` int(11) NOT NULL,
-  `numero` int(11) NOT NULL
+  `nombreSeccion` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seccion`
+--
+
+INSERT INTO `seccion` (`codigo`, `nombreSeccion`) VALUES
+(1, 'top'),
+(2, 'buttom'),
+(3, 'left'),
+(4, 'right'),
+(5, 'center');
 
 -- --------------------------------------------------------
 
@@ -1924,7 +1996,8 @@ ALTER TABLE `convenciones_oc`
 ALTER TABLE `convencion_seccion`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `codigo_convenciones_oc_FK_1` (`codigo_convenciones_oc_FK`),
-  ADD KEY `codigo_seccion_FK_1` (`codigo_seccion_FK`);
+  ADD KEY `codigo_seccion_FK_1` (`codigo_seccion_FK`),
+  ADD KEY `codigoOI_FK` (`codigo_OI_FK`);
 
 --
 -- Indexes for table `departamentos`
@@ -2119,7 +2192,7 @@ ALTER TABLE `diagnosticos`
 -- AUTO_INCREMENT for table `dientes`
 --
 ALTER TABLE `dientes`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `evoluciones_h_c`
@@ -2179,7 +2252,7 @@ ALTER TABLE `responsables`
 -- AUTO_INCREMENT for table `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tipos_diagnosticos`
@@ -2234,6 +2307,7 @@ ALTER TABLE `consultas`
 -- Constraints for table `convencion_seccion`
 --
 ALTER TABLE `convencion_seccion`
+  ADD CONSTRAINT `codigoOI_FK` FOREIGN KEY (`codigo_OI_FK`) REFERENCES `o_integrado` (`codigo`),
   ADD CONSTRAINT `codigo_convenciones_oc_FK_1` FOREIGN KEY (`codigo_convenciones_oc_FK`) REFERENCES `convenciones_oc` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `codigo_seccion_FK_1` FOREIGN KEY (`codigo_seccion_FK`) REFERENCES `seccion` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
