@@ -465,7 +465,7 @@ INSERT INTO `departamentos` (`codigo`, `departamento`) VALUES
 
 --
 -- Table structure for table `diagnosticos`
---
+-- 
 
 CREATE TABLE `diagnosticos` (
   `codigo` int(11) NOT NULL,
