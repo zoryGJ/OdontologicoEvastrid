@@ -219,6 +219,4 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
 <script src="../JS/consulta/guardadoConsulta1.js"></script>
 
 
-
-
 <?php include '../Modules/templates/footer.php'; ?>
