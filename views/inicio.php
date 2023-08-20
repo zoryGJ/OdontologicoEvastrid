@@ -35,7 +35,7 @@
                 </li>
                 <li class="lista">
                     <div class="li_div">
-                        <a href="misPacientes.php">Mis Pacientes </a>
+                        <a href="misPacientes.php">Mis Pacientes</a>
                         <i class="fa-solid fa-tooth"></i>
                     </div>
                 </li>
