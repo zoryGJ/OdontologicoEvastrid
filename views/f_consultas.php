@@ -19,7 +19,7 @@ $pacienteTrabajar = $_GET['cedulaPaciente'];
         </div>
 
         <div class="titulo-historia">
-            <h1>HISTORIA CLINICA ODONTOLÓGICA</h1>
+            <h1>Hitoria clinica odontologica</h1>
             <h3>Consulta Odontológica</h3>
 
         </div>
