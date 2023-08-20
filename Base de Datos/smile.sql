@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3307
--- Generation Time: Jul 03, 2023 at 04:39 PM
--- Server version: 5.7.24
--- PHP Version: 7.4.1
+-- Host: 127.0.0.1
+-- Generation Time: Aug 20, 2023 at 11:24 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -107,7 +107,14 @@ INSERT INTO `articulaciones_temporo_mandibulares` (`codigo`, `hallazgos_clinicos
 (4, 'bloqueoMandibular', 'NO', 2),
 (5, 'limitacionApertura', 'NO', 2),
 (6, 'dolorArticular', 'SI', 2),
-(7, 'dolorMuscular', 'SI', 2);
+(7, 'dolorMuscular', 'SI', 2),
+(8, 'ruidos', 'NO', 3),
+(9, 'desviacion', 'NO', 3),
+(10, 'cambioVolumen', 'NO', 3),
+(11, 'bloqueoMandibular', 'NO', 3),
+(12, 'limitacionApertura', 'NO', 3),
+(13, 'dolorArticular', 'NO', 3),
+(14, 'dolorMuscular', 'NO', 3);
 
 -- --------------------------------------------------------
 
@@ -313,7 +320,7 @@ INSERT INTO `codigos_cies` (`codigo`, `codigo_alfa_numerico`, `descripcion_codig
 --
 
 CREATE TABLE `codigos_diagnosticos` (
-  `codigo_cies_FK` int(11) NOT NULL,
+  `codigo_cies_FK` int(11) DEFAULT NULL,
   `codigo_tipo_diagnosticos_FK` int(11) NOT NULL,
   `codigo_diagnosticos_FK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -340,7 +347,8 @@ CREATE TABLE `consultas` (
 
 INSERT INTO `consultas` (`codigo`, `fecha_consulta`, `motivo_consulta`, `antecedentes_odontologicos_medicos_generales`, `evolucion_estadoA`, `examen_estomatologico`, `numero_documento_paciente_FK`) VALUES
 (1, '2023-06-07', 'zzz', 'zzz', 'zzz', 'zzz', '30761898'),
-(2, '2023-06-01', 'zzzz', 'zzzz', 'ssss', 'ssss', '30761898');
+(2, '2023-06-01', 'zzzz', 'zzzz', 'ssss', 'ssss', '30761898'),
+(3, '2023-08-11', 'Prueba nuevo', 'Prueba nuevo', 'Prueba nuevo', 'Prueba nuevo', '30761898');
 
 -- --------------------------------------------------------
 
@@ -465,12 +473,21 @@ INSERT INTO `departamentos` (`codigo`, `departamento`) VALUES
 
 --
 -- Table structure for table `diagnosticos`
--- 
+--
 
 CREATE TABLE `diagnosticos` (
   `codigo` int(11) NOT NULL,
   `codigo_consultas_FK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `diagnosticos`
+--
+
+INSERT INTO `diagnosticos` (`codigo`, `codigo_consultas_FK`) VALUES
+(1, 3),
+(2, 3),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -1740,6 +1757,13 @@ CREATE TABLE `odontogramas` (
   `codigoConsultaFK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `odontogramas`
+--
+
+INSERT INTO `odontogramas` (`codigo`, `codigoConsultaFK`) VALUES
+(1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -1881,6 +1905,19 @@ CREATE TABLE `tipos_diagnosticos` (
   `codigo` int(11) NOT NULL,
   `diagnostico` varchar(90) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tipos_diagnosticos`
+--
+
+INSERT INTO `tipos_diagnosticos` (`codigo`, `diagnostico`) VALUES
+(1, 'articular'),
+(2, 'pulpar'),
+(3, 'periodontal'),
+(4, 'dental'),
+(5, 'cd'),
+(6, 'tejidosBlandos'),
+(7, 'otros');
 
 -- --------------------------------------------------------
 
@@ -2144,7 +2181,7 @@ ALTER TABLE `antecedentes_familiares`
 -- AUTO_INCREMENT for table `articulaciones_temporo_mandibulares`
 --
 ALTER TABLE `articulaciones_temporo_mandibulares`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `codigos_cies`
@@ -2156,7 +2193,7 @@ ALTER TABLE `codigos_cies`
 -- AUTO_INCREMENT for table `consultas`
 --
 ALTER TABLE `consultas`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `convenciones`
@@ -2186,7 +2223,7 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT for table `diagnosticos`
 --
 ALTER TABLE `diagnosticos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `dientes`
@@ -2222,7 +2259,7 @@ ALTER TABLE `municipios`
 -- AUTO_INCREMENT for table `odontogramas`
 --
 ALTER TABLE `odontogramas`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `o_integrado`
@@ -2258,7 +2295,7 @@ ALTER TABLE `seccion`
 -- AUTO_INCREMENT for table `tipos_diagnosticos`
 --
 ALTER TABLE `tipos_diagnosticos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tipos_documentos`
