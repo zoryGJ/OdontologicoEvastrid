@@ -2,7 +2,6 @@
     $(document).ready( ()=> {
 
     //*variables de los textarea -tabla consultaMSQL (html)
-    
     const fechaConsulta = $('#fechaConsulta')
     const motivoConsulta = $('#motivoConsulta')
     const evolucionEstadoActual = $('#evolucionEstadoActual')
@@ -10,9 +9,7 @@
     const examenEstomatologico = $('#examenEstomatologico')
     const documentoPacienteTrabajar = $('#pacienteTrabajar') //*no se ve, esta oculto para realizar el guardar y continuar
 
-
     //*variables tabla articulacion temporo mandibular 
-    
     const ruidosSI = $('#ruidosSI')
     const ruidosNO = $('#ruidosNO')
     const desviacionSI = $('#desviacionSI')
@@ -35,7 +32,6 @@
     const formConsulta1 = $('#formConsulta1')
 
     //*eventos
-
     formConsulta1.submit((event) => { 
         event.preventDefault()
         
@@ -103,6 +99,24 @@
         return infoFormularioConsultas1
     }
 
+    const asignarFecha = () => {
+        let fecha = new Date()
+        let dia = fecha.getDate()
+        let mes = fecha.getMonth() + 1
+        let anio = fecha.getFullYear()
+
+        if (mes < 10) {
+            mes = '0' + mes
+        }
+            
+        if (dia < 10) {
+            dia = '0' + dia
+        }
+        
+        let fechaActual = anio + '-' + mes + '-' + dia
+        fechaConsulta.val(fechaActual)
+    }
+
     const verificarRadioButtonTemporo = (checkedSI, checkedNO) => {
 
         let respuesta 
@@ -117,5 +131,7 @@
 
     }
 
+    //* funciones iniciadoras
+    asignarFecha()
     
 });
