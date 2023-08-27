@@ -63,7 +63,7 @@ $(document).ready(() => {
     })
 
     pacienteDepartamento.blur((event) => {
-        const departamentoNombre = event.target.value
+        const departamentoNombre = encodeURIComponent(event.target.value)
         const url = '../Modules/models/pacientes/guardado1.php?tipoPeticion=consultarDepartamento&nombreDepartamento='+departamentoNombre
 
         pacienteMunicipioDatalist.empty()
@@ -77,6 +77,7 @@ $(document).ready(() => {
         ajax.send()
         ajax.onload = () => {
             if (ajax.status === 200) {
+                console.log(ajax.responseText);
                 const listadoMunicipios = JSON.parse(ajax.responseText)
 
                 listadoMunicipios.forEach(({codigo: municipioID, municipio: municipioNombre}) => {

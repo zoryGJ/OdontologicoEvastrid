@@ -63,8 +63,25 @@ $(document).ready(() => {
 
         xhr.onload = () => {
             if (xhr.status === 200) {
-                const response = xhr.responseText
-                console.log(response);
+                const response = JSON.parse(xhr.responseText)
+
+                if (response.process == 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardado',
+                        text: 'Odontograma guardado',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al guardar odontograma',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             }
         }
     })
@@ -85,6 +102,7 @@ $(document).ready(() => {
             }
 
             return {
+                numeroDiente: diente.getAttribute('dientenumero'),
                 tipoOperacion: 'NA',
                 nombreConvencion: '',
                 operacionesSeccion: []
