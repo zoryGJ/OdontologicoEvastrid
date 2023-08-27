@@ -13,26 +13,30 @@
     $examenEstomatologico = $informacionFormConsulta1->examenEstomatologico;
     $documentoPacienteTrabajar = $informacionFormConsulta1->pacienteTrabajar;
 
-    $inserccionConsulta = crearInsert('consultas', 'fecha_consulta, motivo_consulta, antecedentes_odontologicos_medicos_generales, evolucion_estadoA, examen_estomatologico, numero_documento_paciente_FK', [$fechaConsulta, $motivoConsulta, $antecedentesOdontologicos, $evolucionEstadoActual, $examenEstomatologico, $documentoPacienteTrabajar]);
+    try {
+        $inserccionConsulta = crearInsert('consultas', 'fecha_consulta, motivo_consulta, antecedentes_odontologicos_medicos_generales, evolucion_estadoA, examen_estomatologico, numero_documento_paciente_FK', [$fechaConsulta, $motivoConsulta, $antecedentesOdontologicos, $evolucionEstadoActual, $examenEstomatologico, $documentoPacienteTrabajar]);
 
-    if ($inserccionConsulta['proceso'] == 'incorrecto') {
-        echo json_encode($inserccionConsulta);
-        return false;
-    }
+        $articulaciones = $informacionFormConsulta1->articulacionTemporoMandibular;
+        $idConsultas = $inserccionConsulta['id_creado'];
 
-    $articulaciones = $informacionFormConsulta1->articulacionTemporoMandibular;
-    $idConsultas = $inserccionConsulta['id_creado'];
+        foreach ($articulaciones as $articulacion => $estadoSINO) {
+            $inserccionArticulaciones = crearInsert('articulaciones_temporo_mandibulares', 'hallazgos_clinicos, sano, codigo_consultas_FK ', [$articulacion, $estadoSINO, $idConsultas]);
 
-    foreach ($articulaciones as $articulacion => $estadoSINO) {
-        $inserccionArticulaciones = crearInsert('articulaciones_temporo_mandibulares', 'hallazgos_clinicos, sano, codigo_consultas_FK ', [$articulacion, $estadoSINO, $idConsultas]);
-
-        if ($inserccionArticulaciones == 'incorrecto') {
-            echo json_encode($inserccionArticulaciones);
-            return false;
+            if ($inserccionArticulaciones == 'incorrecto') {
+                echo json_encode($inserccionArticulaciones);
+                return false;
+            }
         }
-    }
 
-    echo json_encode(array(
-        'consultaID' => $idConsultas,
-        'proceso' => 'correcto'
-    ));
+        echo json_encode(array(
+            'consultaID' => $idConsultas,
+            'proceso' => 'correcto'
+        ));
+        
+    } catch (\Throwable $th) {
+        echo json_encode(array(
+            'proceso' => 'incorrecto',
+            'procesodesc' => 'bd',
+            'Descripcion_error' => $th->getMessage()
+        ));
+    }
