@@ -11,36 +11,23 @@
 <?php
 
     include '../Modules/functions/bdconection.php';
+    include '../Modules/functions/funcionesSql.php';
+
+    //*consultando info de la ultuma consula del paciente
+    $numeroDocumentoPaciente = $_GET['cedulaPaciente'];
+    $ultimaConsulta = obtenerRegistro('consultas', '*', 'numero_documento_paciente_FK = ? order by codigo desc limit 1', [$numeroDocumentoPaciente])[0];
 
     //*consultando convenciones Generales
-    $sql = "SELECT * FROM  convenciones";
-    $stmt = $connect->prepare($sql);
-    $stmt->execute();
-    $convencionesDesordenadas = $stmt->get_result();
-    $convencionesOrdenadas = $convencionesDesordenadas->fetch_all(MYSQLI_ASSOC);
+    $convencionesOrdenadas = obtenerRegistro('convenciones', '*');
 
     //*consultando convenciones Obturado y Cariado OC
-    $sqlOC = "SELECT * FROM convenciones_oc";
-    $stmtOC = $connect->prepare($sqlOC);
-    $stmtOC->execute();
-    $convencionesSeccionDesordenadas = $stmtOC->get_result();
-    $convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQLI_ASSOC);
+    $convencionesSeccionOrdenadas = obtenerRegistro('convenciones_oc', '*');
 
     //*consultando codigos CIES
-    $sqlCIES = "SELECT * FROM codigos_cies";
-    $stmtCIES = $connect->prepare($sqlCIES);
-    $stmtCIES->execute();
-    $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
-
-
-    //* capturando el id de la consulta
-    $idConsulta = $_GET['idConsulta'];
+    $codigosCIES = obtenerRegistro('codigos_cies', '*');
     
-    //*consultando dientes (tabla de dientes)
-    $sqlDientes = "SELECT * FROM dientes";
-    $stmtDientes = $connect->prepare($sqlDientes);
-    $stmtDientes->execute();
-    $dientesBD = $stmtDientes->get_result()->fetch_all(MYSQLI_ASSOC);
+    //*consultando dientes (tabla de dientes oIntegrado)
+    $dientesBD = obtenerRegistro('dientes', '*');
     
     //* dar formato a dientes para odonograma
     $dientesOdontograma = array(
@@ -79,6 +66,10 @@
 
 <link rel="stylesheet" href="../css/ondotogramaManuel.css">
 
+<pre>
+    <?php print_r($ultimaConsulta); ?>
+</pre>
+
 <div class="cont-pacientes">
 
     <div class="pacientes">
@@ -88,7 +79,7 @@
 
         <div class="titulo-historia">
             <h1>HISTORIA CLINICA ODONTOLÓGICA</h1>
-            <h3>Consulta Odontológica: <br> Odontógrama & Diagnóstico</h3>
+            <h3>Consulta Odontológica: <br> Odontógrama & Diagnóstico <br> Ultima consulta <br> (<?php echo $ultimaConsulta['fecha_consulta']; ?>) </h3>
         </div>
 
         <div class="salida">
@@ -105,16 +96,9 @@
                 <div class="g-evolucion">
                     <button class="nueva evolucion g-odontograma" title="Gestionar nueva evolución" id="gestionarOdontograma">
                         <i class="fa-solid fa-teeth"></i>
-                        <h3>Gestiona tu Odontograma</h3>
+                        <h3>Ver odontograma</h3>
                     </button>
                 </div>
-
-                <!-- <div class="g-evolucion hiddenEvolucion">
-                    <button class="nueva evolucion" title="Gestionar nueva evolución">
-                        <i class="fa-solid fa-plus"></i>
-                        <h3>Gestionar Evolución</h3>
-                    </button>
-                </div> -->
             </div>
 
             <h1 class="t-protesis">Prótesis</h1>
@@ -300,7 +284,6 @@
             </div>
 
             <div class="botones">
-                <input type="hidden" id="idConsulta" value="<?php echo $idConsulta; ?>">
                 <div class="boton">
                     <button class="fin">
                         <p>Guardar & Finalizar</p>
@@ -319,7 +302,6 @@
         </form>
     </div>
 </div>
-
 
 <div class="overlayOdontograma" id="overlay">
     <div class="odontogramaModal" id="odontogramaModal">
@@ -436,7 +418,7 @@
         </div>
         <div class="convenciones general">
 
-            <?php foreach ($convencionesOrdenadas as $numerosLlaves => $posicionesConvencion) { ?>
+            <?php foreach ($convencionesOrdenadas as $numeroLlave => $posicionesConvencion) { ?>
 
                 <button typeConvencion="proceso" data-name-img='<?php echo $posicionesConvencion['figura']; ?>' data-name-process="<?php echo $posicionesConvencion['convencion']; ?>">
                     <div class="text">

@@ -56,7 +56,7 @@
                                 </button>
                             </a>
 
-                            <a href="f_consultas2.php">
+                            <a href="ultimaConsulta.php?cedulaPaciente=<?php echo $paciente['numero_documento']; ?>">
                                 <button title="Última Consulta">
                                     <i class="fa-solid fa-tooth"></i>
                                 </button>

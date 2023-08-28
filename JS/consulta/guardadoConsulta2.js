@@ -63,6 +63,7 @@ $(document).ready(() => {
 
         xhr.onload = () => {
             if (xhr.status === 200) {
+                console.log(xhr.responseText);
                 const response = JSON.parse(xhr.responseText)
 
                 if (response.process == 'success') {

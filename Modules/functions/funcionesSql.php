@@ -8,7 +8,9 @@ function crearInsert($tableName, $columsTable, $values)
     $parametro = $parametrosBindParams[1];
     $parametrosBindParams = $parametrosBindParams[0];
 
+
     $sql = "INSERT INTO " . $tableName . "(" . $columsTable . ") VALUES (" . $parametro . ")";
+    var_dump([$tableName, $columsTable, $values, $parametrosBindParams, $parametro, $sql]);
     $stmt = $connect->prepare($sql);
     $stmt->bind_param($parametrosBindParams, ...$values); //* desempaquetar elememtos de un arreglo...
     $stmt->execute();
@@ -32,17 +34,18 @@ function obtenerRegistro($tableName, $columnasConsulta, $condicion = 'true', $va
     $sql = 'SELECT ' . $columnasConsulta . ' FROM ' . $tableName . ' WHERE ' . $condicion;
     $stmt = $connect->prepare($sql);
 
-    if ($condicion !== 'true') {
+    if ($condicion !== 'true' && count($values) > 0) {
         $parametrosBindParams = prepararBindParam($values)[0];
         $stmt->bind_param($parametrosBindParams, ...$values); //* desempaquetar elememtos de un arreglo...
     }
 
     $stmt->execute();
     $respuesta = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $respuesta['proceso'] = 'correcto';
 
     return $respuesta;
 }
+
+
 
 
 function prepararBindParam($values)
