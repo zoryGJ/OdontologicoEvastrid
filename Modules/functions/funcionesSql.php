@@ -10,7 +10,6 @@ function crearInsert($tableName, $columsTable, $values)
 
 
     $sql = "INSERT INTO " . $tableName . "(" . $columsTable . ") VALUES (" . $parametro . ")";
-    var_dump([$tableName, $columsTable, $values, $parametrosBindParams, $parametro, $sql]);
     $stmt = $connect->prepare($sql);
     $stmt->bind_param($parametrosBindParams, ...$values); //* desempaquetar elememtos de un arreglo...
     $stmt->execute();

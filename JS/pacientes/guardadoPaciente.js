@@ -77,7 +77,6 @@ $(document).ready(() => {
         ajax.send()
         ajax.onload = () => {
             if (ajax.status === 200) {
-                console.log(ajax.responseText);
                 const listadoMunicipios = JSON.parse(ajax.responseText)
 
                 listadoMunicipios.forEach(({codigo: municipioID, municipio: municipioNombre}) => {
@@ -105,7 +104,6 @@ $(document).ready(() => {
             if (ajax.status == 200) {
                 console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
-                console.log(respuesta)
 
                 if (respuesta.proceso == 'correcto') {
                     Swal.fire({
@@ -149,9 +147,7 @@ $(document).ready(() => {
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
-                console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
-                console.log(respuesta)
 
                 if (respuesta.proceso == 'correcto') {
                     Swal.fire({
@@ -247,9 +243,6 @@ $(document).ready(() => {
 
             infoFormulario.personaResponsable = true
         }
-
-        console.log(infoFormulario);
-
 
         return infoFormulario
     }

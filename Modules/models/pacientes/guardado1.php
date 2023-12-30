@@ -35,6 +35,7 @@ if (count($_POST) > 0) {
         if (count($consultaPacientes) > 0) {
             $pacienteExistente['proceso'] = 'PacienteExistente';
             echo json_encode($pacienteExistente);
+            return;
         }
 
         //*variables tabla Residencia
@@ -79,6 +80,21 @@ if (count($_POST) > 0) {
             $informacionFormRegistroPaciente->cancer
         ];
 
+        //* validando que hayan antecedentes
+        $exitAntecentes = false;
+        foreach ($antecedentesFamiliares as $antecedente) {
+            if ($antecedente != '') {
+                $exitAntecentes = true;
+                break;
+            }
+        }
+
+        if (!$exitAntecentes) {
+            echo json_encode($inserccionPaciente);
+            return;
+        }
+
+        //* se insertan los antecedentes
         if ($informacionFormRegistroPaciente->personaResponsable === true) {
 
             $aplica = $informacionFormRegistroPaciente->aplica;
@@ -111,5 +127,6 @@ if (count($_POST) > 0) {
             
             echo json_encode($insercccionAntecentesFamiliaresPaciente);
         }
+        
     }
 }

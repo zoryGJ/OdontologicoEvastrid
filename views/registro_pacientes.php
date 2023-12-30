@@ -44,9 +44,8 @@ $listadoTipoRegimen = consultaTipoRegimen();
                     <input id="nombreIPS" type="text" list="nombre_de_ips" placeholder="Seleccionar..." required>
                     <datalist id="nombre_de_ips">
                         <?php foreach ($listadoIPS as $ips) { ?>
-                            <option data-value="<?php echo $ips['codigo']; ?>" value="<?php echo $ips['nombre_ips']; ?>
-                            ">
-                            <?php } ?>
+                            <option data-value="<?php echo $ips['codigo']; ?>" value="<?php echo $ips['nombre_ips']; ?>">
+                        <?php } ?>
                     </datalist>
                     <label for="">Nombre de la IPS</label>
                 </div>
@@ -93,9 +92,8 @@ $listadoTipoRegimen = consultaTipoRegimen();
                         <input id="pacienteTipoDoc" type="text" list="tipo-dcto" required>
                         <datalist id="tipo-dcto">
                             <?php foreach ($listadoTipoDocumentos as $tipoDocumento) { ?>
-                                <option data-value="<?php echo $tipoDocumento['codigo']; ?>" value="<?php echo $tipoDocumento['clase_de_documento']; ?>
-                                ">
-                                <?php } ?>
+                                <option data-value="<?php echo $tipoDocumento['codigo']; ?>" value="<?php echo $tipoDocumento['clase_de_documento']; ?>">
+                            <?php } ?>
                         </datalist>
                         <label>Tipo de Documento*</label>
                     </div>
@@ -125,8 +123,7 @@ $listadoTipoRegimen = consultaTipoRegimen();
                         <datalist id="t-usuario">
                             <?php foreach ($listadoTipoRegimen as $regimen) { ?>
                                 <option data-value="<?php echo $regimen['codigo']; ?>" value="<?php echo $regimen['clase_de_usuario']; ?>">
-                                <?php } ?>
-
+                            <?php } ?>
                         </datalist>
                         <label>Tipo de Usuario</label>
                     </div>
@@ -144,7 +141,7 @@ $listadoTipoRegimen = consultaTipoRegimen();
                         <input id="pacienteDepartamento" type="text" list="departamentos">
                         <datalist id="departamentos">
                             <option value="">
-                                <?php foreach ($listadoDepartamentos as $departamento) { ?>
+                            <?php foreach ($listadoDepartamentos as $departamento) { ?>
                             <option data-value="<?php echo $departamento['codigo']; ?>" value="<?php echo $departamento['departamento']; ?>">
                             <?php } ?>
                         </datalist>
