@@ -26,7 +26,10 @@ $(document).ready(() => {
 
     //* procesos
     dientesOdontograma.each((i, diente) => {
-        diente.setAttribute('procesoDiente', '')
-        diente.setAttribute('convencionDiente', '')
+        //* si no existe el atributo procesoDiente se crea
+        if (diente.getAttribute('procesodiente') === null) {
+            diente.setAttribute('procesoDiente', '')
+            diente.setAttribute('convencionDiente', '')
+        }
     })
 })

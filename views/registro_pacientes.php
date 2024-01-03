@@ -3,7 +3,8 @@ include_once '../Modules/functions/sessions.php';
 include_once '../Modules/functions/consultasGenerales.php';
 
 if (!controllSession()) {
-    header('Location: http://localhost/Evastrid/views/login.php');
+    $rootViews = dirname($_SERVER['PHP_SELF']);
+    header('Location: http://localhost'.$rootViews.'/login.php');
 }
 
 //* consultas

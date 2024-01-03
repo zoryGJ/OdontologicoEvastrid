@@ -1,8 +1,8 @@
 <?php 
 
 //* tomando datos de post y limpiandolos de datos malisiosos
-$emailAdmin = filter_var($_POST['emailAdmin'], FILTER_SANITIZE_STRING);
-$claveAdmin = filter_var($_POST['claveAdmin'], FILTER_SANITIZE_STRING);
+$emailAdmin = isset($_POST['emailAdmin']) ? htmlspecialchars($_POST['emailAdmin'], ENT_QUOTES, 'UTF-8') : '';
+$claveAdmin = isset($_POST['claveAdmin']) ? htmlspecialchars($_POST['claveAdmin'], ENT_QUOTES, 'UTF-8') : '';
 
 //* conexion a base de datos
 include_once '../functions/bdconection.php';

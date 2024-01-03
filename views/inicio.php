@@ -2,6 +2,7 @@
   include_once '../Modules/functions/sessions.php';
 
   if (!controllSession()) {
+    $rootViews = dirname($_SERVER['PHP_SELF']);
     header('Location: login.php');
   }
 ?>

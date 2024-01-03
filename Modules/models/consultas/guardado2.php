@@ -13,7 +13,7 @@ $dientesInfo = $informacionConsulta->dientesInfo; //array
 $idConsulta = $informacionConsulta->idConsulta; //int
 
 try {
-    //* paso 1: creacion del registros de higiene
+    //* paso 1: creacion del registros de diagnosticos
     $diagnosticoCreado = crearInsert('diagnosticos', 'codigo_consultas_FK', [$idConsulta]);
     $llavesDiagnostico = ['articular', 'pulpar', 'periodontal', 'dental', 'cd', 'tejidosBlandos', 'otros'];
 
@@ -64,12 +64,11 @@ try {
 
             $operacionesSeccion = $dienteInfo['operacionesSeccion'];
             foreach ($operacionesSeccion as $operacionSeccion) {
-                $operacionesSeccion = (array) $operacionSeccion;
+                $operacionRealizada = (array) $operacionSeccion;
 
-                $nombreSeccion = $operacionesSeccion['nombre']; //[top, left, right, bot, center]
+                $nombreSeccion = $operacionRealizada['nombre']; //[top, left, right, bot, center]
                 $idSeccionBD = obtenerRegistro('seccion', 'codigo', 'nombreSeccion = ?', [$nombreSeccion])[0]['codigo'];
-
-                $procesos = $operacionesSeccion['procesos'];
+                $procesos = $operacionRealizada['procesos'];
 
                 foreach ($procesos as $proceso) {
                     $idConvencionSeccion = obtenerRegistro('convenciones_oc', 'codigo', 'convencion = ?', [$proceso])[0]['codigo'];
@@ -80,15 +79,42 @@ try {
         }
     }
 
+    //* paso 4: creacion de protesis
+    $protesisSi = $consultaInfo->protesisSi;
+    
+    if ($protesisSi === 'si') {
+        $protesisTipo = $consultaInfo->protesisTipo;
+        $protesisDescripcion = $consultaInfo->protesisDescripcion;
+
+        $creacionProtesis = crearInsert(
+            'protesis',
+            'presenciaProtesis, tipo, descripcion, codigo_consulta_FK',
+            [$protesisSi, $protesisTipo, $protesisDescripcion, $idConsulta]
+        );
+    }
+
+    //* paso 5: creacion de campos de higiene
+    $creacionHigiene = crearInsert(
+        'higienes',
+        'higieneOral, frecuencia, gradoRiesgo, sedaDental, pigmentaciones, codigo_consulta_FK',
+        [
+            $consultaInfo->igieneOralSi,
+            $consultaInfo->frecuenciaCepilladoSi,
+            $consultaInfo->gradoRiesgoSi,
+            $consultaInfo->sedaDentalSi,
+            $consultaInfo->pigmentacionSi,
+            $idConsulta
+        ]
+    );
+    
     $respuesta['process'] = 'success';
 
-
-    //* paso 4: creacion de protesis
-    
+    // $respuesta['process'] = 'error';
+    // $respuesta['errorMessage'] = $dientesInfo;
     
 } catch (\Throwable $th) {
     $respuesta['process'] = 'error';
-    $respuesta['errorMessage'] = $e->getMessage();
+    $respuesta['errorMessage'] = $th->getMessage();
 }
 
 

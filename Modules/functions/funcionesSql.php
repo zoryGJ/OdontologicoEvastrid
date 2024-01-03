@@ -26,25 +26,88 @@ function crearInsert($tableName, $columsTable, $values)
     return $respuesta;
 }
 
-function obtenerRegistro($tableName, $columnasConsulta, $condicion = 'true', $values = [])
+function obtenerRegistro($tableName, $columnasConsulta, $condicion = 'true', $values = [], $join = '')
 {
     include 'bdconection.php';
 
-    $sql = 'SELECT ' . $columnasConsulta . ' FROM ' . $tableName . ' WHERE ' . $condicion;
+    $sql = 'SELECT ' . $columnasConsulta . ' FROM ' . $tableName . ' ' . $join . ' WHERE ' . $condicion;
     $stmt = $connect->prepare($sql);
 
     if ($condicion !== 'true' && count($values) > 0) {
         $parametrosBindParams = prepararBindParam($values)[0];
-        $stmt->bind_param($parametrosBindParams, ...$values); //* desempaquetar elememtos de un arreglo...
+        $stmt->bind_param($parametrosBindParams, ...$values); //* desempaquetar elementos de un arreglo...
     }
 
     $stmt->execute();
     $respuesta = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+    if (empty($respuesta)) {
+        return [false];
+    }
+
     return $respuesta;
 }
 
 
+function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $values = [], $joins = [], $columnasConvenciones = [], $groupBy = [])
+{
+    include 'bdconection.php';
+
+
+    $joinsConsulta = '';
+    if (!empty($joins)) {
+        foreach ($joins as $join) {
+            $joinsConsulta .= $join . ' ';
+        }
+    }else{
+        $join = '';
+    }
+
+    $columnasSelect = '';
+    if (!empty($columnasConvenciones)) {
+        foreach ($columnasConsulta as $columna) {
+            $columnasSelect .= $columna . ', ';
+        }
+
+        foreach ($columnasConvenciones as $columna => $alias) {
+            $columnasSelect .= 'GROUP_CONCAT(' . $columna . ') AS ' . $alias . ', ';
+        }
+
+        $columnasSelect = rtrim($columnasSelect, ', ');
+    } else {
+        $columnasSelect = '*';
+    }
+
+    if (!empty($groupBy)) {
+        $groupBySQL = 'GROUP BY ';
+
+        foreach ($groupBy as $columna) {
+            $groupBySQL .= $columna . ', ';
+        }
+
+        $groupBySQL = rtrim($groupBySQL, ', ');
+    }else{
+        $groupBySQL = '';
+    }
+
+
+    $sql = 'SELECT ' . $columnasSelect . ' FROM ' . $tableName . ' ' . $joinsConsulta . ' WHERE ' . $condicion . ' ' . $groupBySQL;
+    $stmt = $connect->prepare($sql);
+
+    if ($condicion !== 'true' && count($values) > 0) {
+        $parametrosBindParams = prepararBindParam($values)[0];
+        $stmt->bind_param($parametrosBindParams, ...$values);
+    }
+
+    $stmt->execute();
+    $respuesta = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    if (empty($respuesta)) {
+        return [false];
+    }
+
+    return $respuesta;
+}
 
 
 function prepararBindParam($values)

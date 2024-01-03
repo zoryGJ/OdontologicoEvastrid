@@ -12,8 +12,8 @@ $(document).ready(() => {
 
         //* inputs form consulta -
         const protesisSi = $("#protesisSi").prop('checked') ? 'si' : 'no'
-        const protesisTipo = $("#protesisTipo").prop('checked') ? 'si' : 'no'
-        const protesisDescripcion = $("#protesisDescripcion").prop('checked') ? 'si' : 'no'
+        const protesisTipo = $("#protesisTipo").val()
+        const protesisDescripcion = $("#protesisDescripcion").val()
         const igieneOralSi = $("#igieneOralSi").prop('checked') ? 'si' : 'no'
         const frecuenciaCepilladoSi = $("#frecuenciaCepilladoSi").prop('checked') ? 'si' : 'no'
         const gradoRiesgoSi = $("#gradoRiesgoSi").prop('checked') ? 'si' : 'no'
@@ -52,6 +52,8 @@ $(document).ready(() => {
             idConsulta
         }
 
+        console.log(informacionConsulta);
+
         const datos = new FormData()
         datos.append('informacionConsulta', JSON.stringify(informacionConsulta))
 
@@ -73,6 +75,8 @@ $(document).ready(() => {
                         text: 'Odontograma guardado',
                         showConfirmButton: false,
                         timer: 1500
+                    }).then(() => {
+                        window.location.href = 'inicio.php'
                     })
                 }else{
                     Swal.fire({
