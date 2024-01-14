@@ -149,11 +149,11 @@
 }
 
 .diente{
-    border: 1px solid #048EA4;
+    border: 1px solid #85e8f7;
     border-radius: 10px;
-    width: 4.5vw;
+    min-width: 4.5vw;
     height: 15vh;
-    margin: 4px;
+    margin: 10px 8px;
     display: inline-flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -173,14 +173,14 @@
     padding: 0;
     width: 50%;
     height: 30%;
-    border: 1px solid #048EA4;
+    border: 1px solid #04cfee7c;
     border-radius: 50%;
     background-color: #fff;
     overflow: hidden;
 }
 
 .diente .sectionDiente:hover{
-    background-color: #009BB4;
+    background-color: #85e8f7;
 }
 
 
@@ -243,25 +243,35 @@
 }
 
 .sectionDiente span.active:nth-child(1){
-    background-color: red;
+    background-color: #FF0065;
 }
 
 .sectionDiente span.active:nth-child(2){
-    background-color: blue;
+    background-color: #06D6FF;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.sectionDiente.v span.active:nth-child(2){
+    margin: 0;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .sectionDiente span.active:nth-child(3){
-    background-color: green;
+    background-color: #7AFFBA;
 }
 
 .diente .general{
     background-color: #009BB4;
+    padding: 2px;
     color: white;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     height: 2.6vh;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .diente .general p{
@@ -284,7 +294,7 @@
 }
 
 .diente .imgOperacionGeneral{
-    background-color: #EEEEEE;
+    background-color: #FFFFFF;
     position: absolute;
     top: 0;
     left: 0;
@@ -306,6 +316,7 @@
 .diente .imgOperacionGeneral img{
     user-select: none;
     pointer-events: none;
+    width: 100%;
 }
 
 /* 
@@ -412,7 +423,7 @@
 }
 
 .convenciones.general button{
-    background-color: #EEEEEE;
+    background-color: #FAFAFA;
 }
 
 .convenciones button .text{
@@ -429,7 +440,7 @@
 }
 
 .convenciones.general button img{
-    width: 1.5vw;
+    width: 100%;
 }
 
 .convenciones.general button .color p{
@@ -459,15 +470,15 @@
 }
 
 .convenciones.seccion button:nth-child(1) i{
-    color: red;
+    color: #FF0065;
 }
 
 .convenciones.seccion button:nth-child(2) i{
-    color: blue;
+    color: #06D6FF;
 }
 
 .convenciones.seccion button:nth-child(3) i{
-    color: green;
+    color: #7AFFBA;
 }
 
 /*Estilos Login-recuperar contraseña*/

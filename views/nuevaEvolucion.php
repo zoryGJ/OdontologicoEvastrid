@@ -10,20 +10,25 @@ if (!controllSession()) {
 <?php
 
 //* proceso 1: consultar fecha actual y ultima consulta
-$numeroEvolucion = $_GET['numeroEvolucion'];
+$currentDate = new DateTime();
+$ultimaConsulta = $_GET['numeroConsulta'];
 
 include '../Modules/functions/funcionesSql.php';
 
-//* proceso 2: obteniendo evolucion
-$evolucion = obtenerRegistro('evoluciones_h_c', '*', 'codigo = ?', [$numeroEvolucion])[0];
+//* proceso 2: consultando si esta consula tiene evoluciones previas
+$evolucionesConsulta = obtenerRegistro('evoluciones_h_c', '*', 'evoluciones_h_c.codigo_consultas_FK = ?', [$ultimaConsulta]);
 
-if ($evolucion == false) {
-    $rootViews = dirname($_SERVER['PHP_SELF']);
-    header('Location: http://localhost' . $rootViews . '/login.php');
+
+//* proceso 2.1: si tiene evoluciones previas, se consulta el ultimo odontograma
+if (! (is_bool($evolucionesConsulta[0]) && $evolucionesConsulta[0] === false)) {
+    $idOdontograma = $evolucionesConsulta[count($evolucionesConsulta) - 1]['codigo_odontograma_FK'];
+    $odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigo = ?', [$idOdontograma])[0];
+}else{
+    $odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigoConsultaFK = ?', [$ultimaConsulta])[0];
 }
 
-//* procesop 2: consultando dientes (tabla de dientes oIntegrado) de la consulta o ultima evolucion
-$odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigo  = ?', [$evolucion['codigo_odontograma_FK']])[0];
+
+//* procesop 3: consultando dientes (tabla de dientes oIntegrado) de la consulta o ultima evolucion
 $dientesOdontogramaConsulta = makeConsult(
     'o_integrado',
     [
@@ -68,7 +73,7 @@ $dientesOdontogramaConsulta = makeConsult(
 );
 
 
-//* proceso 3:  dar formato a dientes para odonograma
+//* proceso 4:  dar formato a dientes para odonograma
 $dientesOdontograma = array(
     'cuadrante1' => array(
         'fila1' => [],
@@ -101,9 +106,38 @@ foreach ($dientesOdontogramaConsulta as $diente) {
     }
 }
 
+
+//* proceso 5: consultando convenciones y convenciones seccion
+include '../Modules/functions/bdconection.php';
+
+//*consultando convenciones Generales
+$sql = "SELECT * FROM  convenciones";
+$stmt = $connect->prepare($sql);
+$stmt->execute();
+$convencionesDesordenadas = $stmt->get_result();
+$convencionesOrdenadas = $convencionesDesordenadas->fetch_all(MYSQLI_ASSOC);
+
+//*consultando convenciones Obturado y Cariado OC
+$sqlOC = "SELECT * FROM convenciones_oc";
+$stmtOC = $connect->prepare($sqlOC);
+$stmtOC->execute();
+$convencionesSeccionDesordenadas = $stmtOC->get_result();
+$convencionesSeccionOrdenadas = $convencionesSeccionDesordenadas->fetch_all(MYSQLI_ASSOC);
+
+//*consultando codigos CIES
+$sqlCIES = "SELECT * FROM codigos_cies";
+$stmtCIES = $connect->prepare($sqlCIES);
+$stmtCIES->execute();
+$codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
 ?>
 
 <?php include '../Modules/templates/head.php'; ?>
+
+<!-- <pre>
+    <?php var_dump($ultimaConsulta); ?>
+</pre> -->
 
 <link rel="stylesheet" href="../css/ondotogramaManuel.css">
 
@@ -122,7 +156,7 @@ foreach ($dientesOdontogramaConsulta as $diente) {
         </div>
 
         <div class="salida">
-            <a id="btnGoBack">
+            <a href="inicio.php" id="btnGoBack">
                 <p>Regresar</p>
                 <i class="fa-solid fa-person-walking-arrow-right"></i>
             </a>
@@ -131,6 +165,13 @@ foreach ($dientesOdontogramaConsulta as $diente) {
         <form id="formEvolucion">
             <div class="datos-paciente general-2">
                 <div class="articulacion evolucion">
+
+                    <h1>Nueva evolución</h1>
+
+                    <button class="nueva evolucion guardar" title="Guardar Evolución">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <h3>Guardar</h3>
+                    </button>
 
                     <div class="g-evolucion">
                         <button class="nueva evolucion g-odontograma" title="Gestionar nueva evolución" id="gestionarOdontograma">
@@ -142,22 +183,22 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                     <div class="fechas-paciente general-1 evolucion evl">
 
                         <div class="fecha-n evolucion evl">
-                            <input id="evolucionFecha" type="date" value="<?php echo $evolucion['fecha_evolucion']; ?>" disabled>
+                            <input id="evolucionFecha" type="date" value="<?php echo $currentDate->format('Y-m-d'); ?>" required>
                             <label>Fecha*</label>
                         </div>
 
                         <div class="años evolucion actv">
-                            <input id="evolucionActividad" type="text" value="<?php echo $evolucion['actividad']; ?>" disabled>
+                            <input id="evolucionActividad" type="text" required>
                             <label>Actividad</label>
                         </div>
 
                         <div class="años evolucion evl">
-                            <input id="evolucionCodigoCups" type="text" value="<?php echo $evolucion['codigo_cups']; ?>" disabled>
+                            <input id="evolucionCodigoCups" type="text" required>
                             <label>Codigo CUPS</label>
                         </div>
 
                         <div class="años evolucion evl">
-                            <input id="evolucionCopago" type="number" value="<?php echo $evolucion['copago']; ?>" disabled>
+                            <input id="evolucionCopago" type="number" required>
                             <label>Valor Copago</label>
                         </div>
 
@@ -168,7 +209,7 @@ foreach ($dientesOdontogramaConsulta as $diente) {
 
                     <div class="consulta evolucion">
                         <div class="cuadro-texto evolucion">
-                            <textarea id="evolucionDescripcion" cols="30" rows="10" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $evolucion['descripcion_procedimiento']; ?></textarea>
+                            <textarea id="evolucionDescripcion" cols="30" rows="10" placeholder="Redactar la informacion en el cuadro de texto."></textarea>
                         </div>
                     </div>
 
@@ -215,6 +256,10 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                             $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['convencion_oc']) : '';
                             $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['color_oc']) : '';
                             $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['seccion_oc']) : '';
+
+                            if ($procesoSeccion == 'seccion') {
+                                $procesoDiente =  'seccion';
+                            }
 
 
                             //* llenando valores span
@@ -312,6 +357,10 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                             $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['color_oc']) : '';
                             $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['seccion_oc']) : '';
 
+                            if ($procesoSeccion == 'seccion') {
+                                $procesoDiente =  'seccion';
+                            }
+
 
                             //* llenando valores span
                             $spans = [
@@ -395,8 +444,85 @@ foreach ($dientesOdontogramaConsulta as $diente) {
     </div>
 </div>
 
+<div class="overlayConvencionesGeneral" id="overlayConvencionGeneral">
+    <div class="convencionesGeneralModal" id="modalConvencionGeneral">
+        <div class="title">
+            <h2>Convencion general de diente</h2>
+
+            <button typeConvencion="cerrar" id="btnCloseModalConvencionGeneral">
+                x
+            </button>
+        </div>
+        <div class="convenciones general">
+
+            <?php foreach ($convencionesOrdenadas as $numerosLlaves => $posicionesConvencion) { ?>
+
+                <button typeConvencion="proceso" data-name-img='<?php echo $posicionesConvencion['figura']; ?>' data-name-process="<?php echo $posicionesConvencion['convencion']; ?>">
+                    <div class="text">
+                        <h3><?php echo $posicionesConvencion['convencion']; ?></h3>
+                    </div>
+                    <div class="image">
+                        <img src="../Img/convenciones/<?php echo $posicionesConvencion['figura']; ?>" alt="">
+                    </div>
+                    <div class="color">
+                        <p><?php echo $posicionesConvencion['color']; ?></p>
+                    </div>
+                </button>
+
+            <?php } ?>
+
+            <button typeConvencion="limpiar">
+                <div class="text limpiar">
+                    <h3>Limpiar</h3>
+                </div>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div class="overlayConvencionesSeccionDiente" id="overlayConvencionSeccion">
+    <div class="convencionesSeccionDiente" id="modalConvencionSeccion">
+        <div class="title">
+            <h2>Convenciones seccion diente</h2>
+
+            <button id="btnCloseModalConvencionSeccion">
+                x
+            </button>
+        </div>
+        <div class="convenciones seccion">
+
+            <?php $contConv = 1; ?>
+            <?php foreach ($convencionesSeccionOrdenadas as $numKey => $posicionesSeccion) { ?>
+
+
+                <button typeConvencion="conv<?php echo $contConv; ?>">
+                    <div class="text">
+                        <h3><?php echo $posicionesSeccion['convencion']; ?></h3>
+                    </div>
+                    <div class="image">
+                        <i class="fa-solid fa-square"></i>
+                    </div>
+                </button>
+
+                <?php $contConv++; ?>
+
+            <?php } ?>
+
+            <button typeConvencion="limpiar">
+                <div class="text">
+                    <h3>Limpiar</h3>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
 
 <script src="../JS/evoluciones/modalOdontograma.js"></script>
+<script src="../JS/evoluciones/contoladoresEvolucion.js"></script>
+
+<script src="../JS/evoluciones/guardadoEvolucion.js"></script>
+
 
 <script>
 
@@ -407,6 +533,7 @@ foreach ($dientesOdontogramaConsulta as $diente) {
         window.history.back();
     })
 </script>
+
 
 
 <?php include '../Modules/templates/footer.php'; ?>

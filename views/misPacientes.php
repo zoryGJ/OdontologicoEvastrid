@@ -1,13 +1,13 @@
-<?php 
-  include_once '../Modules/functions/sessions.php';
-  include_once '../Modules/functions/consultasGenerales.php';
+<?php
+include_once '../Modules/functions/sessions.php';
+include_once '../Modules/functions/consultasGenerales.php';
 
-  if (!controllSession()) {
+if (!controllSession()) {
     $rootViews = dirname($_SERVER['PHP_SELF']);
-    header('Location: http://localhost'.$rootViews.'/login.php');
-  }
+    header('Location: http://localhost' . $rootViews . '/login.php');
+}
 
-  $pacientes = consultaTablaCondicion('pacientes',"");
+$pacientes = consultaTablaCondicion('pacientes', "");
 ?>
 <?php include '../Modules/templates/head.php'; ?>
 
@@ -41,11 +41,11 @@
             <tbody>
                 <?php foreach ($pacientes as $paciente) { ?>
                     <tr>
-                    <td><?php echo $paciente['numero_documento']; ?></td>
-                    <td><?php echo $paciente['nombres']; ?></td>
-                    <td><?php echo $paciente['apellidoUno']." ".$paciente['apellidoDos']; ?></td>
-                    <td class="ultimoTD">
-                            <a href="registro_pacientes.php">
+                        <td><?php echo $paciente['numero_documento']; ?></td>
+                        <td><?php echo $paciente['nombres']; ?></td>
+                        <td><?php echo $paciente['apellidoUno'] . " " . $paciente['apellidoDos']; ?></td>
+                        <td class="ultimoTD">
+                            <a href="edicionPaciente.php?<?php echo $paciente['numero_documento']; ?>">
                                 <button class="linea1" title="Editar Paciente">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
@@ -63,7 +63,7 @@
                                 </button>
                             </a>
 
-                            <a href="historialConsultas.php">
+                            <a href="historialConsultas.php?cedulaPaciente=<?php echo $paciente['numero_documento']; ?>">
                                 <button title="Ver Historia Odontolgica">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
@@ -81,9 +81,5 @@
         </table>
     </div>
 </div>
-
-
-
-
 
 <?php include '../Modules/templates/footer.php'; ?>

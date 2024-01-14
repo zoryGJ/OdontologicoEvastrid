@@ -23,7 +23,9 @@
             </button>
         </div>
 
-        <div class="icono-barra"></div>
+        <div class="icono-barra">
+            <img src="../Img/Logo-removebg-preview.png" alt="">
+        </div>
 
         <div class="enlaces-barra">
             <ul>

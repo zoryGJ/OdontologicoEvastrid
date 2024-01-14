@@ -25,7 +25,7 @@ $resultadoOrdenado = $resultadoBusquedaAdmin->fetch_all(MYSQLI_ASSOC);
     <div class="col-12 inicio">
     </div>
 
-    <div class="barra-inicio">
+    <div class="barra-inicio admin">
 
         <div class="salida ad">
             <a href="inicio.php">

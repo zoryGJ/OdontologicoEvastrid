@@ -1,171 +1,175 @@
 <?php
-include_once '../Modules/functions/sessions.php';
+    include_once '../Modules/functions/sessions.php';
 
-if (!controllSession()) {
-    $rootViews = dirname($_SERVER['PHP_SELF']);
-    header('Location: http://localhost' . $rootViews . '/login.php');
-}
+    if (!controllSession()) {
+        $rootViews = dirname($_SERVER['PHP_SELF']);
+        header('Location: http://localhost'.$rootViews.'/login.php');
+    }
 ?>
 
 <?php include '../Modules/templates/head.php'; ?>
 <?php include '../Modules/functions/funcionesSql.php'; ?>
 
-<?php
+<?php 
 
-//*consultando info de la ultuma consula del paciente
-$numeroDocumentoPaciente = $_GET['cedulaPaciente'];
-$ultimaConsulta = obtenerRegistro('consultas', '*', 'numero_documento_paciente_FK = ? order by codigo desc limit 1', [$numeroDocumentoPaciente])[0];
+    //*consultando info de la ultuma consula del paciente
+    $numeroConsulta = $_GET['numeroConsulta'];
+    $consulta = obtenerRegistro('consultas', '*', 'codigo = ? order by codigo desc limit 1', [$numeroConsulta])[0];
 
-if (!$ultimaConsulta) {
-    $rootViews = dirname($_SERVER['PHP_SELF']);
-    header('Location: http://localhost' . $rootViews . '/misPacientes.php');
-}
+    if (!$consulta) {
+        $rootViews = dirname($_SERVER['PHP_SELF']);
+        header('Location: http://localhost'.$rootViews.'/misPacientes.php');
+    }
 
-//* consultando articulacion temporo mandibular
-$articulacionTemporoMandibularBD = obtenerRegistro('articulaciones_temporo_mandibulares', '*', 'codigo_consultas_FK = ?', [$ultimaConsulta['codigo']]);
+    //* consultando articulacion temporo mandibular
+    $articulacionTemporoMandibularBD = obtenerRegistro('articulaciones_temporo_mandibulares', '*', 'codigo_consultas_FK = ?', [$consulta['codigo']]);
 
-foreach ($articulacionTemporoMandibularBD as $articulacion) {
-    $articulacionTemporoMandibular[$articulacion['hallazgos_clinicos']] = $articulacion['sano'];
-}
-
+    foreach ($articulacionTemporoMandibularBD as $articulacion) {
+        $articulacionTemporoMandibular[$articulacion['hallazgos_clinicos']] = $articulacion['sano'];
+    }
+    
 ?>
 
 <?php
 
-//* proceso 1: consultando diagnosticos
-$diagnosticosConsultaDB = makeConsult(
-    'diagnosticos',
-    [
-        'diagnosticos.codigo',
-        'codigos_diagnosticos.codigo_cies_FK',
-        'codigos_diagnosticos.codigo_tipo_diagnosticos_FK',
-        'codigos_diagnosticos.codigo_diagnosticos_FK',
-        'tipos_diagnosticos.diagnostico',
-        'codigos_cies.codigo_alfa_numerico',
-        'codigos_cies.descripcion_codigo'
-    ],
-    'diagnosticos.codigo_consultas_FK = ?',
-    [$ultimaConsulta['codigo']],
-    [
-        ' INNER JOIN codigos_diagnosticos ON diagnosticos.codigo = codigos_diagnosticos.codigo_diagnosticos_FK',
-        ' INNER JOIN tipos_diagnosticos ON codigos_diagnosticos.codigo_tipo_diagnosticos_FK = tipos_diagnosticos.codigo',
-        ' INNER JOIN codigos_cies ON codigos_diagnosticos.codigo_cies_FK = codigos_cies.codigo'
-    ]
-);
+    //* proceso 1: consultando diagnosticos
+    $diagnosticosConsultaDB = makeConsult(
+        'diagnosticos', 
+        [
+            'diagnosticos.codigo', 
+            'codigos_diagnosticos.codigo_cies_FK', 
+            'codigos_diagnosticos.codigo_tipo_diagnosticos_FK', 
+            'codigos_diagnosticos.codigo_diagnosticos_FK', 
+            'tipos_diagnosticos.diagnostico', 
+            'codigos_cies.codigo_alfa_numerico', 
+            'codigos_cies.descripcion_codigo'
+        ], 
+        'diagnosticos.codigo_consultas_FK = ?', 
+        [$consulta['codigo']],
+        [
+            ' INNER JOIN codigos_diagnosticos ON diagnosticos.codigo = codigos_diagnosticos.codigo_diagnosticos_FK',
+            ' INNER JOIN tipos_diagnosticos ON codigos_diagnosticos.codigo_tipo_diagnosticos_FK = tipos_diagnosticos.codigo',
+            ' INNER JOIN codigos_cies ON codigos_diagnosticos.codigo_cies_FK = codigos_cies.codigo'
+        ]
+    );
 
-$diagnosticosConsulta = array_map(function ($diagnostico) {
-    return [
-        'codigo_alfa_numerico' => $diagnostico['codigo_alfa_numerico'],
-        'descripcion_codigo' => $diagnostico['descripcion_codigo'],
-        'diagnostico' => $diagnostico['diagnostico']
-    ];
-}, $diagnosticosConsultaDB);
+    $diagnosticosConsulta = array_map(function($diagnostico) {
+        return [
+            'codigo_alfa_numerico' => $diagnostico['codigo_alfa_numerico'],
+            'descripcion_codigo' => $diagnostico['descripcion_codigo'],
+            'diagnostico' => $diagnostico['diagnostico']
+        ];
+    }, $diagnosticosConsultaDB);
 
-$diagnosticosConsulta = array_column($diagnosticosConsulta, null, 'diagnostico');
-
-
-
-//* proceso 2 :  consultando protesis
-$protesisConsulta = obtenerRegistro('protesis', '*', 'codigo_consulta_FK = ?', [$ultimaConsulta['codigo']])[0];
-
-if (!$protesisConsulta) {
-    $protesisConsulta = [];
-    $protesisConsulta['presenciaProtesis'] = 'no';
-    $protesisConsulta['tipo'] = '';
-    $protesisConsulta['descripcion'] = '';
-}
+    $diagnosticosConsulta = array_column($diagnosticosConsulta, null, 'diagnostico');
 
 
 
-//* proceso 3: consultando higiene oral
-$higieneOralConsulta = obtenerRegistro('higienes', '*', 'codigo_consulta_FK = ?', [$ultimaConsulta['codigo']])[0];
-
-
-
-//* procesop 4: consultando dientes (tabla de dientes oIntegrado)
-$odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigoConsultaFK = ?', [$ultimaConsulta['codigo']])[0];
-$dientesOdontogramaConsulta = makeConsult(
-    'o_integrado',
-    [
-        'o_integrado.codigo',
-        'o_integrado.codigo_dientes_FK',
-        'o_integrado.codigo_convenciones_FK',
-        'o_integrado.codigo_odontogramas_FK',
-        'dientes.numero_diente',
-        'dientes.cuadrante',
-        'dientes.cuadrante_fila',
-        'convenciones.convencion',
-        'convenciones.figura',
-        'convenciones.color',
-
-    ],
-    'o_integrado.codigo_odontogramas_FK = ?',
-    [$odontogramaConsulta['codigo']],
-    [
-        ' INNER JOIN dientes ON o_integrado.codigo_dientes_FK = dientes.codigo',
-        ' LEFT JOIN convenciones ON o_integrado.codigo_convenciones_FK = convenciones.codigo',
-        ' LEFT JOIN convencion_seccion ON o_integrado.codigo = convencion_seccion.codigo_OI_FK',
-        ' LEFT JOIN convenciones_oc ON convencion_seccion.codigo_convenciones_oc_FK = convenciones_oc.codigo',
-        ' LEFT JOIN seccion ON convencion_seccion.codigo_seccion_FK = seccion.codigo',
-    ],
-    [
-        'convenciones_oc.convencion' => 'convencion_oc',
-        'convenciones_oc.color' => 'color_oc',
-        'seccion.nombreSeccion' => 'seccion_oc'
-    ],
-    [
-        'o_integrado.codigo',
-        'o_integrado.codigo_dientes_FK',
-        'o_integrado.codigo_convenciones_FK',
-        'o_integrado.codigo_odontogramas_FK',
-        'dientes.numero_diente',
-        'dientes.cuadrante',
-        'dientes.cuadrante_fila',
-        'convenciones.convencion',
-        'convenciones.figura',
-        'convenciones.color'
-    ]
-);
-
-
-
-
-//* proceso 5:  dar formato a dientes para odonograma
-$dientesOdontograma = array(
-    'cuadrante1' => array(
-        'fila1' => [],
-        'fila2' => []
-    ),
-
-    'cuadrante2' => array(
-        'fila1' => [],
-        'fila2' => []
-    ),
-
-    'cuadrante3' => array(
-        'fila1' => [],
-        'fila2' => []
-    ),
-
-    'cuadrante4' => array(
-        'fila1' => [],
-        'fila2' => []
-    )
-);
-
-foreach ($dientesOdontogramaConsulta as $diente) {
-    if ($diente['cuadrante_fila'] === 1) {
-        array_push($dientesOdontograma['cuadrante' . $diente['cuadrante']]['fila1'], $diente);
+    //* proceso 2 :  consultando protesis
+    $protesisConsulta = obtenerRegistro('protesis', '*', 'codigo_consulta_FK = ?', [$consulta['codigo']])[0];
+    
+    if (!$protesisConsulta) {
+        $protesisConsulta = [];
+        $protesisConsulta['presenciaProtesis'] = 'no';
+        $protesisConsulta['tipo'] = '';
+        $protesisConsulta['descripcion'] = '';
     }
 
-    if ($diente['cuadrante_fila'] === 2) {
-        array_push($dientesOdontograma['cuadrante' . $diente['cuadrante']]['fila2'], $diente);
+
+
+    //* proceso 3: consultando higiene oral
+    $higieneOralConsulta = obtenerRegistro('higienes', '*', 'codigo_consulta_FK = ?', [$consulta['codigo']])[0];
+
+
+
+    //* procesop 4: consultando dientes (tabla de dientes oIntegrado)
+    $odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigoConsultaFK = ?', [$consulta['codigo']])[0];
+    $dientesOdontogramaConsulta = makeConsult(
+        'o_integrado',
+        [
+            'o_integrado.codigo',
+            'o_integrado.codigo_dientes_FK',
+            'o_integrado.codigo_convenciones_FK',
+            'o_integrado.codigo_odontogramas_FK',
+            'dientes.numero_diente',
+            'dientes.cuadrante',
+            'dientes.cuadrante_fila',
+            'convenciones.convencion',
+            'convenciones.figura',
+            'convenciones.color',
+
+        ],
+        'o_integrado.codigo_odontogramas_FK = ?',
+        [$odontogramaConsulta['codigo']],
+        [
+            ' INNER JOIN dientes ON o_integrado.codigo_dientes_FK = dientes.codigo',
+            ' LEFT JOIN convenciones ON o_integrado.codigo_convenciones_FK = convenciones.codigo',
+            ' LEFT JOIN convencion_seccion ON o_integrado.codigo = convencion_seccion.codigo_OI_FK',
+            ' LEFT JOIN convenciones_oc ON convencion_seccion.codigo_convenciones_oc_FK = convenciones_oc.codigo',
+            ' LEFT JOIN seccion ON convencion_seccion.codigo_seccion_FK = seccion.codigo',
+        ],
+        [
+            'convenciones_oc.convencion' => 'convencion_oc',
+            'convenciones_oc.color' => 'color_oc',
+            'seccion.nombreSeccion' => 'seccion_oc'
+        ],
+        [
+            'o_integrado.codigo',
+            'o_integrado.codigo_dientes_FK',
+            'o_integrado.codigo_convenciones_FK',
+            'o_integrado.codigo_odontogramas_FK',
+            'dientes.numero_diente',
+            'dientes.cuadrante',
+            'dientes.cuadrante_fila',
+            'convenciones.convencion',
+            'convenciones.figura',
+            'convenciones.color'
+        ]
+    );
+
+
+
+
+    //* proceso 5:  dar formato a dientes para odonograma
+    $dientesOdontograma = array(
+        'cuadrante1' => array(
+            'fila1' => [],
+            'fila2' => []
+        ),
+
+        'cuadrante2' => array(
+            'fila1' => [],
+            'fila2' => []
+        ),
+
+        'cuadrante3' => array(
+            'fila1' => [],
+            'fila2' => []
+        ),
+
+        'cuadrante4' => array(
+            'fila1' => [],
+            'fila2' => []
+        )
+    );
+
+    foreach ($dientesOdontogramaConsulta as $diente) {
+        if ($diente['cuadrante_fila'] === 1) {
+            array_push($dientesOdontograma['cuadrante' . $diente['cuadrante']]['fila1'], $diente);
+        }
+
+        if ($diente['cuadrante_fila'] === 2) {
+            array_push($dientesOdontograma['cuadrante' . $diente['cuadrante']]['fila2'], $diente);
+        }
     }
-}
 
 ?>
 
 <link rel="stylesheet" href="../css/ondotogramaManuel.css">
+
+<!-- <pre>
+    <?php var_dump($protesisConsulta); ?>
+</pre> -->
 
 <div class="cont-pacientes">
 
@@ -176,12 +180,12 @@ foreach ($dientesOdontogramaConsulta as $diente) {
 
         <div class="titulo-historia">
             <h1>HISTORIA CLINICA ODONTOLÓGICA</h1>
-            <h3>Consulta Odontológica: <br> Odontógrama & Diagnóstico <br> Ultima consulta <br> (<?php echo $ultimaConsulta['fecha_consulta']; ?>) </h3>
+            <h3>Consulta Odontológica: <br> Odontógrama & Diagnóstico <br> (<?php echo $consulta['fecha_consulta']; ?>) </h3>
         </div>
 
         <div class="salida">
-            <a href="inicio.php">
-                <p>Ir a Inicio</p>
+            <a href="historialConsultas.php">
+                <p>Regresar</p>
                 <i class="fa-solid fa-person-walking-arrow-right"></i>
             </a>
         </div>
@@ -189,46 +193,42 @@ foreach ($dientesOdontogramaConsulta as $diente) {
         <form id="formConsulta1">
             <div class="padreFechaHCI">
                 <div class="H-CI">
-                    <h1>N° H.CI (Consulta No. <?php echo $ultimaConsulta['codigo']; ?>)</h1>
+                    <h1>N° H.CI (Consulta No. <?php echo $consulta['codigo']; ?>)</h1>
                 </div>
 
                 <div class="general-2 fecha">
                     <div class="fechaConsulta">
-                        <input type="date" id="fechaConsulta" value="<?php echo $ultimaConsulta['fecha_consulta']; ?>" disabled>
+                        <input type="date" id="fechaConsulta" value="<?php echo $consulta['fecha_consulta']; ?>" disabled>
                         <label>Fecha de consulta</label>
                     </div>
                 </div>
             </div>
 
-            <div class="nueva-evolucion">
-                <a href="evoluciones.php?numeroConsulta=<?php echo $ultimaConsulta['codigo']; ?>"><i class="fa-solid fa-circle-up"></i> Ver evoluciones</a>
-            </div>
-
             <h1>Antecedentes Odontológicos y Medicos Generales</h1>
             <div class="consulta">
                 <div class="cuadro-texto">
-                    <textarea name="" id="antecedentesOdontologicos" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $ultimaConsulta['antecedentes_odontologicos_medicos_generales']; ?></textarea>
+                    <textarea name="" id="antecedentesOdontologicos" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $consulta['antecedentes_odontologicos_medicos_generales']; ?></textarea>
                 </div>
             </div>
 
             <h1>Motivo de Consulta</h1>
             <div class="consulta">
                 <div class="cuadro-texto">
-                    <textarea name="" id="motivoConsulta" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $ultimaConsulta['motivo_consulta']; ?></textarea>
+                    <textarea name="" id="motivoConsulta" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $consulta['motivo_consulta']; ?></textarea>
                 </div>
             </div>
 
             <h1>Evolución y/o Estado Actual</h1>
             <div class="consulta">
                 <div class="cuadro-texto">
-                    <textarea name="" id="evolucionEstadoActual" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $ultimaConsulta['evolucion_estadoA']; ?></textarea>
+                    <textarea name="" id="evolucionEstadoActual" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $consulta['evolucion_estadoA']; ?></textarea>
                 </div>
             </div>
 
             <h1>Exámen Estomatológico</h1>
             <div class="consulta">
                 <div class="cuadro-texto">
-                    <textarea name="" id="examenEstomatologico" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $ultimaConsulta['examen_estomatologico']; ?></textarea>
+                    <textarea name="" id="examenEstomatologico" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $consulta['examen_estomatologico']; ?></textarea>
                 </div>
             </div>
 
@@ -365,12 +365,12 @@ foreach ($dientesOdontogramaConsulta as $diente) {
 
                     <div>
                         <div class="input-p">
-                            <input name="protesis" id="protesisSi" value="" type="radio" <?php echo $protesisConsulta['presenciaProtesis'] == 'si' ? 'checked' : ''; ?> disabled>
+                            <input name="protesis" id="protesisSi" value="" type="radio" <?php echo $protesisConsulta['presenciaProtesis'] == 'si' ? 'checked' : ''; ?> disabled >
                             <label for="protesisSi">SI</label>
                         </div>
 
                         <div class="input-p">
-                            <input name="protesis" id="protesisNo" value="NO" type="radio" <?php echo $protesisConsulta['presenciaProtesis'] == 'no' ? 'checked' : ''; ?> disabled>
+                            <input name="protesis" id="protesisNo" value="NO" type="radio" <?php echo $protesisConsulta['presenciaProtesis'] == 'no' ? 'checked' : ''; ?> disabled >
                             <label for="protesisNo">NO</label>
                         </div>
                     </div>
@@ -473,38 +473,38 @@ foreach ($dientesOdontogramaConsulta as $diente) {
 
                     <div class="body_art ba_1">
                         <label>Articular</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['articular']) ? $diagnosticosConsulta['articular']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['articular']['descripcion_codigo'] : ''; ?>" id="datalistArticular" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['articular']) ? $diagnosticosConsulta['articular']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['articular']['descripcion_codigo'] : ''; ?>" id="datalistArticular" list="articular" placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Pulpar</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['pulpar']) ? $diagnosticosConsulta['pulpar']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['pulpar']['descripcion_codigo'] : ''; ?>" id="datalistPulpar" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['pulpar']) ? $diagnosticosConsulta['pulpar']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['pulpar']['descripcion_codigo'] : ''; ?>" id="datalistPulpar" list="articular" placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Periodontal</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['periodontal']) ? $diagnosticosConsulta['periodontal']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['periodontal']['descripcion_codigo'] : ''; ?>" id="datalistPeriodontal" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['periodontal']) ? $diagnosticosConsulta['periodontal']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['periodontal']['descripcion_codigo'] : ''; ?>" id="datalistPeriodontal" list="articular" placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Dental</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['dental']) ? $diagnosticosConsulta['dental']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['dental']['descripcion_codigo'] : ''; ?>" id="datalistDental" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['dental']) ? $diagnosticosConsulta['dental']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['dental']['descripcion_codigo'] : ''; ?>" id="datalistDental" list="articular" placeholder="Seleccionar...">
 
                     </div>
 
                     <div class="body_art ba_1">
                         <label>C y D</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['cd']) ? $diagnosticosConsulta['cd']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['cd']['descripcion_codigo'] : ''; ?>" id="datalistCD" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['cd']) ? $diagnosticosConsulta['cd']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['cd']['descripcion_codigo'] : ''; ?>" id="datalistCD" list="articular" placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Tejidos Blandos</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['tejidosBlandos']) ? $diagnosticosConsulta['tejidosBlandos']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['tejidosBlandos']['descripcion_codigo'] : ''; ?>" id="datalistTejidosBlandos" list="articular" placeholder="Seleccionar...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['tejidosBlandos']) ? $diagnosticosConsulta['tejidosBlandos']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['tejidosBlandos']['descripcion_codigo'] : ''; ?>" id="datalistTejidosBlandos" list="articular" placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1 bottom_no">
                         <label>Otros</label>
-                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['otros']) ? $diagnosticosConsulta['otros']['codigo_alfa_numerico'] . ' ' . $diagnosticosConsulta['otros']['descripcion_codigo'] : ''; ?>" id="datalistOtros" list="articular" placeholder="Escribir...">
+                        <input type="text" disabled value="<?php echo isset($diagnosticosConsulta['otros']) ? $diagnosticosConsulta['otros']['codigo_alfa_numerico'].' '.$diagnosticosConsulta['otros']['descripcion_codigo'] : ''; ?>" id="datalistOtros" list="articular" placeholder="Escribir...">
                     </div>
 
                     <datalist id="articular">
@@ -563,61 +563,67 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                         <?php foreach ($seccionSuperior as $dienteSeccionSuperior) { ?>
 
                             <?php
-                            //* Obteniendo informacion del diente en odontograma
+                                //* Obteniendo informacion del diente en odontograma
 
-                            //* variables para generales
-                            $procesoDiente = $dienteSeccionSuperior['convencion'] != null ? 'general' : '';
-                            $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionSuperior['convencion'] : '';
-                            $urlConvencionDienteImg = $procesoDiente == 'general' ? '../Img/convenciones/' . $dienteSeccionSuperior['figura'] : '';
-                            $activeImg = $procesoDiente == 'general' ? 'active' : '';
+                                //* variables para generales
+                                $procesoDiente = $dienteSeccionSuperior['convencion'] != null ? 'general' : '';
+                                $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionSuperior['convencion'] : '';
+                                $urlConvencionDienteImg = $procesoDiente == 'general' ? '../Img/convenciones/'.$dienteSeccionSuperior['figura'] : '';
+                                $activeImg = $procesoDiente == 'general' ? 'active' : '';
 
-                            //* variables para seccion
-                            $procesoSeccion = $dienteSeccionSuperior['convencion_oc'] != null ? 'seccion' : '';
-                            $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['convencion_oc']) : '';
-                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['color_oc']) : '';
-                            $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['seccion_oc']) : '';
+                                //* variables para seccion
+                                $procesoSeccion = $dienteSeccionSuperior['convencion_oc'] != null ? 'seccion' : '';
+                                $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['convencion_oc']) : '';
+                                $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['color_oc']) : '';
+                                $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['seccion_oc']) : '';
 
 
-                            //* llenando valores span
-                            $spans = [
-                                'top' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'left' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'center' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'right' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'bot' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ]
-                            ];
+                                //* llenando valores span
+                                $spans = [
+                                    'top' => [
+                                        'Rojo' => '',
+                                        'Azul' => '',
+                                        'Verde' => ''
+                                    ],
+                                    'left' => [
+                                        'Rojo' => '',
+                                        'Azul' => '',
+                                        'Verde' => ''
+                                    ],
+                                    'center' => [
+                                        'Rojo' => '',
+                                        'Azul' => '',
+                                        'Verde' => ''
+                                    ],
+                                    'right' => [
+                                        'Rojo' => '',
+                                        'Azul' => '',
+                                        'Verde' => ''
+                                    ],
+                                    'bot' => [
+                                        'Rojo' => '',
+                                        'Azul' => '',
+                                        'Verde' => ''
+                                    ]
+                                ];
 
-                            if ($secciones != '') {
-                                for ($i = 0; $i < count($secciones); $i++) {
-                                    $seccion = $secciones[$i];
-                                    $color = $colorSeccion[$i];
+                                if ($secciones != '') {
+                                    for ($i=0; $i < count($secciones) ; $i++) {
+                                        $seccion = $secciones[$i];
+                                        $color = $colorSeccion[$i];
 
-                                    $spans[$seccion][$color] = 'active';
+                                        $spans[$seccion][$color] = 'active';
+                                    }
                                 }
-                            }
                             ?>
 
-                            <div class="diente" dienteNumero="<?php echo $dienteSeccionSuperior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionSuperior['numero_diente']; ?>" procesoDiente="<?php echo $procesoDiente; ?>" convencionDiente="<?php echo $convencionDiente; ?>">
+                            <div
+                                class="diente"
+                                dienteNumero="<?php echo $dienteSeccionSuperior['numero_diente']; ?>"
+                                id="diente-<?php echo $dienteSeccionSuperior['numero_diente']; ?>"
+                                procesoDiente="<?php echo $procesoDiente; ?>"
+                                convencionDiente="<?php echo $convencionDiente; ?>"
+                            >
                                 <button class="sectionDiente top v">
                                     <span class="<?php echo $spans['top']['Rojo']; ?>"></span>
                                     <span class="<?php echo $spans['top']['Azul']; ?>"></span>
@@ -659,61 +665,67 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                         <?php foreach ($seccionInferior as $dienteSeccionInferior) { ?>
 
                             <?php
-                            //* Obteniendo informacion del diente en odontograma
+                                    //* Obteniendo informacion del diente en odontograma
 
-                            //* variables para generales
-                            $procesoDiente = $dienteSeccionInferior['convencion'] != null ? 'general' : '';
-                            $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionInferior['convencion'] : '';
-                            $urlConvencionDienteImg = $procesoDiente == 'general' ? '../Img/convenciones/' . $dienteSeccionInferior['figura'] : '';
-                            $activeImg = $procesoDiente == 'general' ? 'active' : '';
+                                    //* variables para generales
+                                    $procesoDiente = $dienteSeccionInferior['convencion'] != null ? 'general' : '';
+                                    $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionInferior['convencion'] : '';
+                                    $urlConvencionDienteImg = $procesoDiente == 'general' ? '../Img/convenciones/'.$dienteSeccionInferior['figura'] : '';
+                                    $activeImg = $procesoDiente == 'general' ? 'active' : '';
 
-                            //* variables para seccion
-                            $procesoSeccion = $dienteSeccionInferior['convencion_oc'] != null ? 'seccion' : '';
-                            $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['convencion_oc']) : '';
-                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['color_oc']) : '';
-                            $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['seccion_oc']) : '';
+                                    //* variables para seccion
+                                    $procesoSeccion = $dienteSeccionInferior['convencion_oc'] != null ? 'seccion' : '';
+                                    $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['convencion_oc']) : '';
+                                    $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['color_oc']) : '';
+                                    $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['seccion_oc']) : '';
 
 
-                            //* llenando valores span
-                            $spans = [
-                                'top' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'left' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'center' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'right' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'bot' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ]
-                            ];
+                                    //* llenando valores span
+                                    $spans = [
+                                        'top' => [
+                                            'Rojo' => '',
+                                            'Azul' => '',
+                                            'Verde' => ''
+                                        ],
+                                        'left' => [
+                                            'Rojo' => '',
+                                            'Azul' => '',
+                                            'Verde' => ''
+                                        ],
+                                        'center' => [
+                                            'Rojo' => '',
+                                            'Azul' => '',
+                                            'Verde' => ''
+                                        ],
+                                        'right' => [
+                                            'Rojo' => '',
+                                            'Azul' => '',
+                                            'Verde' => ''
+                                        ],
+                                        'bot' => [
+                                            'Rojo' => '',
+                                            'Azul' => '',
+                                            'Verde' => ''
+                                        ]
+                                    ];
 
-                            if ($secciones != '') {
-                                for ($i = 0; $i < count($secciones); $i++) {
-                                    $seccion = $secciones[$i];
-                                    $color = $colorSeccion[$i];
+                                    if ($secciones != '') {
+                                        for ($i=0; $i < count($secciones) ; $i++) {
+                                            $seccion = $secciones[$i];
+                                            $color = $colorSeccion[$i];
 
-                                    $spans[$seccion][$color] = 'active';
-                                }
-                            }
-                            ?>
+                                            $spans[$seccion][$color] = 'active';
+                                        }
+                                    }
+                                ?>
 
-                            <div class="diente" dienteNumero="<?php echo $dienteSeccionInferior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionInferior['numero_diente']; ?>" procesoDiente="<?php echo $procesoDiente; ?>" convencionDiente="<?php echo $convencionDiente; ?>">
+                            <div
+                                class="diente"
+                                dienteNumero="<?php echo $dienteSeccionInferior['numero_diente']; ?>"
+                                id="diente-<?php echo $dienteSeccionInferior['numero_diente']; ?>"
+                                procesoDiente="<?php echo $procesoDiente; ?>"
+                                convencionDiente="<?php echo $convencionDiente; ?>"
+                            >
                                 <button class="sectionDiente top v">
                                     <span class="<?php echo $spans['top']['Rojo']; ?>"></span>
                                     <span class="<?php echo $spans['top']['Azul']; ?>"></span>

@@ -1,21 +1,37 @@
-<?php 
-  include_once '../Modules/functions/sessions.php';
+<?php
+include_once '../Modules/functions/sessions.php';
 
-  if (!controllSession()) {
+if (!controllSession()) {
     $rootViews = dirname($_SERVER['PHP_SELF']);
-    header('Location: http://localhost'.$rootViews.'/login.php');
-  }
+    header('Location: http://localhost' . $rootViews . '/login.php');
+}
 ?>
+
+<?php
+
+include_once '../Modules/functions/funcionesSql.php';
+
+//* proceso 1: obtener el id del paciente
+$idPaciente = $_GET['cedulaPaciente'];
+
+//* proceso 2: obtener las consultas del paciente
+$consultas = obtenerRegistro('consultas', '*', 'numero_documento_paciente_FK  = ?', [$idPaciente]);
+
+if ($consultas[0] === false) {
+    $rootViews = dirname($_SERVER['PHP_SELF']);
+    header('Location: http://localhost' . $rootViews . '/misPacientes.php');
+}
+
+//* proceso 3: obtener los datos del paciente
+$paciente = obtenerRegistro('pacientes', '*', 'numero_documento = ?', [$idPaciente])[0];
+?>
+
 <?php include '../Modules/templates/head.php'; ?>
 
 
 <div class="cont-pacientes">
 
     <div class="pacientes">
-
-        <div class="logo-admin patients">
-            <img src="../Img/Logo2.jpg" alt="">
-        </div>
 
         <div class="titulo-historia">
             <h3>Historial de Consultas Odontológicas</h3>
@@ -41,8 +57,8 @@
                     </div>
 
                     <div class="hPaciente1">
-                        <h2>Zoraida Isabel García Julio</h2>
-                        <h2>1.044.924.492</h2>
+                        <h2><?php echo $paciente['nombres'] . ' ' . $paciente['apellidoUno'] . ' ' . $paciente['apellidoDos']; ?></h2>
+                        <h2><?php echo $paciente['numero_documento']; ?></h2>
                     </div>
                 </div>
 
@@ -51,103 +67,34 @@
                     <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Concepto</th>
+                            <th>Motivo de consulta</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        <tr>
-                            <td>
-                                <div>04 - 04 - 2022</div>
-                            </td>
-                            <td>
-                                <div>Articular A-161 Estomatitis ...</div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="">
-                                        <button title="Ver Historial">
+                        <?php foreach ($consultas as $consulta) : ?>
+                            <tr>
+                                <td>
+                                    <div><?php echo $consulta['fecha_consulta']; ?></div>
+                                </td>
+                                <td>
+                                    <div><?php echo $consulta['motivo_consulta']; ?></div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a href="ver_consulta.php?numeroConsulta=<?php echo $consulta['codigo']; ?>" title="Ver consulta">
                                             <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </a>
+                                        </a>
 
-                                    <a href="">
-                                        <button title="Generar PDF">
+                                        <a href="" title="Generar PDF">
                                             <i class="fa-solid fa-file-pdf"></i>
-                                        </button>
-                                    </a>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
 
-                                    <a href="">
-                                        <button title="Imprimir">
-                                            <i class="fa-solid fa-print"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div>04 - 04 - 2022</div>
-                            </td>
-                            <td>
-                                <div>Articular A-161 Estomatitis ...</div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="">
-                                        <button title="Ver Historial">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </a>
-
-                                    <a href="">
-                                        <button title="Generar PDF">
-                                            <i class="fa-solid fa-file-pdf"></i>
-                                        </button>
-                                    </a>
-
-                                    <a href="">
-                                        <button title="Imprimir">
-                                            <i class="fa-solid fa-print"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div>04 - 04 - 2022</div>
-                            </td>
-                            <td>
-                                <div>Articular A-161 Estomatitis ...</div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="">
-                                        <button title="Ver Historial">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </a>
-
-                                    <a href="">
-                                        <button title="Generar PDF">
-                                            <i class="fa-solid fa-file-pdf"></i>
-                                        </button>
-                                    </a>
-
-                                    <a href="">
-                                        <button title="Imprimir">
-                                            <i class="fa-solid fa-print"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 

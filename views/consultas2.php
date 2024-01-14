@@ -127,12 +127,12 @@
                     <div>
                         <div class="input-p">
                             <input name="protesis" id="protesisSi" value="SI" type="radio">
-                            <label for="protesisSi">SI</label>
+                            <label for="protesisSi">Si</label>
                         </div>
 
                         <div class="input-p">
                             <input name="protesis" id="protesisNo" value="NO" type="radio" checked>
-                            <label for="protesisNo">NO</label>
+                            <label for="protesisNo">No</label>
                         </div>
                     </div>
                 </div>
@@ -234,33 +234,33 @@
 
                     <div class="body_art ba_1">
                         <label>Articular</label>
-                        <input type="text" id="datalistArticular" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistArticular" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Pulpar</label>
-                        <input type="text" id="datalistPulpar" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistPulpar" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Periodontal</label>
-                        <input type="text" id="datalistPeriodontal" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistPeriodontal" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Dental</label>
-                        <input type="text" id="datalistDental" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistDental" list="articular" required placeholder="Seleccionar...">
 
                     </div>
 
                     <div class="body_art ba_1">
                         <label>C y D</label>
-                        <input type="text" id="datalistCD" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistCD" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Tejidos Blandos</label>
-                        <input type="text" id="datalistTejidosBlandos" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistTejidosBlandos" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1 bottom_no">

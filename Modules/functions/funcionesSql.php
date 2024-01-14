@@ -49,7 +49,7 @@ function obtenerRegistro($tableName, $columnasConsulta, $condicion = 'true', $va
 }
 
 
-function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $values = [], $joins = [], $columnasConvenciones = [], $groupBy = [])
+function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $values = [], $joins = [], $columnasAgrupar = [], $groupBy = [])
 {
     include 'bdconection.php';
 
@@ -64,12 +64,12 @@ function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $v
     }
 
     $columnasSelect = '';
-    if (!empty($columnasConvenciones)) {
+    if (!empty($columnasAgrupar)) {
         foreach ($columnasConsulta as $columna) {
             $columnasSelect .= $columna . ', ';
         }
 
-        foreach ($columnasConvenciones as $columna => $alias) {
+        foreach ($columnasAgrupar as $columna => $alias) {
             $columnasSelect .= 'GROUP_CONCAT(' . $columna . ') AS ' . $alias . ', ';
         }
 

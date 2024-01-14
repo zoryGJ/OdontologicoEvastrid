@@ -1,64 +1,48 @@
-//* este codigo contiene el guardado (solo el guardado) de la segunda parte de una consulta (el odontograma)
+//* este codigo contiene el guardado (solo el guardado) de las evoluciones de una consulta
 
 $(document).ready(() => {
 
     //* variables globales
-    const formConsulta = $('#formConsulta')
+    const formEvolucion = $('#formEvolucion')
     const dientesOdontograma = $(".diente")
 
     //* eventos
-    formConsulta.submit((event) => {
+    formEvolucion.submit((event) => {
         event.preventDefault();
 
         //* inputs form consulta -
-        const protesisSi = $("#protesisSi").prop('checked') ? 'si' : 'no'
-        const protesisTipo = $("#protesisTipo").val()
-        const protesisDescripcion = $("#protesisDescripcion").val()
-        const igieneOralSi = $("#igieneOralSi").prop('checked') ? 'si' : 'no'
-        const frecuenciaCepilladoSi = $("#frecuenciaCepilladoSi").prop('checked') ? 'si' : 'no'
-        const gradoRiesgoSi = $("#gradoRiesgoSi").prop('checked') ? 'si' : 'no'
-        const sedaDentalSi = $("#sedaDentalSi").prop('checked') ? 'si' : 'no'
-        const pigmentacionSi = $("#pigmentacionSi").prop('checked') ? 'si' : 'no'
-        const idConsulta = $("#idConsulta").val()
+        const evolucionFecha = $('#evolucionFecha').val()
+        const evolucionActividad = $('#evolucionActividad').val()
+        const evolucionCodigoCups = $('#evolucionCodigoCups').val()
+        const evolucionCopago = $('#evolucionCopago').val()
+        const evolucionDescripcion = $('#evolucionDescripcion').val()
+        const numeroConsulta = $('#numeroConsulta').val()
 
         //* inputs datalist -
-        const articular = capturarDataValue($("#datalistArticular").val(), 'articular')
-        const pulpar = capturarDataValue($("#datalistPulpar").val(), 'articular')
-        const periodontal = capturarDataValue($("#datalistPeriodontal").val(), 'articular')
-        const dental = capturarDataValue($("#datalistDental").val(), 'articular')
-        const cd = capturarDataValue($("#datalistCD").val(), 'articular')
-        const tejidosBlandos = capturarDataValue($("#datalistTejidosBlandos").val(), 'articular')
-        const otros = capturarDataValue($("#datalistOtros").val(), 'articular')
 
-        const informacionConsulta = {
-            consultaInfo: {
-                protesisSi,
-                protesisTipo,
-                protesisDescripcion,
-                igieneOralSi,
-                frecuenciaCepilladoSi,
-                gradoRiesgoSi,
-                sedaDentalSi,
-                pigmentacionSi,
-                articular,
-                pulpar,
-                periodontal,
-                dental,
-                cd,
-                tejidosBlandos,
-                otros
+        const informacionEvolucion = {
+            evolucionInfo: {
+                evolucionFecha,
+                evolucionActividad,
+                evolucionCodigoCups,
+                evolucionCopago,
+                evolucionDescripcion
             },
-            dientesInfo: obtenerDientesInfo(),
-            idConsulta
+            consultaInfo: {
+                numeroConsulta
+            },
+            dientesInfo: obtenerDientesInfo()
         }
-        
+
+        // console.log(informacionEvolucion);
+
         const datos = new FormData()
-        datos.append('informacionConsulta', JSON.stringify(informacionConsulta))
+        datos.append('informacionEvolucion', JSON.stringify(informacionEvolucion))
 
         //* proceso de ajax
         const xhr = new XMLHttpRequest()
 
-        xhr.open('POST', '../Modules/models/consultas/guardado2.php', true)
+        xhr.open('POST', '../Modules/models/evoluciones/guardado.php', true)
         xhr.send(datos)
 
         xhr.onload = () => {
@@ -70,11 +54,11 @@ $(document).ready(() => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Guardado',
-                        text: 'Odontograma guardado',
+                        text: 'evolucion guardada correctamente',
                         showConfirmButton: false,
                         timer: 1500
                     }).then(() => {
-                        window.location.href = 'inicio.php'
+                        window.history.back()
                     })
                 }else{
                     Swal.fire({
@@ -184,16 +168,4 @@ $(document).ready(() => {
         return ''
     }
 
-    //* retorna el dataValue en un datalist. textobuscar: valor del input, datalist: datalist del cual se desea hacer busqueda
-    function capturarDataValue(textoBuscar, datalist) {
-        const optionDatalist = Array.from(document.querySelectorAll(`#${datalist} option`));
-        const optionEncontrado = optionDatalist.find(option => option.value === textoBuscar);
-
-        if (optionEncontrado) {
-            console.log(optionEncontrado.getAttribute('data-value'));
-            return optionEncontrado.getAttribute('data-value');
-        } else {
-            return null;
-        }
-    }
 })
