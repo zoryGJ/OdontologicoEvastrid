@@ -60,7 +60,7 @@ $(document).ready(() => {
                     }).then(() => {
                         window.history.back()
                     })
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -119,32 +119,23 @@ $(document).ready(() => {
 
         const operacionesSeccion = secciones.map(seccion => {
             const nombre = verificarClase(seccion)
+            let proceso = ''
 
-            const procesos = Array.from(seccion.querySelectorAll('span')).map((span, index) => {
-                if (span.classList.contains('active')) {
-                    let operacion = null
+            if (seccion.classList.contains('cariado')) {
+                proceso = 'Cariado'
+            }
 
-                    if (index === 0) {
-                        operacion = 'cariado'
-                    }
+            if (seccion.classList.contains('amalgama')) {
+                proceso = 'Obturado - Amalgama'
+            }
 
-                    if (index === 1) {
-                        operacion = 'obturado - amalgama'
-                    }
-
-                    if (index === 2) {
-                        operacion = 'obturado - resina'
-                    }
-
-                    return operacion
-                }
-
-                return false
-            }).filter(value => value)
+            if (seccion.classList.contains('resina')) {
+                proceso = 'Obturado - Resina'
+            }
 
             return {
                 nombre,
-                procesos
+                proceso
             }
         })
 

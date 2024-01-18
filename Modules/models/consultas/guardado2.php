@@ -66,15 +66,15 @@ try {
             foreach ($operacionesSeccion as $operacionSeccion) {
                 $operacionRealizada = (array) $operacionSeccion;
 
+                //* extrayendo informacion de la seccion
                 $nombreSeccion = $operacionRealizada['nombre']; //[top, left, right, bot, center]
                 $idSeccionBD = obtenerRegistro('seccion', 'codigo', 'nombreSeccion = ?', [$nombreSeccion])[0]['codigo'];
-                $procesos = $operacionRealizada['procesos'];
 
-                foreach ($procesos as $proceso) {
-                    $idConvencionSeccion = obtenerRegistro('convenciones_oc', 'codigo', 'convencion = ?', [$proceso])[0]['codigo'];
+                //* extrayendo informacion de la convencion
+                $proceso = $operacionRealizada['proceso'];// cariado, obutrado amalgama, obturado resina
+                $idConvencionSeccion = obtenerRegistro('convenciones_oc', 'codigo', 'convencion = ?', [$proceso])[0]['codigo'];
 
-                    $convenccionSeccion = crearInsert('convencion_seccion', 'codigo_convenciones_oc_FK, codigo_seccion_FK, codigo_OI_FK', [$idConvencionSeccion, $idSeccionBD, $idDienteOIntegrado]);
-                }
+                $convenccionSeccion = crearInsert('convencion_seccion', 'codigo_convenciones_oc_FK, codigo_seccion_FK, codigo_OI_FK', [$idConvencionSeccion, $idSeccionBD, $idDienteOIntegrado]);
             }
         }
     }

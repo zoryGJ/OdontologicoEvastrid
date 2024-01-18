@@ -64,18 +64,24 @@ function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $v
     }
 
     $columnasSelect = '';
-    if (!empty($columnasAgrupar)) {
-        foreach ($columnasConsulta as $columna) {
-            $columnasSelect .= $columna . ', ';
-        }
+    
+    foreach ($columnasConsulta as $columna) {
+        $columnasSelect .= $columna . ', ';
+    }
 
+    if (!empty($columnasAgrupar) ) {
         foreach ($columnasAgrupar as $columna => $alias) {
             $columnasSelect .= 'GROUP_CONCAT(' . $columna . ') AS ' . $alias . ', ';
         }
 
         $columnasSelect = rtrim($columnasSelect, ', ');
     } else {
-        $columnasSelect = '*';
+
+       if (!empty($columnasConsulta)) {
+            $columnasSelect = rtrim($columnasSelect, ', ');
+        } else {
+            $columnasSelect = '*';
+        }
     }
 
     if (!empty($groupBy)) {
@@ -92,8 +98,9 @@ function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $v
 
 
     $sql = 'SELECT ' . $columnasSelect . ' FROM ' . $tableName . ' ' . $joinsConsulta . ' WHERE ' . $condicion . ' ' . $groupBySQL;
-    $stmt = $connect->prepare($sql);
+    // var_dump([$sql, $values]);
 
+    $stmt = $connect->prepare($sql);
     if ($condicion !== 'true' && count($values) > 0) {
         $parametrosBindParams = prepararBindParam($values)[0];
         $stmt->bind_param($parametrosBindParams, ...$values);
@@ -109,6 +116,72 @@ function makeConsult($tableName, $columnasConsulta = [], $condicion = 'true', $v
     return $respuesta;
 }
 
+
+function makeUpdate($tableName, $columnasUpdate, $condicion, $valuesUpdate, $valuesCondicion)
+{
+    include 'bdconection.php';
+
+    $columnasUpdateQuery = '';
+    $parametrosBindParams = '';
+
+    foreach ($columnasUpdate as $columna) {
+        $columnasUpdateQuery .= $columna . ' = ?, ';
+        $parametrosBindParams .= 's';
+    }
+
+    $columnasUpdateQuery = rtrim($columnasUpdateQuery, ', ');
+
+    foreach ($valuesCondicion as $value) {
+        $valuesUpdate[] = $value;
+        $parametrosBindParams .= 's';
+    }
+
+    $sql = 'UPDATE ' . $tableName . ' SET ' . $columnasUpdateQuery . ' WHERE ' . $condicion;
+    $stmt = $connect->prepare($sql);
+    // var_dump([$sql, $parametrosBindParams, $valuesUpdate]);
+    $stmt->bind_param($parametrosBindParams, ...$valuesUpdate);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        $respuesta['proceso'] = 'correcto';
+    } else {
+        $respuesta['proceso'] = 'incorrecto';
+        $respuesta['procesodesc'] = 'bd';
+        $respuesta['Descripcion_error'] = $stmt->error;
+    }
+
+    return $respuesta;
+}
+
+function makeDelete($tableName, $condicion, $values)
+{
+    include 'bdconection.php';
+
+    $valuesDelete = '';
+    $parametrosBindParams = '';
+
+    foreach ($values as $value) {
+        $valuesDelete .= $value . ', ';
+        $parametrosBindParams .= 's';
+    }
+
+    $valuesDelete = rtrim($valuesDelete, ', ');
+
+    $sql = 'DELETE FROM ' . $tableName . ' WHERE ' . $condicion;
+    $stmt = $connect->prepare($sql);
+    $stmt->bind_param($parametrosBindParams, ...$values);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        $respuesta['proceso'] = 'correcto';
+    } else {
+        $respuesta['proceso'] = 'incorrecto';
+        $respuesta['procesodesc'] = 'bd';
+        $respuesta['Descripcion_error'] = $stmt->error;
+    }
+
+    return $respuesta;
+}
 
 function prepararBindParam($values)
 {

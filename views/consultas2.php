@@ -343,31 +343,12 @@
                         <?php foreach ($seccionSuperior as $dienteSeccionSuperior) { ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionSuperior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionSuperior['numero_diente']; ?>">
-                                <button class="sectionDiente top v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
+                                <button class="sectionDiente top"></button>
+                                <button class="sectionDiente left"></button>
+                                <button class="sectionDiente center"></button>
+                                <button class="sectionDiente right"></button>
+                                <button class="sectionDiente bot"></button>
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionSuperior['numero_diente']; ?></p>
@@ -384,31 +365,12 @@
                         <?php foreach ($seccionInferior as $dienteSeccionInferior) { ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionInferior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionInferior['numero_diente']; ?>">
-                                <button class="sectionDiente top v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
+                                <button class="sectionDiente top"></button>
+                                <button class="sectionDiente left"></button>
+                                <button class="sectionDiente center"></button>
+                                <button class="sectionDiente right"></button>
+                                <button class="sectionDiente bot"></button>
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionInferior['numero_diente']; ?></p>
@@ -502,7 +464,7 @@
 
 
 <script src="../JS/consulta/modalOdontograma.js"></script>
-<script src="../JS/consulta/guardadoConsulta2.js"></script>
 <script src="../JS/consulta/controladoresConsulta2.js"></script>
+<script src="../JS/consulta/guardadoConsulta2.js"></script>
 
 <?php include '../Modules/templates/footer.php'; ?>

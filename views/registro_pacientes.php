@@ -37,27 +37,6 @@ $listadoTipoRegimen = consultaTipoRegimen();
         </div>
         <form id="formPaciente">
 
-            <h1>Datos de la IPS</h1>
-
-            <div class="datos-ips general-1 general-2">
-
-                <div class="nombre-ips">
-                    <input id="nombreIPS" type="text" list="nombre_de_ips" placeholder="Seleccionar..." required>
-                    <datalist id="nombre_de_ips">
-                        <?php foreach ($listadoIPS as $ips) { ?>
-                            <option data-value="<?php echo $ips['codigo']; ?>" value="<?php echo $ips['nombre_ips']; ?>">
-                        <?php } ?>
-                    </datalist>
-                    <label for="">Nombre de la IPS</label>
-                </div>
-
-                <div class="sucursal-ips">
-                    <input id="sucursalIPS" type="text" list="sucursal-ips" placeholder="Seleccionar..." required>
-                    <label for="">Sucursal</label>
-                </div>
-
-            </div>
-
             <h1>Datos del Paciente</h1>
 
             <div class="datos-paciente general-2">
@@ -107,18 +86,12 @@ $listadoTipoRegimen = consultaTipoRegimen();
                             <option value="">Seleccionar...</option>
                             <option value="mujer">Mujer</option>
                             <option value="hombre">Hombre</option>
-                            <option value="rarito">Helicoptero apache t-24 con turbo compresor</option>
                         </select>
                         <label>Sexo</label>
                     </div>
                 </div>
 
                 <div class="edad">
-                    <div class="años">
-                        <input type="number">
-                        <label>Edad</label> 
-                        <!-- colocar edad en automatico -->
-                    </div>
                     <div class="t-usuario">
                         <input id="pacienteTipoRegimen" type="text" list="t-usuario" placeholder="Seleccionar..." required>
                         <datalist id="t-usuario">

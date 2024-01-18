@@ -219,47 +219,21 @@
     z-index: 25;
 }
 
-.sectionDiente.v{
-    justify-content: space-between;
-}
-.sectionDiente.v span{
-    width: 33.3%;
-    height: 100%;
-}
-
-.sectionDiente.h{
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sectionDiente.h span{
-    height: 33.3%;
-    width: 100%;
-}
-
-.sectionDiente span{
-    pointer-events: none;
-    user-select: none;
-}
-
-.sectionDiente span.active:nth-child(1){
+.sectionDiente.cariado.active{
     background-color: #FF0065;
 }
 
-.sectionDiente span.active:nth-child(2){
+.sectionDiente.amalgama.active{
     background-color: #06D6FF;
-    margin-bottom: 3px;
-    margin-top: 3px;
 }
 
-.sectionDiente.v span.active:nth-child(2){
-    margin: 0;
-    margin-left: 3px;
-    margin-right: 3px;
-}
-
-.sectionDiente span.active:nth-child(3){
+.sectionDiente.resina.active{
     background-color: #7AFFBA;
+}
+
+.sectionDiente.active{
+    border-color: #FAFAFA;
+    border-width: 2px;
 }
 
 .diente .general{

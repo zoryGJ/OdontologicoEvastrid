@@ -96,7 +96,7 @@ $(document).ready(() => {
         data.append('tipoPeticion', 'crearPaciente') //* asi controlo que en php se meta en el condicional que corresponde a la vista correcta en ese caso registroPaciente
 
         const ajax = new XMLHttpRequest()
-        ajax.open('post', '../Modules/models/pacientes/guardado1.php', true)
+        ajax.open('post', '../Modules/models/pacientes/actualizar.php', true)
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
@@ -107,7 +107,7 @@ $(document).ready(() => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Exitoso',
-                        text: 'Paciente Creado',
+                        text: 'Paciente actualizado',
                     }).then(function (click) {
                         window.location.href = "inicio.php"
                     })
@@ -118,15 +118,6 @@ $(document).ready(() => {
                             title: 'Lo sentimos...',
                             text: 'Ha ocurrido un error, intentalo nuevamente',
                         })
-                    }else{
-                        if (respuesta.proceso == 'PacienteExistente') {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Lo sentimos...',
-                                text: 'Este Paciente ya se encuentra registrado',
-                            })
-                        }
-                        
                     }
                 }
             }
@@ -141,18 +132,18 @@ $(document).ready(() => {
         data.append('tipoPeticion', 'crearPaciente') //* asi controlo que en php se meta en el condicional que corresponde a la vista correcta en ese caso registroPaciente
 
         const ajax = new XMLHttpRequest()
-        ajax.open('post', '../Modules/models/pacientes/guardado1.php', true)
+        ajax.open('post', '../Modules/models/pacientes/actualizar.php', true)
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
-                // console.log(ajax.responseText);
+                console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
 
                 if (respuesta.proceso == 'correcto') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Exitoso',
-                        text: 'Paciente Creado',
+                        text: 'Paciente actualizado',
                     }).then(function (click) {
                         window.location.href = "f_consultas.php?cedulaPaciente="+pacienteNumeroDoc.val()
                     })
@@ -163,14 +154,6 @@ $(document).ready(() => {
                             title: 'Lo sentimos...',
                             text: 'Ha ocurrido un error, intentalo nuevamente',
                         })
-                    }else{
-                        if (respuesta.proceso == 'PacienteExistente') {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Lo sentimos...',
-                                text: 'Este Paciente ya se encuentra registrado',
-                            })
-                        }
                     }
                 }
             }
@@ -180,7 +163,7 @@ $(document).ready(() => {
     //*Funciones
     //id= tipo-dcto, 
     const buscardatalist = (idDatalist, valorBuscado) => {
-
+        // debugger
         const datalist = document.getElementById(idDatalist)
         const options = Array.from(datalist.options)
 
@@ -216,7 +199,7 @@ $(document).ready(() => {
             tipoDocumento: buscardatalist('tipo-dcto', pacienteTipoDoc.val()),
             numeroDocumento: pacienteNumeroDoc.val(),
             sexo: pacienteSexo.val(),
-            tipoRegimen: buscardatalist('t-usuario', pacienteTipoRegimen.val()),
+            tipoRegimen: pacienteTipoRegimen.val(),
             municipio: buscardatalist('municipios', pacienteMunicipio.val()) ,
             telefono: pacienteTelefono.val(),
             pacienteDireccion: pacienteDireccion.val(),

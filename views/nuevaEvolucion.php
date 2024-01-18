@@ -20,10 +20,10 @@ $evolucionesConsulta = obtenerRegistro('evoluciones_h_c', '*', 'evoluciones_h_c.
 
 
 //* proceso 2.1: si tiene evoluciones previas, se consulta el ultimo odontograma
-if (! (is_bool($evolucionesConsulta[0]) && $evolucionesConsulta[0] === false)) {
+if (!(is_bool($evolucionesConsulta[0]) && $evolucionesConsulta[0] === false)) {
     $idOdontograma = $evolucionesConsulta[count($evolucionesConsulta) - 1]['codigo_odontograma_FK'];
     $odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigo = ?', [$idOdontograma])[0];
-}else{
+} else {
     $odontogramaConsulta = obtenerRegistro('odontogramas', '*', 'odontogramas.codigoConsultaFK = ?', [$ultimaConsulta])[0];
 }
 
@@ -243,8 +243,6 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                         <?php foreach ($seccionSuperior as $dienteSeccionSuperior) { ?>
 
                             <?php
-                            //* Obteniendo informacion del diente en odontograma
-
                             //* variables para generales
                             $procesoDiente = $dienteSeccionSuperior['convencion'] != null ? 'general' : '';
                             $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionSuperior['convencion'] : '';
@@ -254,79 +252,38 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                             //* variables para seccion
                             $procesoSeccion = $dienteSeccionSuperior['convencion_oc'] != null ? 'seccion' : '';
                             $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['convencion_oc']) : '';
-                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['color_oc']) : '';
-                            $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['seccion_oc']) : '';
+                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['color_oc']) : [];
+                            $seccionesOperadas = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionSuperior['seccion_oc']) : [];
+                            $procesoDiente= $procesoDiente == 'general' ? 'general' : $procesoSeccion;
 
-                            if ($procesoSeccion == 'seccion') {
-                                $procesoDiente =  'seccion';
-                            }
-
-
-                            //* llenando valores span
-                            $spans = [
-                                'top' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'left' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'center' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'right' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'bot' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ]
-                            ];
-
-                            if ($secciones != '') {
-                                for ($i = 0; $i < count($secciones); $i++) {
-                                    $seccion = $secciones[$i];
-                                    $color = $colorSeccion[$i];
-
-                                    $spans[$seccion][$color] = 'active';
-                                }
-                            }
+                            $secciones = ['top', 'left', 'center', 'right', 'bot']
                             ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionSuperior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionSuperior['numero_diente']; ?>" procesoDiente="<?php echo $procesoDiente; ?>" convencionDiente="<?php echo $convencionDiente; ?>">
-                                <button class="sectionDiente top v">
-                                    <span class="<?php echo $spans['top']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['top']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['top']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span class="<?php echo $spans['left']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['left']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['left']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span class="<?php echo $spans['center']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['center']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['center']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span class="<?php echo $spans['right']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['right']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['right']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span class="<?php echo $spans['bot']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['bot']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['bot']['Verde']; ?>"></span>
-                                </button>
+                                <?php for ($i = 0; $i < count($secciones); $i++) { ?>
+
+                                    <?php
+                                    $seccion = $secciones[$i];
+                                    $active = '';
+
+                                    if (in_array($seccion, $seccionesOperadas)) {
+
+                                        $indice = array_search($seccion, $seccionesOperadas);
+
+                                        if ($convencionSeccion[$indice] == 'Cariado') {
+                                            $active = 'active cariado';
+                                        } elseif ($convencionSeccion[$indice] == 'Obturado - Amalgama') {
+                                            $active = 'active amalgama';
+                                        } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
+                                            $active = 'active resina';
+                                        }
+                                    }
+                                    ?>
+
+                                    <button class="sectionDiente <?php echo $seccion . ' ' . $active; ?>"></button>
+                                <?php } ?>
+
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionSuperior['numero_diente']; ?></p>
@@ -343,8 +300,6 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                         <?php foreach ($seccionInferior as $dienteSeccionInferior) { ?>
 
                             <?php
-                            //* Obteniendo informacion del diente en odontograma
-
                             //* variables para generales
                             $procesoDiente = $dienteSeccionInferior['convencion'] != null ? 'general' : '';
                             $convencionDiente = $procesoDiente == 'general' ? $dienteSeccionInferior['convencion'] : '';
@@ -354,79 +309,37 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                             //* variables para seccion
                             $procesoSeccion = $dienteSeccionInferior['convencion_oc'] != null ? 'seccion' : '';
                             $convencionSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['convencion_oc']) : '';
-                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['color_oc']) : '';
-                            $secciones = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['seccion_oc']) : '';
+                            $colorSeccion = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['color_oc']) : [];
+                            $seccionesOperadas = $procesoSeccion == 'seccion' ? explode(',', $dienteSeccionInferior['seccion_oc']) : [];
+                            $procesoDiente= $procesoDiente == 'general' ? 'general' : $procesoSeccion;
 
-                            if ($procesoSeccion == 'seccion') {
-                                $procesoDiente =  'seccion';
-                            }
-
-
-                            //* llenando valores span
-                            $spans = [
-                                'top' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'left' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'center' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'right' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ],
-                                'bot' => [
-                                    'Rojo' => '',
-                                    'Azul' => '',
-                                    'Verde' => ''
-                                ]
-                            ];
-
-                            if ($secciones != '') {
-                                for ($i = 0; $i < count($secciones); $i++) {
-                                    $seccion = $secciones[$i];
-                                    $color = $colorSeccion[$i];
-
-                                    $spans[$seccion][$color] = 'active';
-                                }
-                            }
+                            $secciones = ['top', 'left', 'center', 'right', 'bot']
                             ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionInferior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionInferior['numero_diente']; ?>" procesoDiente="<?php echo $procesoDiente; ?>" convencionDiente="<?php echo $convencionDiente; ?>">
-                                <button class="sectionDiente top v">
-                                    <span class="<?php echo $spans['top']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['top']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['top']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span class="<?php echo $spans['left']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['left']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['left']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span class="<?php echo $spans['center']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['center']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['center']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span class="<?php echo $spans['right']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['right']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['right']['Verde']; ?>"></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span class="<?php echo $spans['bot']['Rojo']; ?>"></span>
-                                    <span class="<?php echo $spans['bot']['Azul']; ?>"></span>
-                                    <span class="<?php echo $spans['bot']['Verde']; ?>"></span>
-                                </button>
+                                <?php for ($i = 0; $i < count($secciones); $i++) { ?>
+
+                                    <?php
+                                    $seccion = $secciones[$i];
+                                    $active = '';
+
+                                    if (in_array($seccion, $seccionesOperadas)) {
+
+                                        $indice = array_search($seccion, $seccionesOperadas);
+
+                                        if ($convencionSeccion[$indice] == 'Cariado') {
+                                            $active = 'active cariado';
+                                        } elseif ($convencionSeccion[$indice] == 'Obturado - Amalgama') {
+                                            $active = 'active amalgama';
+                                        } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
+                                            $active = 'active resina';
+                                        }
+                                    }
+                                    ?>
+
+                                    <button class="sectionDiente <?php echo $seccion . ' ' . $active; ?>"></button>
+                                <?php } ?>
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionInferior['numero_diente']; ?></p>
@@ -525,7 +438,6 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
 <script>
-
     const btnGoBack = document.querySelector('#btnGoBack');
 
     btnGoBack.addEventListener('click', (event) => {

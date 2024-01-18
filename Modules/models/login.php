@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 //* tomando datos de post y limpiandolos de datos malisiosos
 $emailAdmin = isset($_POST['emailAdmin']) ? htmlspecialchars($_POST['emailAdmin'], ENT_QUOTES, 'UTF-8') : '';
 $claveAdmin = isset($_POST['claveAdmin']) ? htmlspecialchars($_POST['claveAdmin'], ENT_QUOTES, 'UTF-8') : '';
 
 //* conexion a base de datos
-include_once '../functions/bdconection.php';
+include '../functions/funcionesSql.php';
 
 //* estructura de respuesta
 $respuesta = array(
@@ -14,34 +14,29 @@ $respuesta = array(
 );
 
 //* consultado usuario
-$query = 'SELECT * FROM administradores WHERE email = ?';
-$stmt = $connect->prepare($query);
-$stmt->bind_param('s', $emailAdmin);
-$stmt->execute();
+$admin = makeConsult('administradores', ['*'], 'email = ?', [$emailAdmin])[0];
 
-//* capturando consulta
-$consultaAdmin = $stmt->get_result()->fetch_assoc();
+//* comprobando si existe el usuario
 
-//* compronando que lleguen datos
-if (count($consultaAdmin) > 0) {
+if (!(is_bool($admin) && $admin == false)) {
+    $claveAdminBD = $admin['clave'];
 
-    $claveAdminBD = $consultaAdmin['clave'];
-    
     //* compronando claves
     if (password_verify($claveAdmin, $claveAdminBD)) {
-        
+
         //*iniciando session
         session_start();
-        $_SESSION['idAdmin'] = $consultaAdmin['codigo'];
-        $_SESSION['nombre'] = $consultaAdmin['nombres'].' '.$consultaAdmin['apellidos'];
+        $_SESSION['idAdmin'] = $admin['codigo'];
+        $_SESSION['nombre'] = $admin['nombres'] . ' ' . $admin['apellidos'];
 
         //* respuesta correcta
         $respuesta['process'] = 'success';
         $respuesta['dataResponse'] = $_SESSION;
-
-    }else{
+    } else {
         $respuesta['dataResponse'] = 'Clave incorrecta';
     }
+} else {
+    $respuesta['dataResponse'] = 'El administrador ingresado no se encuentra registrado';
 }
 
 //* retornando respuesta

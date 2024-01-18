@@ -118,28 +118,34 @@ $(document).ready(() => {
             const { area } = dienteSeleccionado
             const process = event.target.getAttribute("typeConvencion")
 
-            const span1 = area.childNodes[1]
-            const span2 = area.childNodes[3]
-            const span3 = area.childNodes[5]
-
             switch (process) {
                 case "conv1":
-                    span1.classList.add("active")
+                    //* removiendo clases de convenciones en caso de que existan
+                    area.classList.remove("active", "cariado", "amalgama", "resina")
+
+                    //* agregando clase de convencion
+                    area.classList.add("active", "cariado")
                     break
 
                 case "conv2":
-                    span2.classList.add("active")
+                    //* removiendo clases de convenciones en caso de que existan
+                    area.classList.remove("active", "cariado", "amalgama", "resina")
+
+                    //* agregando clase de convencion
+                    area.classList.add("active", "amalgama")
                     break
 
                 case "conv3":
-                    span3.classList.add("active")
+                    //* removiendo clases de convenciones en caso de que existan
+                    area.classList.remove("active", "cariado", "amalgama", "resina")
+
+                    //* agregando clase de convencion
+                    area.classList.add("active", "resina")
                     break
 
                 case "limpiar":
-                    span1.classList.remove("active")
-                    span2.classList.remove("active")
-                    span3.classList.remove("active")
                     dienteSeleccionado.diente.setAttribute('procesoDiente', '')
+                    area.classList.remove("active", "cariado", "amalgama", "resina")
                     break
             }
 
@@ -148,6 +154,7 @@ $(document).ready(() => {
             limpiarDienteSeleccionado()
         })
     })
+
 
     //* eventos para capturar información de un diente seleccionado y mostrar modal segun accion
     dientes.each((i, diente) => {

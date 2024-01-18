@@ -1,24 +1,31 @@
 <?php
 
-//* importando funciones y modulos
-include_once '../../functions/bdconection.php';
-include_once '../../functions/funcionesSql.php';
+include '../../functions/funcionesSql.php';
+include '../../functions/consultasGenerales.php';
 
-//* extrayendo información del post
-$informacionEvolucion = json_decode($_POST['informacionEvolucion']);
+$informacionConsulta = json_decode($_POST['informacionConsulta']);
 
-//* extrayendo información de la consulta
-$evolucionInfo = $informacionEvolucion->evolucionInfo; // std class
-$dientesInfo = $informacionEvolucion->dientesInfo; //array
-$idConsulta = $informacionEvolucion->consultaInfo->numeroConsulta; //int
+//*preparando variables para insercion tabla consultas
+$fechaConsulta = $informacionConsulta->fechaConsulta;
+$motivoConsulta = $informacionConsulta->motivoConsulta;
+$evolucionEstadoActual = $informacionConsulta->evolucionEstadoActual;
+$examenEstomatologico = $informacionConsulta->examenEstomatologico;
+$documentoPacienteTrabajar = $informacionConsulta->pacienteTrabajar;
+$dientesInfo = $informacionConsulta->dientesInfo;
 
 try {
 
-    //* paso 1: creacion del odontograma de la evolucion
-    $odontogramaCreado = crearInsert('odontogramas', 'codigoConsultaFK', [$idConsulta]);
+    // echo json_encode($dientesInfo);
+
+    //* paso 1: creacion del registros de diagnosticos
+    $inserccionConsulta = crearInsert('consultas', 'fecha_consulta, motivo_consulta, evolucion_estadoA, examen_estomatologico, numero_documento_paciente_FK', [$fechaConsulta, $motivoConsulta, $evolucionEstadoActual, $examenEstomatologico, $documentoPacienteTrabajar]);
+
+    $idConsultas = $inserccionConsulta['id_creado'];
+
+    //* paso 2: creacion del odontograma
+    $odontogramaCreado = crearInsert('odontogramas', 'codigoConsultaFK', [$idConsultas]);
     $idOdontograma = $odontogramaCreado['id_creado'];
 
-    //* paso 2: creacion de los dientes del odontograma 
     //* paso 3: creacion de los dientes del odontograma 
     foreach ($dientesInfo as $dienteInfo) {
 
@@ -64,22 +71,15 @@ try {
         }
     }
 
-    //* paso 3: creacion de la evolucion
-    $evolucionCreada = crearInsert('evoluciones_h_c', 'actividad, fecha_evolucion, codigo_cups, copago, descripcion_procedimiento, codigo_consultas_FK, codigo_odontograma_FK', [
-        $evolucionInfo->evolucionActividad,
-        $evolucionInfo->evolucionFecha, $evolucionInfo->evolucionCodigoCups, $evolucionInfo->evolucionCopago, $evolucionInfo->evolucionDescripcion, $idConsulta, $idOdontograma
-    ]);
-
-
-    $respuesta['process'] = 'success';
-
-    // $respuesta['process'] = 'error';
-    // $respuesta['errorMessage'] = $dientesInfo;
-
+    echo json_encode(array(
+        'consultaID' => $idConsultas,
+        'proceso' => 'correcto'
+    ));
 } catch (\Throwable $th) {
-    $respuesta['process'] = 'error';
-    $respuesta['errorMessage'] = $th->getMessage();
+    echo json_encode(array(
+        'proceso' => 'incorrecto',
+        'procesodesc' => 'bd',
+        'Descripcion_error' => $th->getMessage(),
+        'info' => $info
+    ));
 }
-
-
-echo json_encode($respuesta);

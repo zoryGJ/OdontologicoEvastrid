@@ -22,7 +22,7 @@ try {
     //* proceso 2: obtener los datos del paciente
     $paciente = makeConsult(
         'pacientes',
-        '*',
+        ['*'],
         'numero_documento = ?',
         [$consulta['numero_documento_paciente_FK']],
         [' INNER JOIN tipos_documentos ON tipos_documentos.codigo = pacientes.codigo_tipo_documento_FK']
@@ -36,7 +36,7 @@ try {
     $edadPaciente = $fechaNacimiento->diff(new DateTime())->y;
 
     //* proceso 3: obtener las evoluciones de la consulta
-    $listadoEvoluciones = makeConsult('evoluciones_h_c', '*', 'codigo_consultas_FK = ?', [$numeroConsulta]);
+    $listadoEvoluciones = makeConsult('evoluciones_h_c', ['*'], 'codigo_consultas_FK = ?', [$numeroConsulta]);
 } catch (\Throwable $th) {
     var_dump($th);
 }

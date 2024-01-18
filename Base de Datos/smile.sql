@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 20, 2023 at 11:24 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 5.6.40
+-- Host: localhost:3306
+-- Generation Time: Jan 17, 2024 at 11:33 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `administradores` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `nombres` varchar(30) NOT NULL,
   `apellidos` varchar(30) NOT NULL,
   `email` varchar(60) NOT NULL,
   `cargo` varchar(60) NOT NULL,
   `clave` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `administradores`
@@ -55,9 +54,9 @@ INSERT INTO `administradores` (`codigo`, `nombres`, `apellidos`, `email`, `cargo
 --
 
 CREATE TABLE `antecedentes_familiares` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `lista_antecedentes_familiares` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `antecedentes_familiares`
@@ -80,8 +79,8 @@ INSERT INTO `antecedentes_familiares` (`codigo`, `lista_antecedentes_familiares`
 
 CREATE TABLE `antecedentes_familiares_pacientes` (
   `numero_documento_paciente_FK` varchar(20) NOT NULL,
-  `codigo_antecedentes_familiares_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_antecedentes_familiares_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -90,31 +89,11 @@ CREATE TABLE `antecedentes_familiares_pacientes` (
 --
 
 CREATE TABLE `articulaciones_temporo_mandibulares` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `hallazgos_clinicos` varchar(90) NOT NULL,
   `sano` varchar(10) NOT NULL,
-  `codigo_consultas_FK` int(200) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `articulaciones_temporo_mandibulares`
---
-
-INSERT INTO `articulaciones_temporo_mandibulares` (`codigo`, `hallazgos_clinicos`, `sano`, `codigo_consultas_FK`) VALUES
-(1, 'ruidos', 'SI', 2),
-(2, 'desviacion', 'NO', 2),
-(3, 'cambioVolumen', 'SI', 2),
-(4, 'bloqueoMandibular', 'NO', 2),
-(5, 'limitacionApertura', 'NO', 2),
-(6, 'dolorArticular', 'SI', 2),
-(7, 'dolorMuscular', 'SI', 2),
-(8, 'ruidos', 'NO', 3),
-(9, 'desviacion', 'NO', 3),
-(10, 'cambioVolumen', 'NO', 3),
-(11, 'bloqueoMandibular', 'NO', 3),
-(12, 'limitacionApertura', 'NO', 3),
-(13, 'dolorArticular', 'NO', 3),
-(14, 'dolorMuscular', 'NO', 3);
+  `codigo_historia_clinica_FK` bigint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -123,10 +102,10 @@ INSERT INTO `articulaciones_temporo_mandibulares` (`codigo`, `hallazgos_clinicos
 --
 
 CREATE TABLE `codigos_cies` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `codigo_alfa_numerico` varchar(10) NOT NULL,
   `descripcion_codigo` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `codigos_cies`
@@ -320,10 +299,10 @@ INSERT INTO `codigos_cies` (`codigo`, `codigo_alfa_numerico`, `descripcion_codig
 --
 
 CREATE TABLE `codigos_diagnosticos` (
-  `codigo_cies_FK` int(11) DEFAULT NULL,
-  `codigo_tipo_diagnosticos_FK` int(11) NOT NULL,
-  `codigo_diagnosticos_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_cies_FK` bigint NOT NULL,
+  `codigo_tipo_diagnosticos_FK` bigint NOT NULL,
+  `codigo_diagnosticos_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -332,23 +311,13 @@ CREATE TABLE `codigos_diagnosticos` (
 --
 
 CREATE TABLE `consultas` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `fecha_consulta` date NOT NULL,
   `motivo_consulta` varchar(200) NOT NULL,
-  `antecedentes_odontologicos_medicos_generales` varchar(200) NOT NULL,
   `evolucion_estadoA` varchar(200) NOT NULL,
   `examen_estomatologico` varchar(200) NOT NULL,
   `numero_documento_paciente_FK` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `consultas`
---
-
-INSERT INTO `consultas` (`codigo`, `fecha_consulta`, `motivo_consulta`, `antecedentes_odontologicos_medicos_generales`, `evolucion_estadoA`, `examen_estomatologico`, `numero_documento_paciente_FK`) VALUES
-(1, '2023-06-07', 'zzz', 'zzz', 'zzz', 'zzz', '30761898'),
-(2, '2023-06-01', 'zzzz', 'zzzz', 'ssss', 'ssss', '30761898'),
-(3, '2023-08-11', 'Prueba nuevo', 'Prueba nuevo', 'Prueba nuevo', 'Prueba nuevo', '30761898');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -357,33 +326,33 @@ INSERT INTO `consultas` (`codigo`, `fecha_consulta`, `motivo_consulta`, `anteced
 --
 
 CREATE TABLE `convenciones` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `convencion` varchar(30) NOT NULL,
-  `figura` varchar(30) NOT NULL,
+  `figura` varchar(90) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `color` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `convenciones`
 --
 
 INSERT INTO `convenciones` (`codigo`, `convencion`, `figura`, `color`) VALUES
-(1, 'Exodoncia Realizada', 'Ex_realizada.jpg', 'Azul'),
-(2, 'Exodoncia Simple Indicada', 'Ex_simple.jpg', 'Rojo'),
-(3, 'Exodoncia Quirurjica Indicada', 'Ex_quirurjica.jpg', 'Rojo'),
-(4, 'Sin Erupcionar', 'Ex_quirurjica.jpg', 'Azul'),
-(5, 'Endodoncia Realizada', 'End_realizada.jpg', 'Azul'),
-(6, 'Endodoncia Indicada', 'End_indicada.jpg', 'Rojo'),
-(7, 'Sellante Presente', 'S_presente.jpg', 'Azul'),
-(8, 'Sellante Indicado', 'S_indicado.jpg', 'Rojo'),
-(9, 'Erosión o Abrasión', 'E_o_A.jpg', 'Rojo'),
-(10, 'Procedimiento Realizado', 'P_realizado.jpg', 'Azul'),
-(11, 'Corona Buen Estado', 'C_b_E.jpg', 'Azul'),
-(12, 'Corona Mal Estado', 'C_b_E.jpg', 'Rojo'),
-(13, 'Provisional Buen Estado', 'P_b_E.jpg', 'Azul'),
-(14, 'Provisional Mal Estado', 'P_m_E.jpg', 'Rojo'),
-(15, 'Núcleo Buen Estado', 'N_m_E.jpg', 'Azul'),
-(16, 'Núcleo Mal Estado', 'N_b_E.jpg', 'Rojo');
+(1, 'Exodoncia Realizada', 'Exodoncia realizada.png', 'Azul'),
+(2, 'Exodoncia Simple Indicada', 'Exodoncia simple indicada.png', 'Rojo'),
+(3, 'Exodoncia Quirurjica Indicada', 'Exodoncia quirurjica indicada.png', 'Rojo'),
+(4, 'Sin Erupcionar', 'Sin erupcionar.png', 'Azul'),
+(5, 'Endodoncia Realizada', 'Edodoncia realizada.png', 'Azul'),
+(6, 'Endodoncia Indicada', 'Edodoncia indicada.png', 'Rojo'),
+(7, 'Sellante Presente', 'Sellante presente.png', 'Azul'),
+(8, 'Sellante Indicado', 'Sellante idicado.png', 'Rojo'),
+(9, 'Erosión o Abrasión', 'Eroción o abración.png', 'Rojo'),
+(10, 'Procedimiento Realizado', 'Procedimiento realizado.png', 'Azul'),
+(11, 'Corona Buen Estado', 'Corona buen estado.png', 'Azul'),
+(12, 'Corona Mal Estado', 'Corona mal estado.png', 'Rojo'),
+(13, 'Provisional Buen Estado', 'Provicional buen estado.png', 'Azul'),
+(14, 'Provisional Mal Estado', 'Provicional mal estado.png', 'Rojo'),
+(15, 'Núcleo Buen Estado', 'Nucleo buen estado.png', 'Azul'),
+(16, 'Núcleo Mal Estado', 'Nucleo mal estado.png', 'Rojo');
 
 -- --------------------------------------------------------
 
@@ -392,10 +361,10 @@ INSERT INTO `convenciones` (`codigo`, `convencion`, `figura`, `color`) VALUES
 --
 
 CREATE TABLE `convenciones_oc` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `convencion` varchar(30) NOT NULL,
   `color` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `convenciones_oc`
@@ -413,11 +382,11 @@ INSERT INTO `convenciones_oc` (`codigo`, `convencion`, `color`) VALUES
 --
 
 CREATE TABLE `convencion_seccion` (
-  `codigo` int(11) NOT NULL,
-  `codigo_convenciones_oc_FK` int(11) NOT NULL,
-  `codigo_seccion_FK` int(11) NOT NULL,
-  `codigo_OI_FK` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo` bigint NOT NULL,
+  `codigo_convenciones_oc_FK` bigint NOT NULL,
+  `codigo_seccion_FK` bigint NOT NULL,
+  `codigo_OI_FK` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -426,9 +395,9 @@ CREATE TABLE `convencion_seccion` (
 --
 
 CREATE TABLE `departamentos` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `departamento` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `departamentos`
@@ -476,18 +445,9 @@ INSERT INTO `departamentos` (`codigo`, `departamento`) VALUES
 --
 
 CREATE TABLE `diagnosticos` (
-  `codigo` int(11) NOT NULL,
-  `codigo_consultas_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `diagnosticos`
---
-
-INSERT INTO `diagnosticos` (`codigo`, `codigo_consultas_FK`) VALUES
-(1, 3),
-(2, 3),
-(3, 3);
+  `codigo` bigint NOT NULL,
+  `codigo_historia_clinica_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -496,11 +456,11 @@ INSERT INTO `diagnosticos` (`codigo`, `codigo_consultas_FK`) VALUES
 --
 
 CREATE TABLE `dientes` (
-  `codigo` int(11) NOT NULL,
-  `numero_diente` int(11) NOT NULL,
-  `cuadrante` int(11) NOT NULL,
-  `cuadrante_fila` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo` bigint NOT NULL,
+  `numero_diente` bigint NOT NULL,
+  `cuadrante` bigint NOT NULL,
+  `cuadrante_fila` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `dientes`
@@ -567,14 +527,15 @@ INSERT INTO `dientes` (`codigo`, `numero_diente`, `cuadrante`, `cuadrante_fila`)
 --
 
 CREATE TABLE `evoluciones_h_c` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
+  `actividad` varchar(255) NOT NULL,
   `fecha_evolucion` date NOT NULL,
-  `codigo_cups` varchar(15) NOT NULL,
-  `copago` varchar(15) NOT NULL,
+  `codigo_cups` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `copago` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `descripcion_procedimiento` varchar(200) NOT NULL,
-  `codigo_consultas_FK` int(11) NOT NULL,
-  `codigo_odontograma_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_consultas_FK` bigint NOT NULL,
+  `codigo_odontograma_FK` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -583,14 +544,26 @@ CREATE TABLE `evoluciones_h_c` (
 --
 
 CREATE TABLE `higienes` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `higieneOral` varchar(10) NOT NULL,
   `frecuencia` varchar(10) NOT NULL,
   `gradoRiesgo` varchar(10) NOT NULL,
   `sedaDental` varchar(10) NOT NULL,
   `pigmentaciones` varchar(10) NOT NULL,
-  `codigo_consulta_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_historia_clinica_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `historias_clinicas`
+--
+
+CREATE TABLE `historias_clinicas` (
+  `Codigo` bigint NOT NULL,
+  `antecedentes_odontologicos_medicos_generales` varchar(250) DEFAULT NULL,
+  `id_paciente_FK` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -599,9 +572,9 @@ CREATE TABLE `higienes` (
 --
 
 CREATE TABLE `ips` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `nombre_ips` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `ips`
@@ -635,10 +608,10 @@ INSERT INTO `ips` (`codigo`, `nombre_ips`) VALUES
 --
 
 CREATE TABLE `municipios` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `municipio` varchar(80) NOT NULL,
-  `codigo_departamento_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_departamento_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `municipios`
@@ -1753,16 +1726,9 @@ INSERT INTO `municipios` (`codigo`, `municipio`, `codigo_departamento_FK`) VALUE
 --
 
 CREATE TABLE `odontogramas` (
-  `codigo` int(11) NOT NULL,
-  `codigoConsultaFK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `odontogramas`
---
-
-INSERT INTO `odontogramas` (`codigo`, `codigoConsultaFK`) VALUES
-(1, 3);
+  `codigo` bigint NOT NULL,
+  `codigoConsultaFK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1771,12 +1737,12 @@ INSERT INTO `odontogramas` (`codigo`, `codigoConsultaFK`) VALUES
 --
 
 CREATE TABLE `o_integrado` (
-  `codigo_odontogramas_FK` int(11) NOT NULL,
-  `codigo_dientes_FK` int(11) NOT NULL,
-  `codigo_convenciones_FK` int(11) NOT NULL,
-  `codigo` int(11) NOT NULL,
-  `codigo_convencionseccionFK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `codigo_odontogramas_FK` bigint NOT NULL,
+  `codigo_dientes_FK` bigint NOT NULL,
+  `codigo_convenciones_FK` bigint DEFAULT NULL,
+  `codigo` bigint NOT NULL,
+  `codigo_convencionseccionFK` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1793,20 +1759,11 @@ CREATE TABLE `pacientes` (
   `fecha_inicio_tratamiento` date NOT NULL,
   `telefono` varchar(30) NOT NULL,
   `sexo` varchar(15) NOT NULL,
+  `estado` varchar(10) DEFAULT 'activo',
   `otrosAntecedentesFamiliares` varchar(90) DEFAULT NULL,
-  `codigo_residencia_FK` int(11) NOT NULL,
-  `codigo_tipo_documento_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `pacientes`
---
-
-INSERT INTO `pacientes` (`numero_documento`, `nombres`, `apellidoUno`, `apellidoDos`, `fecha_nacimiento`, `fecha_inicio_tratamiento`, `telefono`, `sexo`, `otrosAntecedentesFamiliares`, `codigo_residencia_FK`, `codigo_tipo_documento_FK`) VALUES
-('1007597893', 'Manuel Santiago', 'Garcia', 'Julio', '1999-12-10', '2023-05-02', '3004604190', 'hombre', NULL, 34, 7),
-('1007597894', 'Vanessa Antonia', 'Garcia', 'Julio', '1999-12-10', '2023-05-08', '3114167027', 'mujer', NULL, 35, 7),
-('1044924492', 'Zoraida Isabel', 'Garcia', 'Julio', '2023-04-12', '2023-05-02', '3215705584', 'mujer', NULL, 27, 7),
-('30761898', 'Inelda', 'Julio', 'Herrera', '1960-05-03', '2023-05-09', '+573114167027', 'mujer', NULL, 38, 7);
+  `codigo_residencia_FK` bigint NOT NULL,
+  `codigo_tipo_documento_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1815,12 +1772,12 @@ INSERT INTO `pacientes` (`numero_documento`, `nombres`, `apellidoUno`, `apellido
 --
 
 CREATE TABLE `protesis` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `presenciaProtesis` varchar(10) NOT NULL,
   `descripcion` text,
   `tipo` text,
-  `codigo_consulta_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_historia_clinica_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1829,11 +1786,11 @@ CREATE TABLE `protesis` (
 --
 
 CREATE TABLE `regimen_usuarios` (
-  `codigo_tipousuario_FK` int(11) NOT NULL,
-  `codigoIps_FK` int(11) NOT NULL,
+  `codigo_tipousuario_FK` bigint NOT NULL,
+  `codigoIps_FK` bigint NOT NULL,
   `numero_documento_paciente_FK` varchar(20) NOT NULL,
   `sucursal` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1842,20 +1799,10 @@ CREATE TABLE `regimen_usuarios` (
 --
 
 CREATE TABLE `residencias` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `direccion_residencia` varchar(60) NOT NULL,
-  `codigo_municipio_FK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `residencias`
---
-
-INSERT INTO `residencias` (`codigo`, `direccion_residencia`, `codigo_municipio_FK`) VALUES
-(27, 'CL LOMBA SECTOR EL SILENCIO', 64),
-(34, 'Arjona bolivar. Cr 43 #48-28 ps2', 64),
-(35, 'Arjona bolivar. Cr 43 #48-28 ps2', 64),
-(38, 'Arjona bolivar. Cr 43 #48-28 ps2 inelda', 64);
+  `codigo_municipio_FK` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1864,14 +1811,14 @@ INSERT INTO `residencias` (`codigo`, `direccion_residencia`, `codigo_municipio_F
 --
 
 CREATE TABLE `responsables` (
-  `codigo` int(11) NOT NULL,
-  `aplica` varchar(5) NOT NULL,
+  `codigo` bigint NOT NULL,
+  `aplica` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `nombres` varchar(30) NOT NULL,
   `apellidos` varchar(30) NOT NULL,
   `telefono` varchar(15) NOT NULL,
   `parentezco` varchar(30) NOT NULL,
   `numero_documento_paciente_FK` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1880,9 +1827,9 @@ CREATE TABLE `responsables` (
 --
 
 CREATE TABLE `seccion` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `nombreSeccion` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `seccion`
@@ -1890,7 +1837,7 @@ CREATE TABLE `seccion` (
 
 INSERT INTO `seccion` (`codigo`, `nombreSeccion`) VALUES
 (1, 'top'),
-(2, 'buttom'),
+(2, 'bot'),
 (3, 'left'),
 (4, 'right'),
 (5, 'center');
@@ -1902,9 +1849,9 @@ INSERT INTO `seccion` (`codigo`, `nombreSeccion`) VALUES
 --
 
 CREATE TABLE `tipos_diagnosticos` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `diagnostico` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tipos_diagnosticos`
@@ -1926,9 +1873,9 @@ INSERT INTO `tipos_diagnosticos` (`codigo`, `diagnostico`) VALUES
 --
 
 CREATE TABLE `tipos_documentos` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `clase_de_documento` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tipos_documentos`
@@ -1949,9 +1896,9 @@ INSERT INTO `tipos_documentos` (`codigo`, `clase_de_documento`) VALUES
 --
 
 CREATE TABLE `tipos_usuarios` (
-  `codigo` int(11) NOT NULL,
+  `codigo` bigint NOT NULL,
   `clase_de_usuario` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tipos_usuarios`
@@ -1992,7 +1939,7 @@ ALTER TABLE `antecedentes_familiares_pacientes`
 --
 ALTER TABLE `articulaciones_temporo_mandibulares`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `codigo_consultas_FK_4` (`codigo_consultas_FK`);
+  ADD KEY `codigo_consultas_FK_4` (`codigo_historia_clinica_FK`);
 
 --
 -- Indexes for table `codigos_cies`
@@ -2047,7 +1994,7 @@ ALTER TABLE `departamentos`
 --
 ALTER TABLE `diagnosticos`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `codigo_consultas_FK_1` (`codigo_consultas_FK`);
+  ADD KEY `codigo_consultas_FK_1` (`codigo_historia_clinica_FK`);
 
 --
 -- Indexes for table `dientes`
@@ -2068,7 +2015,14 @@ ALTER TABLE `evoluciones_h_c`
 --
 ALTER TABLE `higienes`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `codigo_consulta_FK_3` (`codigo_consulta_FK`);
+  ADD KEY `codigo_consulta_FK_3` (`codigo_historia_clinica_FK`);
+
+--
+-- Indexes for table `historias_clinicas`
+--
+ALTER TABLE `historias_clinicas`
+  ADD PRIMARY KEY (`Codigo`),
+  ADD KEY `fk_paciente_hc` (`id_paciente_FK`);
 
 --
 -- Indexes for table `ips`
@@ -2113,7 +2067,7 @@ ALTER TABLE `pacientes`
 --
 ALTER TABLE `protesis`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `codigo_consulta_FK_4` (`codigo_consulta_FK`);
+  ADD KEY `codigo_consulta_FK_4` (`id_historia_clinica_FK`);
 
 --
 -- Indexes for table `regimen_usuarios`
@@ -2169,145 +2123,151 @@ ALTER TABLE `tipos_usuarios`
 -- AUTO_INCREMENT for table `administradores`
 --
 ALTER TABLE `administradores`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `antecedentes_familiares`
 --
 ALTER TABLE `antecedentes_familiares`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `articulaciones_temporo_mandibulares`
 --
 ALTER TABLE `articulaciones_temporo_mandibulares`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `codigos_cies`
 --
 ALTER TABLE `codigos_cies`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=359;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=359;
 
 --
 -- AUTO_INCREMENT for table `consultas`
 --
 ALTER TABLE `consultas`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `convenciones`
 --
 ALTER TABLE `convenciones`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `convenciones_oc`
 --
 ALTER TABLE `convenciones_oc`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `convencion_seccion`
 --
 ALTER TABLE `convencion_seccion`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `diagnosticos`
 --
 ALTER TABLE `diagnosticos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dientes`
 --
 ALTER TABLE `dientes`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `evoluciones_h_c`
 --
 ALTER TABLE `evoluciones_h_c`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `higienes`
 --
 ALTER TABLE `higienes`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `historias_clinicas`
+--
+ALTER TABLE `historias_clinicas`
+  MODIFY `Codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ips`
 --
 ALTER TABLE `ips`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `municipios`
 --
 ALTER TABLE `municipios`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1101;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1101;
 
 --
 -- AUTO_INCREMENT for table `odontogramas`
 --
 ALTER TABLE `odontogramas`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `o_integrado`
 --
 ALTER TABLE `o_integrado`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `protesis`
 --
 ALTER TABLE `protesis`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `residencias`
 --
 ALTER TABLE `residencias`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `responsables`
 --
 ALTER TABLE `responsables`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tipos_diagnosticos`
 --
 ALTER TABLE `tipos_diagnosticos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tipos_documentos`
 --
 ALTER TABLE `tipos_documentos`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tipos_usuarios`
 --
 ALTER TABLE `tipos_usuarios`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codigo` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -2324,7 +2284,7 @@ ALTER TABLE `antecedentes_familiares_pacientes`
 -- Constraints for table `articulaciones_temporo_mandibulares`
 --
 ALTER TABLE `articulaciones_temporo_mandibulares`
-  ADD CONSTRAINT `codigo_consultas_FK_4` FOREIGN KEY (`codigo_consultas_FK`) REFERENCES `consultas` (`codigo`);
+  ADD CONSTRAINT `articulacion_historia_clinica` FOREIGN KEY (`codigo_historia_clinica_FK`) REFERENCES `historias_clinicas` (`Codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `codigos_diagnosticos`
@@ -2344,15 +2304,15 @@ ALTER TABLE `consultas`
 -- Constraints for table `convencion_seccion`
 --
 ALTER TABLE `convencion_seccion`
-  ADD CONSTRAINT `codigoOI_FK` FOREIGN KEY (`codigo_OI_FK`) REFERENCES `o_integrado` (`codigo`),
   ADD CONSTRAINT `codigo_convenciones_oc_FK_1` FOREIGN KEY (`codigo_convenciones_oc_FK`) REFERENCES `convenciones_oc` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `codigo_seccion_FK_1` FOREIGN KEY (`codigo_seccion_FK`) REFERENCES `seccion` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `codigo_seccion_FK_1` FOREIGN KEY (`codigo_seccion_FK`) REFERENCES `seccion` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `codigoOI_FK` FOREIGN KEY (`codigo_OI_FK`) REFERENCES `o_integrado` (`codigo`);
 
 --
 -- Constraints for table `diagnosticos`
 --
 ALTER TABLE `diagnosticos`
-  ADD CONSTRAINT `codigo_consultas_FK_1` FOREIGN KEY (`codigo_consultas_FK`) REFERENCES `consultas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `diagnosticos` FOREIGN KEY (`codigo_historia_clinica_FK`) REFERENCES `historias_clinicas` (`Codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `evoluciones_h_c`
@@ -2365,7 +2325,13 @@ ALTER TABLE `evoluciones_h_c`
 -- Constraints for table `higienes`
 --
 ALTER TABLE `higienes`
-  ADD CONSTRAINT `codigo_consulta_FK_3` FOREIGN KEY (`codigo_consulta_FK`) REFERENCES `consultas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `higienes_historia_clinica` FOREIGN KEY (`codigo_historia_clinica_FK`) REFERENCES `historias_clinicas` (`Codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `historias_clinicas`
+--
+ALTER TABLE `historias_clinicas`
+  ADD CONSTRAINT `fk_paciente_hc` FOREIGN KEY (`id_paciente_FK`) REFERENCES `pacientes` (`numero_documento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `municipios`
@@ -2377,14 +2343,14 @@ ALTER TABLE `municipios`
 -- Constraints for table `odontogramas`
 --
 ALTER TABLE `odontogramas`
-  ADD CONSTRAINT `codigo_consulta_FK3` FOREIGN KEY (`codigoConsultaFK`) REFERENCES `consultas` (`codigo`);
+  ADD CONSTRAINT `codigo_consulta_FK3` FOREIGN KEY (`codigoConsultaFK`) REFERENCES `consultas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `o_integrado`
 --
 ALTER TABLE `o_integrado`
-  ADD CONSTRAINT `Codigo_convencionseccionFK` FOREIGN KEY (`codigo_convencionseccionFK`) REFERENCES `convencion_seccion` (`codigo`),
   ADD CONSTRAINT `codigo_convenciones_FK` FOREIGN KEY (`codigo_convenciones_FK`) REFERENCES `convenciones` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Codigo_convencionseccionFK` FOREIGN KEY (`codigo_convencionseccionFK`) REFERENCES `convencion_seccion` (`codigo`),
   ADD CONSTRAINT `codigo_dientes_FK` FOREIGN KEY (`codigo_dientes_FK`) REFERENCES `dientes` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `codigo_odontogramas_FK_1` FOREIGN KEY (`codigo_odontogramas_FK`) REFERENCES `odontogramas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -2399,14 +2365,14 @@ ALTER TABLE `pacientes`
 -- Constraints for table `protesis`
 --
 ALTER TABLE `protesis`
-  ADD CONSTRAINT `codigo_consulta_FK_4` FOREIGN KEY (`codigo_consulta_FK`) REFERENCES `consultas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `protesis_historia_clinica` FOREIGN KEY (`id_historia_clinica_FK`) REFERENCES `historias_clinicas` (`Codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `regimen_usuarios`
 --
 ALTER TABLE `regimen_usuarios`
-  ADD CONSTRAINT `codigoIps_FK` FOREIGN KEY (`codigoIps_FK`) REFERENCES `ips` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `codigo_tipousuario_FK` FOREIGN KEY (`codigo_tipousuario_FK`) REFERENCES `tipos_usuarios` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `codigoIps_FK` FOREIGN KEY (`codigoIps_FK`) REFERENCES `ips` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `numero_documento_paciente_FK_3` FOREIGN KEY (`numero_documento_paciente_FK`) REFERENCES `pacientes` (`numero_documento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
