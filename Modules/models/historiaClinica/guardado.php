@@ -49,6 +49,13 @@ function nuevaHistoriaClinica($historiaInfo, $historiaClinica, $articulaciones)
             'presenciaProtesis, tipo, descripcion, id_historia_clinica_FK',
             [$protesisSi, $protesisTipo, $protesisDescripcion, $idHistoriaClinica]
         );
+
+    }else{
+        crearInsert(
+            'protesis',
+            'presenciaProtesis, tipo, descripcion, id_historia_clinica_FK',
+            ['no', '', '', $idHistoriaClinica]
+        );
     }
 
     //* paso 4: creacion de campos de higiene

@@ -18,6 +18,7 @@ $(document).ready(() => {
         const sedaDentalSi = $("#sedaDentalSi").prop('checked') ? 'si' : 'no'
         const pigmentacionSi = $("#pigmentacionSi").prop('checked') ? 'si' : 'no'
         const pacienteTrabajar = $("#pacienteTrabajar").val()
+        const pacienteNuevo = $("#pacienteNuevo").val()
 
         //* inputs datalist -
         const articular = capturarDataValue($("#datalistArticular").val(), 'articular')
@@ -98,7 +99,11 @@ $(document).ready(() => {
                         showConfirmButton: false,
                         timer: 1500
                     }).then(() => {
-                        window.location.href = 'inicio.php'
+                        if (pacienteNuevo) {
+                            window.location.href = `consulta.php?cedulaPaciente=${pacienteTrabajar}`
+                        }else{
+                            window.location.href = 'misPacientes.php'
+                        }
                     })
                 }else{
                     Swal.fire({

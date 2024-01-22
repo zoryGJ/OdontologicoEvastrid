@@ -32,7 +32,7 @@ $paciente = makeConsult(
         'municipios.municipio',
         'departamentos.departamento',
         'departamentos.codigo as codigo_departamento',
-
+        'pacientes.otrosAntecedentesFamiliares',
     ],
     "pacientes.numero_documento = ?",
     [$cedulaPaciente],
@@ -268,7 +268,7 @@ $municipiosDepartamentoelegido = makeConsult(
 
             <div class="consulta">
                 <div class="cuadro-texto cuadroTextoTamaño">
-                    <textarea name="" id="antecedentesOtros" cols="30" rows="10" placeholder="Redactar la informacion en el cuadro de texto." required></textarea>
+                    <textarea name="" id="antecedentesOtros" cols="30" rows="10" placeholder="Redactar la informacion en el cuadro de texto." required><?php echo $paciente['otrosAntecedentesFamiliares']; ?></textarea>
                     <label for="">Otros...</label>
                 </div>
             </div>

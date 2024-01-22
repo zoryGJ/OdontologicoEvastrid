@@ -154,6 +154,14 @@ $(document).ready(() => {
                 proceso = 'Obturado - Resina'
             }
 
+            if (seccion.classList.contains('amalgamaDesadaptada')) {
+                proceso = 'Amalgama - Desadaptada'
+            }
+
+            if (seccion.classList.contains('resinaDesadaptada')) {
+                proceso = 'Resina - Desadaptada'
+            }
+
             return {
                 nombre,
                 proceso

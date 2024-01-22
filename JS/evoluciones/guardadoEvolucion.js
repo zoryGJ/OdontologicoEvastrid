@@ -14,7 +14,7 @@ $(document).ready(() => {
         const evolucionFecha = $('#evolucionFecha').val()
         const evolucionActividad = $('#evolucionActividad').val()
         const evolucionCodigoCups = $('#evolucionCodigoCups').val()
-        const evolucionCopago = $('#evolucionCopago').val()
+        const evolucionCopago = 0
         const evolucionDescripcion = $('#evolucionDescripcion').val()
         const numeroConsulta = $('#numeroConsulta').val()
 
@@ -131,6 +131,14 @@ $(document).ready(() => {
 
             if (seccion.classList.contains('resina')) {
                 proceso = 'Obturado - Resina'
+            }
+
+            if (seccion.classList.contains('amalgamaDesadaptada')) {
+                proceso = 'Amalgama - Desadaptada'
+            }
+
+            if (seccion.classList.contains('resinaDesadaptada')) {
+                proceso = 'Resina - Desadaptada'
             }
 
             return {

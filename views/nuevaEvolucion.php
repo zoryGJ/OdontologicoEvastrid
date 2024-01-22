@@ -131,13 +131,12 @@ $stmtCIES->execute();
 $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
+//* consultando codigos CUPS
+$codigosCups = makeConsult('procedimientos_odontologicos', ['*']);
+
 ?>
 
 <?php include '../Modules/templates/head.php'; ?>
-
-<!-- <pre>
-    <?php var_dump($ultimaConsulta); ?>
-</pre> -->
 
 <link rel="stylesheet" href="../css/ondotogramaManuel.css">
 
@@ -193,14 +192,19 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                         </div>
 
                         <div class="años evolucion evl">
-                            <input id="evolucionCodigoCups" type="text" required>
-                            <label>Codigo CUPS</label>
+                            <input id="evolucionCodigoCups" type="text" required list="codigosCupsList">
+                            <label>Procedimiento odontologico</label>
+                            <datalist id="codigosCupsList">
+                                <?php foreach ($codigosCups as $codigoCups) { ?>
+                                    <option value="<?php echo $codigoCups['codigo_cup']." - ".$codigoCups['descripcion']; ?>"></option>
+                                <?php } ?>
+                            </datalist>
                         </div>
 
-                        <div class="años evolucion evl">
+                        <!-- <div class="años evolucion evl">
                             <input id="evolucionCopago" type="number" required>
                             <label>Valor Copago</label>
-                        </div>
+                        </div> -->
 
                         <input type="hidden" id="numeroConsulta" value="<?php echo $ultimaConsulta; ?>">
                     </div>
@@ -276,6 +280,10 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                                             $active = 'active amalgama';
                                         } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
                                             $active = 'active resina';
+                                        }elseif ($convencionSeccion[$indice] == 'Amalgama - Desadaptada') {
+                                            $active = 'active amalgamaDesadaptada';
+                                        }else if ($convencionSeccion[$indice] == 'Resina - Desadaptada') {
+                                            $active = 'active resinaDesadaptada';
                                         }
                                     }
                                     ?>
@@ -333,6 +341,10 @@ $codigosCIES = $stmtCIES->get_result()->fetch_all(MYSQLI_ASSOC);
                                             $active = 'active amalgama';
                                         } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
                                             $active = 'active resina';
+                                        }elseif ($convencionSeccion[$indice] == 'Amalgama - Desadaptada') {
+                                            $active = 'active amalgamaDesadaptada';
+                                        }else if ($convencionSeccion[$indice] == 'Resina - Desadaptada') {
+                                            $active = 'active resinaDesadaptada';
                                         }
                                     }
                                     ?>

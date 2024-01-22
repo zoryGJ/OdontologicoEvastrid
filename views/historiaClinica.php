@@ -11,6 +11,7 @@ if (!controllSession()) {
 <?php
 
 $pacienteTrabajar = $_GET['cedulaPaciente'];
+$pacienteNuevo = isset($_GET['pacienteNuevo']) ? true : false;
 
 include '../Modules/functions/bdconection.php';
 include '../Modules/functions/funcionesSql.php';
@@ -77,6 +78,10 @@ if ($hasHistoriaClinica) {
 
     $valoresInputDiagnostico = [];
     foreach ($diagnosticos as $diagnostico) {
+        if ($diagnostico['diagnostico'] == 'otros' && $diagnostico['codigo_alfa_numerico'] == '0000') {
+            $valoresInputDiagnostico[$diagnostico['diagnostico']] = "";
+            continue;
+        }
         $valoresInputDiagnostico[$diagnostico['diagnostico']] = $diagnostico['codigo_alfa_numerico'] . ' - ' . $diagnostico['descripcion_codigo'];
     }
 }
@@ -702,6 +707,7 @@ if ($hasHistoriaClinica) {
 
 
                 <input style="display: none;" type="text" id="pacienteTrabajar" value="<?php echo ($pacienteTrabajar); ?>">
+                <input style="display: none;" type="text" id="pacienteNuevo" value="<?php echo ($pacienteNuevo); ?>">
 
                 <div class="botones">
 

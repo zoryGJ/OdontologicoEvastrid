@@ -144,6 +144,17 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                 </div>
             </div>
 
+            <div class="only-odontograma">
+                <h1 class="h1centrar g-odontograma">Odontógrama</h1>
+
+                <div class="g-evolucion">
+                    <button class="nueva evolucion g-odontograma" title="Gestionar nueva evolución" id="gestionarOdontograma">
+                        <i class="fa-solid fa-teeth"></i>
+                        <h3>Ver odontograma</h3>
+                    </button>
+                </div>
+            </div>
+
             <div class="nueva-evolucion">
                 <a href="evoluciones.php?numeroConsulta=<?php echo $ultimaConsulta['codigo']; ?>"><i class="fa-solid fa-circle-up"></i> Ver evoluciones</a>
             </div>
@@ -166,19 +177,6 @@ foreach ($dientesOdontogramaConsulta as $diente) {
             <div class="consulta">
                 <div class="cuadro-texto">
                     <textarea name="" id="examenEstomatologico" cols="4" rows="4" placeholder="Redactar la informacion en el cuadro de texto." disabled><?php echo $ultimaConsulta['examen_estomatologico']; ?></textarea>
-                </div>
-            </div>
-        </form>
-
-        <form id="formConsulta">
-            <div class="only-odontograma">
-                <h1 class="h1centrar g-odontograma">Odontógrama</h1>
-
-                <div class="g-evolucion">
-                    <button class="nueva evolucion g-odontograma" title="Gestionar nueva evolución" id="gestionarOdontograma">
-                        <i class="fa-solid fa-teeth"></i>
-                        <h3>Ver odontograma</h3>
-                    </button>
                 </div>
             </div>
         </form>
@@ -238,6 +236,10 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                                                 $active = 'active amalgama';
                                             } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
                                                 $active = 'active resina';
+                                            }elseif ($convencionSeccion[$indice] == 'Amalgama - Desadaptada') {
+                                                $active = 'active amalgamaDesadaptada';
+                                            }else if ($convencionSeccion[$indice] == 'Resina - Desadaptada') {
+                                                $active = 'active resinaDesadaptada';
                                             }
                                         }
                                     ?>
@@ -294,6 +296,10 @@ foreach ($dientesOdontogramaConsulta as $diente) {
                                                 $active = 'active amalgama';
                                             } elseif ($convencionSeccion[$indice] == 'Obturado - Resina') {
                                                 $active = 'active resina';
+                                            }elseif ($convencionSeccion[$indice] == 'Amalgama - Desadaptada') {
+                                                $active = 'active amalgamaDesadaptada';
+                                            }else if ($convencionSeccion[$indice] == 'Resina - Desadaptada') {
+                                                $active = 'active resinaDesadaptada';
                                             }
                                         }
                                     ?>

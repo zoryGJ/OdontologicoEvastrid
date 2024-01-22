@@ -121,7 +121,7 @@ $(document).ready(() => {
             switch (process) {
                 case "conv1":
                     //* removiendo clases de convenciones en caso de que existan
-                    area.classList.remove("active", "cariado", "amalgama", "resina")
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
 
                     //* agregando clase de convencion
                     area.classList.add("active", "cariado")
@@ -129,7 +129,7 @@ $(document).ready(() => {
 
                 case "conv2":
                     //* removiendo clases de convenciones en caso de que existan
-                    area.classList.remove("active", "cariado", "amalgama", "resina")
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
 
                     //* agregando clase de convencion
                     area.classList.add("active", "amalgama")
@@ -137,15 +137,32 @@ $(document).ready(() => {
 
                 case "conv3":
                     //* removiendo clases de convenciones en caso de que existan
-                    area.classList.remove("active", "cariado", "amalgama", "resina")
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
 
                     //* agregando clase de convencion
                     area.classList.add("active", "resina")
                     break
 
+                case "conv4":
+                    //* removiendo clases de convenciones en caso de que existan
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
+
+                    //* agregando clase de convencion
+                    area.classList.add("active", "amalgamaDesadaptada")
+                    break
+                
+                case "conv5":
+                    //* removiendo clases de convenciones en caso de que existan
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
+
+                    //* agregando clase de convencion
+                    area.classList.add("active", "resinaDesadaptada")
+                    break
+
+
                 case "limpiar":
                     dienteSeleccionado.diente.setAttribute('procesoDiente', '')
-                    area.classList.remove("active", "cariado", "amalgama", "resina")
+                    area.classList.remove("active", "cariado", "amalgama", "resina", "amalgamaDesadaptada", "resinaDesadaptada")
                     break
             }
 

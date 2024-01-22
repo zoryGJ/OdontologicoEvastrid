@@ -70,7 +70,7 @@ $(document).ready(() => {
                 dental,
                 cd,
                 tejidosBlandos,
-                otros
+                otros: otros ? otros : '359'
             },
             pacienteTrabajar
         }

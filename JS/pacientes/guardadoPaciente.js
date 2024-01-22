@@ -154,7 +154,7 @@ $(document).ready(() => {
                         title: 'Exitoso',
                         text: 'Paciente Creado',
                     }).then(function (click) {
-                        window.location.href = "f_consultas.php?cedulaPaciente="+pacienteNumeroDoc.val()
+                        window.location.href = `historiaClinica.php?cedulaPaciente=${pacienteNumeroDoc.val()}&pacienteNuevo=true`;
                     })
                 }else{
                     if (respuesta.proceso == 'incorrecto') {
