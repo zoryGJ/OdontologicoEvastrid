@@ -1,8 +1,6 @@
 $(document).ready(() => {
     
     //* variables globales (html)
-    const nombre_de_ips = $('#nombreIPS')
-    const sucursalIPS = $('#sucursalIPS')
     const pacienteNombre = $('#pacienteNombre')
     const pacienteApellido1 = $('#pacienteApellido1')
     const pacienteApellido2 = $('#pacienteApellido2')
@@ -77,7 +75,6 @@ $(document).ready(() => {
         ajax.send()
         ajax.onload = () => {
             if (ajax.status === 200) {
-                console.log(ajax.responseText);
                 const listadoMunicipios = JSON.parse(ajax.responseText)
 
                 listadoMunicipios.forEach(({codigo: municipioID, municipio: municipioNombre}) => {
@@ -105,7 +102,6 @@ $(document).ready(() => {
             if (ajax.status == 200) {
                 console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
-                console.log(respuesta)
 
                 if (respuesta.proceso == 'correcto') {
                     Swal.fire({
@@ -149,9 +145,8 @@ $(document).ready(() => {
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
-                console.log(ajax.responseText);
+                // console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
-                console.log(respuesta)
 
                 if (respuesta.proceso == 'correcto') {
                     Swal.fire({
@@ -159,7 +154,7 @@ $(document).ready(() => {
                         title: 'Exitoso',
                         text: 'Paciente Creado',
                     }).then(function (click) {
-                        window.location.href = "f_consultas.php?cedulaPaciente="+pacienteNumeroDoc.val()
+                        window.location.href = `historiaClinica.php?cedulaPaciente=${pacienteNumeroDoc.val()}&pacienteNuevo=true`;
                     })
                 }else{
                     if (respuesta.proceso == 'incorrecto') {
@@ -176,7 +171,6 @@ $(document).ready(() => {
                                 text: 'Este Paciente ya se encuentra registrado',
                             })
                         }
-                        
                     }
                 }
             }
@@ -212,8 +206,8 @@ $(document).ready(() => {
 
     const leerDatosFormulario = () => {
         const infoFormulario = {
-            nombreIps:  buscardatalist('nombre_de_ips', nombre_de_ips.val()),
-            sucursalIps: sucursalIPS.val(),
+            nombreIps:  '',
+            sucursalIps: '',
             nombre: pacienteNombre.val(),
             apellido1: pacienteApellido1.val(),
             apellido2: pacienteApellido2.val(),
@@ -247,9 +241,6 @@ $(document).ready(() => {
 
             infoFormulario.personaResponsable = true
         }
-
-        console.log(infoFormulario);
-
 
         return infoFormulario
     }

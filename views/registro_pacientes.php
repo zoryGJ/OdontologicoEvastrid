@@ -3,7 +3,8 @@ include_once '../Modules/functions/sessions.php';
 include_once '../Modules/functions/consultasGenerales.php';
 
 if (!controllSession()) {
-    header('Location: http://localhost/Evastrid/views/login.php');
+    $rootViews = dirname($_SERVER['PHP_SELF']);
+    header('Location: http://localhost'.$rootViews.'/login.php');
 }
 
 //* consultas
@@ -35,28 +36,6 @@ $listadoTipoRegimen = consultaTipoRegimen();
             </a>
         </div>
         <form id="formPaciente">
-
-            <h1>Datos de la IPS</h1>
-
-            <div class="datos-ips general-1 general-2">
-
-                <div class="nombre-ips">
-                    <input id="nombreIPS" type="text" list="nombre_de_ips" placeholder="Seleccionar..." required>
-                    <datalist id="nombre_de_ips">
-                        <?php foreach ($listadoIPS as $ips) { ?>
-                            <option data-value="<?php echo $ips['codigo']; ?>" value="<?php echo $ips['nombre_ips']; ?>
-                            ">
-                            <?php } ?>
-                    </datalist>
-                    <label for="">Nombre de la IPS</label>
-                </div>
-
-                <div class="sucursal-ips">
-                    <input id="sucursalIPS" type="text" list="sucursal-ips" placeholder="Seleccionar..." required>
-                    <label for="">Sucursal</label>
-                </div>
-
-            </div>
 
             <h1>Datos del Paciente</h1>
 
@@ -93,9 +72,8 @@ $listadoTipoRegimen = consultaTipoRegimen();
                         <input id="pacienteTipoDoc" type="text" list="tipo-dcto" required>
                         <datalist id="tipo-dcto">
                             <?php foreach ($listadoTipoDocumentos as $tipoDocumento) { ?>
-                                <option data-value="<?php echo $tipoDocumento['codigo']; ?>" value="<?php echo $tipoDocumento['clase_de_documento']; ?>
-                                ">
-                                <?php } ?>
+                                <option data-value="<?php echo $tipoDocumento['codigo']; ?>" value="<?php echo $tipoDocumento['clase_de_documento']; ?>">
+                            <?php } ?>
                         </datalist>
                         <label>Tipo de Documento*</label>
                     </div>
@@ -108,25 +86,18 @@ $listadoTipoRegimen = consultaTipoRegimen();
                             <option value="">Seleccionar...</option>
                             <option value="mujer">Mujer</option>
                             <option value="hombre">Hombre</option>
-                            <option value="rarito">Helicoptero apache t-24 con turbo compresor</option>
                         </select>
                         <label>Sexo</label>
                     </div>
                 </div>
 
                 <div class="edad">
-                    <div class="años">
-                        <input type="number">
-                        <label>Edad</label> 
-                        <!-- colocar edad en automatico -->
-                    </div>
                     <div class="t-usuario">
                         <input id="pacienteTipoRegimen" type="text" list="t-usuario" placeholder="Seleccionar..." required>
                         <datalist id="t-usuario">
                             <?php foreach ($listadoTipoRegimen as $regimen) { ?>
                                 <option data-value="<?php echo $regimen['codigo']; ?>" value="<?php echo $regimen['clase_de_usuario']; ?>">
-                                <?php } ?>
-
+                            <?php } ?>
                         </datalist>
                         <label>Tipo de Usuario</label>
                     </div>
@@ -144,7 +115,7 @@ $listadoTipoRegimen = consultaTipoRegimen();
                         <input id="pacienteDepartamento" type="text" list="departamentos">
                         <datalist id="departamentos">
                             <option value="">
-                                <?php foreach ($listadoDepartamentos as $departamento) { ?>
+                            <?php foreach ($listadoDepartamentos as $departamento) { ?>
                             <option data-value="<?php echo $departamento['codigo']; ?>" value="<?php echo $departamento['departamento']; ?>">
                             <?php } ?>
                         </datalist>

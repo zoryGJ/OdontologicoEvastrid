@@ -27,6 +27,7 @@ $(document).ready(() => {
             //* proceso correcto
             if (xhr.status === 200) {
                 let respuestaJson = xhr.responseText//? respuesta en formato json
+                console.log(respuestaJson);
                 let respuestaObject = JSON.parse(respuestaJson)// ? respuesta en formato Objeti JS
 
                 //* let respuestaObject = JSON.parse(xhr.responseText) <- en una linea seri así

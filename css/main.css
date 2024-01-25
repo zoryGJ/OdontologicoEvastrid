@@ -19,7 +19,7 @@ body{
 }
 
 input[disabled], textarea[disabled]{
-    background-color: #e1e1e1 !important;
+    background-color: #f4f4f4 !important;
     cursor: not-allowed !important;
 }
 
@@ -29,8 +29,6 @@ input[disabled], textarea[disabled]{
     min-height: 100vh;
     background-image: url('../Img/Img-5.jpg');
     background-size: cover;
-    background-blend-mode: overlay;
-    background-color: #5555554a;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -254,8 +252,6 @@ input[disabled], textarea[disabled]{
     height: 100vh;
     background-image:url("../Img/Img-2.jpg");
     background-size:cover;
-    background-blend-mode: overlay;
-    background-color: #72727221;
     background-position-y: -65px;
 }
 
@@ -302,7 +298,7 @@ button{
 }
 
 .barra-inicio{
-    background-color: #c3c3c3cc;
+    background-color: #FAFAFA;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -310,16 +306,13 @@ button{
     width:45%;
 }
 
+.barra-inicio.admin{
+    justify-content: flex-start;
+}
 
 .icono-barra{
-    background-image: url("../Img/Logo.jpeg");
-    background-size:cover;
-    background-blend-mode: overlay;
-    background-color: #6464646e;
-    min-height: 18vh;
-    width:26%;
-    margin-top:45px;
-    border-radius: 44px;
+    text-align: center;
+    margin-top: 100px;
 }
 
 .enlaces-barra{
@@ -348,7 +341,7 @@ ul{
     text-decoration: none;
     font-size: 20px;
     font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    font-weight: lighter;
     color: #03899e;
 }
 
@@ -380,23 +373,18 @@ ul{
     background-attachment: fixed;
     min-height: 100vh;
     background-size:cover;
-    background-blend-mode: overlay;
-    background-color: #6464646e;
     display: flex;
     justify-content: center;
 }
 
 .pacientes{
-    width: 60%;
     min-height: 100vh;
     margin-top: 25px;
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 28px;
-    background-color: #EEEEEE;
-    background-attachment: fixed;
+    background-color: #FAFAFA;
     position: relative;
-    box-shadow: 4px 5px 3px #303030;
 }
 
 .titulo-historia{
@@ -484,7 +472,7 @@ form > h1,
 .H-CI > h1{
     font-family: 'Roboto', sans-serif;
     font-size: 1.3rem;
-    font-weight: bold;
+    font-weight: lighter;
     color: #03899e;
     padding-top: 40px;
     padding-left: 25px;
@@ -618,11 +606,10 @@ form > h1.h1centrar{
 
 .nombre-ips.checkbox .checkboxOrganizado{
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     width: 30%;
-    margin: 10px;
-    box-shadow: 0 14px 70px rgba(119, 119, 119, 0.15), 0 9px 109px rgb(119, 119, 119, 0.15), 0 5px 11px rgb(119, 119, 119, 0.15);
+    margin: 10px 0;
 }
 
 .nombre-ips.checkbox .checkboxOrganizado input{
@@ -664,7 +651,7 @@ form > h1.h1centrar{
 }
 
 .p-resp input[disabled]{
-    background-color: #e1e1e1;
+    background-color: #f4f4f4;
     cursor: not-allowed;
 }
 
@@ -743,15 +730,10 @@ form > h1.h1centrar{
 
 .cuadro-texto > textarea{
     width: 100%;
-    height: 15vh;
-    background-color: #EEEEEE;
+    padding: 10px;
     border: 1px solid #009BB4;
+    border-radius: 4px;
     outline: none;
-}
-
-.cuadro-texto > textarea:focus{
-    background-color: #dfdfdfec;
-    box-shadow: inset 0 1px 2px #cbcbcb;
 }
 
 .cuadro-texto.cuadroTextoTamaño{
@@ -787,15 +769,22 @@ form > h1.h1centrar{
     width: 25%;
 }
 
-.fechaConsulta{
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
+
+.general-2.fecha .fechaConsulta input{
     width: 100%;
+    padding: 0px !important;
+    background-color: #FAFAFA !important;
+    border-bottom: 1px solid #009BB4;
+    outline: none;
+    text-align: center;
+    padding-left: 10px;
+    line-height: initial;
 }
 
 .general-2.fecha .fechaConsulta label{
-    padding-top: 0px !important;
+    padding-top: 0px;
+    text-align: center;
+    width: 100%;
 }
 
 /*estilo tabla articulacion seccion formulario consultas*/
@@ -874,8 +863,6 @@ form > h1.h1centrar{
     min-width: 4vh;
     background-image: url(../Img/diente.jpg);
     background-size: cover;
-    background-blend-mode: overlay;
-    background-color: #5555552b;
 }
 
 .convencion-d ul{
@@ -1012,7 +999,6 @@ ul.dropdown-menu .dropdown-item:active{
 .protesis .p1 p{
     font-family: 'Roboto', sans-serif;
     font-size: 1.3rem;
-    font-weight: bold;
     color: #03899e;
     margin: 0;
     margin-left: 10px !important;
@@ -1049,7 +1035,6 @@ ul.dropdown-menu .dropdown-item:active{
 .protesis div.ok .p2 textarea{
     height: 10vh;
     border-radius: 4px;
-    background-color: #EEEEEE;
     border: 1px solid #009BB4;
     
     outline: none;
@@ -1064,7 +1049,6 @@ ul.dropdown-menu .dropdown-item:active{
 }
 
 .protesis div.ok .p2 textarea:focus{
-    background-color: #dededed4;
     border-radius: 4px;
     border: 1px solid #048EA4;
     text-align: left;
@@ -1214,14 +1198,6 @@ ul.dropdown-menu .dropdown-item:active{
         text-align: start; 
         padding-left: 27px;
     }   
-    
-    .g-evolucion > .nueva.evolucion.g-odontograma{
-        top: 290px !important;
-        right: 280px;
-        height: 15vh;
-        width: 36vh;
-        
-    }
 
     .nueva.evolucion.g-odontograma h3{
         font-size: 14px;
@@ -1262,17 +1238,6 @@ ul.dropdown-menu .dropdown-item:active{
         font-size: 28px;
     }
 
-    .g-evolucion > .nueva.evolucion.g-odontograma{
-        top: 299px !important;
-        right: 346px;
-        height: 12vh;
-        width: 25vh; 
-        box-shadow: 2px 3px 2px #03899e40;
-        border: none;
-        border-radius: 12px;
-        transition: all 0.3s ease-in-out; 
-    }
-
     .g-evolucion.hiddenEvolucion{
         visibility: hidden;
         opacity: 0;
@@ -1286,8 +1251,6 @@ ul.dropdown-menu .dropdown-item:active{
     /*Estilos solo cuando este activa consulta llena*/
 
     .g-evolucion > .nueva.evolucion.g-odontograma.consultaLlena{
-        top: 299px !important;
-        right: 480px;
         height: 12vh;
         width: 25vh; 
         box-shadow: 2px 3px 2px #03899e40;
@@ -1547,9 +1510,11 @@ ul.dropdown-menu .dropdown-item:active{
         font-size: 28px;
     }
 
+    .g-evolucion{
+        text-align: center;
+    }
+
     .g-evolucion > .nueva.evolucion.g-odontograma{
-        top: 318px !important;
-        right: 399px;
         height: 12vh;
         width: 25vh; 
         box-shadow: 2px 3px 2px #03899e40;
@@ -1705,7 +1670,6 @@ ul.dropdown-menu .dropdown-item:active{
 .cuadro-texto > p{
     width: 95%;
     height: 20vh;
-    background-color: #EEEEEE;
     color: #048EA4;
     text-align: justify;
 }
@@ -1753,33 +1717,44 @@ ul.dropdown-menu .dropdown-item:active{
 
 
 table#misPacientes{
-    font-family: 'Manjari', sans-serif;
     text-align: center;
     color: #048EA4;
-    border: 1px solid black;
+    max-width: 1000px;
+}
+
+.dataTables_filter{
+    margin-bottom: 50px;
 }
 
 table#misPacientes thead tr th{
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    color: #048EA4;
+    background-color: #048EA4;
+    color: #FAFAFA;
 }
 
 div#misPacientes_wrapper.dataTables_wrapper.no-footer{
     margin-top: 33px;
 }
 
-table#misPacientes tbody tr:nth-child(2n+1),
-table#misPacientes tbody tr:nth-child(2n+1) button
-{
-    background-color: #009BB4;
-    color: #eceaea;
+table#misPacientes tbody td{
+    padding: 15px 10px;
+    border-bottom: 1px solid #009BB4;
 }
 
-table#misPacientes tbody tr:nth-child(2n), 
-table#misPacientes tbody tr:nth-child(2n) button{
-    background-color: #fafafa;
+table#misPacientes tbody tr button
+{
+    background-color: #FAFAFA;
     color: #009BB4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+table#misPacientes tbody tr button:hover{
+    background-color: #009BB4;
+    color: #FAFAFA;
 }
 
 table#misPacientes tbody tr td.ultimoTD{
@@ -1888,65 +1863,24 @@ a.paginate_button.current{
     color: #048EA4;
 }
 
-#historialConsulta_wrapper{
-    margin-top: 12px;
-}
-
-table#historialConsulta{
-    padding-top: 13px !important;
-}
-
 table#historialConsulta thead tr th{
     font-family: 'Roboto', sans-serif;
     text-align: center;
     color: #048EA4;
 }
 
-table.dataTable.no-footer{
-    border: none !important;
-}
-
-tbody, td, tfoot, th, thead, tr{
-    border: none !important;
-}
-
 table#historialConsulta tbody tr td{
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    color: #fafafa;
-    padding: 0!important;
+    padding: 10px !important;
+    color: #048EA4;
+    border-bottom: 1px solid #e1e1e1;
 }
 
-table#historialConsulta tbody tr td div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-    height: 10vh;
-    background-color: #009bb4a1;
-}
-
-table#historialConsulta tbody tr td:nth-last-child(1) div{
-    border-radius: 0 23px 23px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-table#historialConsulta tbody tr td:nth-child(1) div{
-    border-radius: 23px 0 0 23px;
-}
-
-table#historialConsulta tbody tr td:nth-last-child(1) a button{
+table#historialConsulta tbody tr td:nth-last-child(1) a{
     border: none;
-    background-color: transparent;
-    color: #fafafa;
     font-size: 18px;
-}
-
-a#historialConsulta_next,
-a#historialConsulta_previous
-{
+    margin: 0 10px;
     color: #009BB4 !important;
 }
 
@@ -2002,9 +1936,7 @@ a#historialConsulta_previous
 
 /*esto es un button*/ 
 .nueva.evolucion{
-    position: absolute;
-    right: 84px;
-    top: 11px;
+    margin: 0 auto;
     border: none;
 }
 
@@ -2030,13 +1962,35 @@ a#historialConsulta_previous
 
 .articulacion.evolucion h1{
     font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.5rem;
     color: #03899e;
-    padding-top: 40px;
-    padding-left: 15px;
+    padding: 10px 15px;
     margin-right: auto;
     letter-spacing: 1px;
+    width: 100%;
+}
+
+.articulacion.evolucion p{
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+    padding: 10px 15px;
+    display: inline;
+}
+
+.articulacion.evolucion.evolucionList{
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.articulacion.evolucion.evolucionList .btn-inpect-evolution{
+    position: absolute;
+    top: -10px;
+    right: 0;
+}
+
+.articulacion.evolucion p span{
+    color: #03899e;
 }
 
 .consulta.evolucion{
@@ -2078,17 +2032,14 @@ a#historialConsulta_previous
 }
 
 .barra-inicio .logo-admin{
-    position: absolute;
-    top: 88px;
-    right: 273px;
     overflow: hidden;
     height: 95px;
     width: 95px;
     min-width: 50px;
     min-height: 50px;
     border-radius: 20px;
-    margin-right: 10px;
-    box-shadow: 0 24px 38px rgb(0 0 0 / 14%), 0 9px 46px rgb(0 0 0 / 12%), 0 11px 15px rgb(0 0 0 / 20%);
+    margin-right: 10px; 
+    display: none;
 }
 
 .pacientes .logo-admin{
@@ -2354,4 +2305,24 @@ a#historialConsulta_previous
 
 .overlay-hijo{
     margin-top: 45px;
+}
+
+
+/* Nueva evolucion */
+.nueva-evolucion{
+    padding: 40px 25px;
+}
+
+.nueva-evolucion a{
+    text-decoration: none;
+    color: #009BB4;
+    padding: 20px 10px;
+    border: 1px solid #009BB4;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nueva-evolucion a:hover{
+    background-color: #009BB4;
+    color: #FAFAFA;
 }

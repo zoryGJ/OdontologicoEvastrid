@@ -2,6 +2,7 @@
   include_once '../Modules/functions/sessions.php';
 
   if (!controllSession()) {
+    $rootViews = dirname($_SERVER['PHP_SELF']);
     header('Location: login.php');
   }
 ?>
@@ -22,7 +23,9 @@
             </button>
         </div>
 
-        <div class="icono-barra"></div>
+        <div class="icono-barra">
+            <img src="../Img/Logo-removebg-preview.png" alt="">
+        </div>
 
         <div class="enlaces-barra">
             <ul>

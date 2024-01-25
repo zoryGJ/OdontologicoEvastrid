@@ -1,102 +1,75 @@
 
-    $(document).ready( ()=> {
+$(document).ready(() => {
 
     //*variables de los textarea -tabla consultaMSQL (html)
     const fechaConsulta = $('#fechaConsulta')
     const motivoConsulta = $('#motivoConsulta')
     const evolucionEstadoActual = $('#evolucionEstadoActual')
-    const antecedentesOdontologicos = $('#antecedentesOdontologicos')
     const examenEstomatologico = $('#examenEstomatologico')
-    const documentoPacienteTrabajar = $('#pacienteTrabajar') //*no se ve, esta oculto para realizar el guardar y continuar
+    const documentoPacienteTrabajar = $('#pacienteTrabajar')
 
-    //*variables tabla articulacion temporo mandibular 
-    const ruidosSI = $('#ruidosSI')
-    const ruidosNO = $('#ruidosNO')
-    const desviacionSI = $('#desviacionSI')
-    const desviacionNO = $('#desviacionNO')
-    const cambioVolumenSI = $('#cambioVolumenSI')
-    const cambioVolumenNO = $('#cambioVolumenNO')
-    const bloqueoMandibularSI = $('#bloqueoMandibularSI')
-    const bloqueoMandibularNO = $('#bloqueoMandibularNO')
-    const limitacionAperturaSI = $('#limitacionAperturaSI')
-    const limitacionAperturaNO = $('#limitacionAperturaNO')
-    const dolorArticularSI = $('#dolorArticularSI')
-    const dolorArticularNO = $('#dolorArticularNO')
-    const dolorMuscularSI = $('#dolorMuscularSI')
-    const dolorMuscularNO = $('#dolorMuscularNO')
-
-    //*variable boton de guardado y continuar (Zoraida)
-    const btnGuardarContinuarConsulta1 = $('#btnGuardarContinuarConsulta1')
+    //*variable dientes odontograma
+    const dientesOdontograma = $(".diente")
 
     //* variable formulario de guardado para consulta-1 (face1) (Manuel)
     const formConsulta1 = $('#formConsulta1')
 
     //*eventos
-    formConsulta1.submit((event) => { 
+    formConsulta1.submit((event) => {
         event.preventDefault()
-        
+
         const datos = leerDatosFormularioConsultas1()
         const data = new FormData()
 
         //?traducir captada informacion a JSON
-        data.append('informacionFormConsulta1', JSON.stringify(datos))
+        data.append('informacionConsulta', JSON.stringify(datos))
         data.append('tipoPeticion', 'consulta1')
 
         const ajax = new XMLHttpRequest()
-        ajax.open('post', '../Modules/models/consultas/guardado1.php', true)
+        ajax.open('post', '../Modules/models/consultas/guardado.php', true)
         ajax.send(data)
         ajax.onload = () => {
             if (ajax.status == 200) {
+                console.log(ajax.responseText);
                 let respuesta = JSON.parse(ajax.responseText)
                 console.log(respuesta);
                 if (respuesta.proceso === 'correcto') {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Exitoso!',
-                        text: `La primera parte de la consulta ha sido registrada  \n(Preciona enter para continuar)`
+                        title: 'Guardado',
+                        text: 'Consulta registrada',
+                        showConfirmButton: false,
+                        timer: 1500
                     }).then(() => {
-                        window.location.href = 'consultas2.php?cedulaPaciente='+documentoPacienteTrabajar.val()+'&idConsulta='+respuesta.consultaID
+                        window.location.href = 'inicio.php'
                     })
-                    
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Opsss',
                         text: 'Ha ocurrido un error, intenta nuevamente',
                     })
                 }
-                
+
             }
         }
     })
 
-    
+
 
     //*funciones
     const leerDatosFormularioConsultas1 = () => {
 
-        const infoFormularioConsultas1 = {
+        const infoForm = {
             fechaConsulta: fechaConsulta.val(),
             motivoConsulta: motivoConsulta.val(),
             evolucionEstadoActual: evolucionEstadoActual.val(),
-            antecedentesOdontologicos: antecedentesOdontologicos.val(),
             examenEstomatologico: examenEstomatologico.val(),
             pacienteTrabajar: documentoPacienteTrabajar.val(),
+            dientesInfo: obtenerDientesInfo()
+        }
 
-            articulacionTemporoMandibular: {
-                ruidos: verificarRadioButtonTemporo(ruidosSI,ruidosNO),
-                desviacion: verificarRadioButtonTemporo(desviacionSI,desviacionNO),
-                cambioVolumen: verificarRadioButtonTemporo(cambioVolumenSI, cambioVolumenNO),
-                bloqueoMandibular: verificarRadioButtonTemporo(bloqueoMandibularSI,bloqueoMandibularNO),
-                limitacionApertura: verificarRadioButtonTemporo(limitacionAperturaSI,limitacionAperturaNO),
-                dolorArticular: verificarRadioButtonTemporo(dolorArticularSI,dolorArticularNO),
-                dolorMuscular: verificarRadioButtonTemporo(dolorMuscularSI,dolorMuscularNO)
-            }
-        } 
-
-        console.log(infoFormularioConsultas1)
-
-        return infoFormularioConsultas1
+        return infoForm
     }
 
     const asignarFecha = () => {
@@ -108,30 +81,111 @@
         if (mes < 10) {
             mes = '0' + mes
         }
-            
+
         if (dia < 10) {
             dia = '0' + dia
         }
-        
+
         let fechaActual = anio + '-' + mes + '-' + dia
         fechaConsulta.val(fechaActual)
     }
 
-    const verificarRadioButtonTemporo = (checkedSI, checkedNO) => {
-
-        let respuesta 
-        if (checkedSI.prop('checked')) {
-            respuesta = 'SI'
-        }
-        if (checkedNO.prop('checked')) {
-            respuesta = 'NO'
-        }
-
-        return respuesta
-
-    }
-
     //* funciones iniciadoras
     asignarFecha()
-    
+
+
+    //* funciones para obtener información de los dientes del odontograma
+    function obtenerDientesInfo() {
+        const dientes = Array.from(dientesOdontograma)
+
+        const dientesInfo = dientes.map((diente) => {
+            const procesoDiente = diente.getAttribute('procesodiente')
+
+            if (procesoDiente === 'general') {
+                return procesoDienteGeneral(diente)
+            }
+
+            if (procesoDiente === 'seccion') {
+                return procesoDienteSeccion(diente)
+            }
+
+            return {
+                numeroDiente: diente.getAttribute('dientenumero'),
+                tipoOperacion: 'NA',
+                nombreConvencion: '',
+                operacionesSeccion: []
+            }
+        })
+
+        return dientesInfo
+    }
+
+    function procesoDienteGeneral(diente) {
+        return {
+            numeroDiente: diente.getAttribute('dientenumero'),
+            tipoOperacion: 'general',
+            nombreConvencion: diente.getAttribute('convenciondiente'),
+            operacionesSeccion: []
+        }
+    }
+
+    function procesoDienteSeccion(diente) {
+        const secciones = [
+            diente.querySelector('.top'),
+            diente.querySelector('.bot'),
+            diente.querySelector('.left'),
+            diente.querySelector('.right'),
+            diente.querySelector('.center')
+        ]
+
+        const operacionesSeccion = secciones.map(seccion => {
+            const nombre = verificarClase(seccion)
+            let proceso = ''
+
+            if (seccion.classList.contains('cariado')) {
+                proceso = 'Cariado'
+            }
+
+            if (seccion.classList.contains('amalgama')) {
+                proceso = 'Obturado - Amalgama'
+            }
+
+            if (seccion.classList.contains('resina')) {
+                proceso = 'Obturado - Resina'
+            }
+
+            if (seccion.classList.contains('amalgamaDesadaptada')) {
+                proceso = 'Amalgama - Desadaptada'
+            }
+
+            if (seccion.classList.contains('resinaDesadaptada')) {
+                proceso = 'Resina - Desadaptada'
+            }
+
+            return {
+                nombre,
+                proceso
+            }
+        })
+
+        return {
+            numeroDiente: diente.getAttribute('dientenumero'),
+            tipoOperacion: 'seccion',
+            nombreConvencion: '',
+            operacionesSeccion
+        }
+    }
+
+    function verificarClase(div) {
+        let clases = ['bot', 'top', 'left', 'right', 'center']
+
+        for (let i = 0; i < clases.length; i++) {
+            if (div.classList.contains(clases[i])) {
+                return clases[i]
+            }
+        }
+
+        return ''
+    }
+
 });

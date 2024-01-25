@@ -2,7 +2,8 @@
   include_once '../Modules/functions/sessions.php';
 
   if (!controllSession()) {
-    header('Location: http://localhost/Evastrid/views/login.php');
+    $rootViews = dirname($_SERVER['PHP_SELF']);
+    header('Location: http://localhost'.$rootViews.'/login.php');
   }
 ?>
 
@@ -24,7 +25,7 @@ $resultadoOrdenado = $resultadoBusquedaAdmin->fetch_all(MYSQLI_ASSOC);
     <div class="col-12 inicio">
     </div>
 
-    <div class="barra-inicio">
+    <div class="barra-inicio admin">
 
         <div class="salida ad">
             <a href="inicio.php">

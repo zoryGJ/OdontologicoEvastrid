@@ -2,7 +2,8 @@
     include_once '../Modules/functions/sessions.php';
 
     if (!controllSession()) {
-        header('Location: http://localhost/Evastrid/views/login.php');
+        $rootViews = dirname($_SERVER['PHP_SELF']);
+        header('Location: http://localhost'.$rootViews.'/login.php');
     }
 ?>
 
@@ -11,12 +12,6 @@
 <?php
 
     include '../Modules/functions/bdconection.php';
-
-    //*consultando dientes (tabla de dientes)
-    $sqlDientes = "SELECT * FROM dientes";
-    $stmtDientes = $connect->prepare($sqlDientes);
-    $stmtDientes->execute();
-    $dientesBD = $stmtDientes->get_result()->fetch_all(MYSQLI_ASSOC);
 
     //*consultando convenciones Generales
     $sql = "SELECT * FROM  convenciones";
@@ -41,7 +36,13 @@
 
     //* capturando el id de la consulta
     $idConsulta = $_GET['idConsulta'];
-
+    
+    //*consultando dientes (tabla de dientes)
+    $sqlDientes = "SELECT * FROM dientes";
+    $stmtDientes = $connect->prepare($sqlDientes);
+    $stmtDientes->execute();
+    $dientesBD = $stmtDientes->get_result()->fetch_all(MYSQLI_ASSOC);
+    
     //* dar formato a dientes para odonograma
     $dientesOdontograma = array(
         'cuadrante1' => array(
@@ -126,12 +127,12 @@
                     <div>
                         <div class="input-p">
                             <input name="protesis" id="protesisSi" value="SI" type="radio">
-                            <label for="protesisSi">SI</label>
+                            <label for="protesisSi">Si</label>
                         </div>
 
                         <div class="input-p">
                             <input name="protesis" id="protesisNo" value="NO" type="radio" checked>
-                            <label for="protesisNo">NO</label>
+                            <label for="protesisNo">No</label>
                         </div>
                     </div>
                 </div>
@@ -233,33 +234,33 @@
 
                     <div class="body_art ba_1">
                         <label>Articular</label>
-                        <input type="text" id="datalistArticular" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistArticular" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Pulpar</label>
-                        <input type="text" id="datalistPulpar" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistPulpar" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Periodontal</label>
-                        <input type="text" id="datalistPeriodontal" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistPeriodontal" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Dental</label>
-                        <input type="text" id="datalistDental" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistDental" list="articular" required placeholder="Seleccionar...">
 
                     </div>
 
                     <div class="body_art ba_1">
                         <label>C y D</label>
-                        <input type="text" id="datalistCD" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistCD" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1">
                         <label>Tejidos Blandos</label>
-                        <input type="text" id="datalistTejidosBlandos" list="articular" placeholder="Seleccionar...">
+                        <input type="text" id="datalistTejidosBlandos" list="articular" required placeholder="Seleccionar...">
                     </div>
 
                     <div class="body_art ba_1 bottom_no">
@@ -342,31 +343,12 @@
                         <?php foreach ($seccionSuperior as $dienteSeccionSuperior) { ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionSuperior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionSuperior['numero_diente']; ?>">
-                                <button class="sectionDiente top v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
+                                <button class="sectionDiente top"></button>
+                                <button class="sectionDiente left"></button>
+                                <button class="sectionDiente center"></button>
+                                <button class="sectionDiente right"></button>
+                                <button class="sectionDiente bot"></button>
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionSuperior['numero_diente']; ?></p>
@@ -383,31 +365,12 @@
                         <?php foreach ($seccionInferior as $dienteSeccionInferior) { ?>
 
                             <div class="diente" dienteNumero="<?php echo $dienteSeccionInferior['numero_diente']; ?>" id="diente-<?php echo $dienteSeccionInferior['numero_diente']; ?>">
-                                <button class="sectionDiente top v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente left h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente center v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente right h">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                                <button class="sectionDiente bot v">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
+                                <button class="sectionDiente top"></button>
+                                <button class="sectionDiente left"></button>
+                                <button class="sectionDiente center"></button>
+                                <button class="sectionDiente right"></button>
+                                <button class="sectionDiente bot"></button>
+
                                 <button class="general" title="Diente General">
                                     <i class="fa-solid fa-tooth"></i>
                                     <p><?php echo $dienteSeccionInferior['numero_diente']; ?></p>
@@ -501,7 +464,7 @@
 
 
 <script src="../JS/consulta/modalOdontograma.js"></script>
-<script src="../JS/consulta/guardadoConsulta2.js"></script>
 <script src="../JS/consulta/controladoresConsulta2.js"></script>
+<script src="../JS/consulta/guardadoConsulta2.js"></script>
 
 <?php include '../Modules/templates/footer.php'; ?>
